@@ -318,7 +318,13 @@ const activeCategory = ref('pendapatan');
 <style scoped>
 @import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&display=swap');
 
-:deep(*) {
+.font-inter {
     font-family: 'Inter', sans-serif;
+}
+
+/* Ensure icons always use FontAwesome font family */
+:deep(i) {
+    font-family: "Font Awesome 6 Free", "Font Awesome 6 Brands", sans-serif !important;
+    font-weight: 900;
 }
 </style>
