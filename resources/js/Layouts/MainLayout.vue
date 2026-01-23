@@ -1,6 +1,6 @@
 <script setup>
 import { Link, usePage } from '@inertiajs/vue3';
-import { ref, onMounted, onUnmounted } from 'vue';
+import { ref, onMounted, onUnmounted, watch } from 'vue';
 import Dropdown from '@/Components/Dropdown.vue';
 import DropdownLink from '@/Components/DropdownLink.vue';
 import NavLink from '@/Components/NavLink.vue';
@@ -16,12 +16,22 @@ const handleScroll = () => {
     scrolled.value = window.scrollY > 20;
 };
 
+// Lock body scroll when mobile menu is open
+watch(showingNavigationDropdown, (value) => {
+    if (value) {
+        document.body.style.overflow = 'hidden';
+    } else {
+        document.body.style.overflow = '';
+    }
+});
+
 onMounted(() => {
     window.addEventListener('scroll', handleScroll);
 });
 
 onUnmounted(() => {
     window.removeEventListener('scroll', handleScroll);
+    document.body.style.overflow = '';
 });
 </script>
 
@@ -353,41 +363,33 @@ onUnmounted(() => {
             </div>
 
             <!-- Modern Mobile Sidebar/Drawer -->
-            <transition 
-                enter-active-class="transition ease-out duration-300"
-                enter-from-class="opacity-0"
-                enter-to-class="opacity-100"
-                leave-active-class="transition ease-in duration-200"
-                leave-from-class="opacity-100"
-                leave-to-class="opacity-0"
-            >
-                <div v-show="showingNavigationDropdown" 
+            <transition enter-active-class="transition ease-out duration-300" enter-from-class="opacity-0"
+                enter-to-class="opacity-100" leave-active-class="transition ease-in duration-200"
+                leave-from-class="opacity-100" leave-to-class="opacity-0">
+                <div v-show="showingNavigationDropdown"
                     class="fixed inset-0 z-50 bg-slate-900/60 backdrop-blur-sm lg:hidden"
                     @click="showingNavigationDropdown = false">
                 </div>
             </transition>
 
-            <transition 
-                enter-active-class="transition ease-in-out duration-500 transform"
-                enter-from-class="-translate-x-full"
-                enter-to-class="translate-x-0"
-                leave-active-class="transition ease-in-out duration-500 transform"
-                leave-from-class="translate-x-0"
-                leave-to-class="-translate-x-full"
-            >
-                <div v-show="showingNavigationDropdown" 
-                    class="fixed inset-y-0 left-0 z-[60] w-full max-w-xs bg-white shadow-2xl flex flex-col lg:hidden overflow-hidden"
-                >
+            <transition enter-active-class="transition ease-in-out duration-500 transform"
+                enter-from-class="-translate-x-full" enter-to-class="translate-x-0"
+                leave-active-class="transition ease-in-out duration-500 transform" leave-from-class="translate-x-0"
+                leave-to-class="-translate-x-full">
+                <div v-show="showingNavigationDropdown"
+                    class="fixed inset-y-0 left-0 z-[60] w-full max-w-xs bg-white shadow-2xl flex flex-col lg:hidden overflow-hidden">
                     <!-- Sidebar Header -->
                     <div class="flex items-center justify-between p-6 border-b border-gray-100 bg-slate-50">
                         <div class="flex items-center gap-3">
                             <img class="h-10 w-auto" src="/assets/images/icons/logo.png" alt="Logo" />
                             <div>
                                 <h2 class="text-sm font-black text-slate-800 leading-tight">UJUNG SABBANG</h2>
-                                <p class="text-[10px] text-slate-500 font-bold tracking-widest uppercase">Official Portal</p>
+                                <p class="text-[10px] text-slate-500 font-bold tracking-widest uppercase">Official
+                                    Portal</p>
                             </div>
                         </div>
-                        <button @click="showingNavigationDropdown = false" class="p-2 rounded-xl bg-white border border-gray-100 text-slate-400 hover:text-slate-600 shadow-sm transition-all active:scale-95">
+                        <button @click="showingNavigationDropdown = false"
+                            class="p-2 rounded-xl bg-white border border-gray-100 text-slate-400 hover:text-slate-600 shadow-sm transition-all active:scale-95">
                             <i class="fa-solid fa-xmark text-xl"></i>
                         </button>
                     </div>
@@ -397,17 +399,22 @@ onUnmounted(() => {
                         <nav class="space-y-6">
                             <!-- Section: Utama -->
                             <div>
-                                <h3 class="px-4 text-[10px] font-black text-slate-400 uppercase tracking-[0.2em] mb-4">Navigasi Utama</h3>
+                                <h3 class="px-4 text-[10px] font-black text-slate-400 uppercase tracking-[0.2em] mb-4">
+                                    Navigasi
+                                    Utama</h3>
                                 <div class="space-y-1">
-                                    <Link :href="route('landing')" :class="[route().current('landing') ? 'bg-blue-50 text-blue-600' : 'text-slate-600 hover:bg-slate-50', 'group flex items-center px-4 py-3 text-sm font-bold rounded-2xl transition-all']">
+                                    <Link :href="route('landing')"
+                                        :class="[route().current('landing') ? 'bg-blue-50 text-blue-600' : 'text-slate-600 hover:bg-slate-50', 'group flex items-center px-4 py-3 text-sm font-bold rounded-2xl transition-all']">
                                         <i class="fa-solid fa-house fa-fw mr-3 text-lg opacity-70"></i>
                                         Beranda
                                     </Link>
-                                    <Link :href="route('pemerintahan.aparatur')" :class="[route().current('pemerintahan.aparatur') ? 'bg-blue-50 text-blue-600' : 'text-slate-600 hover:bg-slate-50', 'group flex items-center px-4 py-3 text-sm font-bold rounded-2xl transition-all']">
+                                    <Link :href="route('pemerintahan.aparatur')"
+                                        :class="[route().current('pemerintahan.aparatur') ? 'bg-blue-50 text-blue-600' : 'text-slate-600 hover:bg-slate-50', 'group flex items-center px-4 py-3 text-sm font-bold rounded-2xl transition-all']">
                                         <i class="fa-solid fa-users-gear fa-fw mr-3 text-lg opacity-70"></i>
                                         Aparatur
                                     </Link>
-                                    <Link :href="route('pemerintahan.anggaran')" :class="[route().current('pemerintahan.anggaran') ? 'bg-blue-50 text-blue-600' : 'text-slate-600 hover:bg-slate-50', 'group flex items-center px-4 py-3 text-sm font-bold rounded-2xl transition-all']">
+                                    <Link :href="route('pemerintahan.anggaran')"
+                                        :class="[route().current('pemerintahan.anggaran') ? 'bg-blue-50 text-blue-600' : 'text-slate-600 hover:bg-slate-50', 'group flex items-center px-4 py-3 text-sm font-bold rounded-2xl transition-all']">
                                         <i class="fa-solid fa-chart-line fa-fw mr-3 text-lg opacity-70"></i>
                                         Transparansi Anggaran
                                     </Link>
@@ -416,17 +423,22 @@ onUnmounted(() => {
 
                             <!-- Section: Informasi Publik -->
                             <div>
-                                <h3 class="px-4 text-[10px] font-black text-slate-400 uppercase tracking-[0.2em] mb-4">Informasi & Data</h3>
+                                <h3 class="px-4 text-[10px] font-black text-slate-400 uppercase tracking-[0.2em] mb-4">
+                                    Informasi &
+                                    Data</h3>
                                 <div class="space-y-1">
-                                    <Link :href="route('informasi.berita')" class="group flex items-center px-4 py-3 text-sm font-bold text-slate-600 hover:bg-slate-50 rounded-2xl transition-all">
+                                    <Link :href="route('informasi.berita')"
+                                        class="group flex items-center px-4 py-3 text-sm font-bold text-slate-600 hover:bg-slate-50 rounded-2xl transition-all">
                                         <i class="fa-solid fa-newspaper fa-fw mr-3 text-lg opacity-70"></i>
                                         Berita Terbaru
                                     </Link>
-                                    <Link :href="route('data.statistik')" class="group flex items-center px-4 py-3 text-sm font-bold text-slate-600 hover:bg-slate-50 rounded-2xl transition-all">
+                                    <Link :href="route('data.statistik')"
+                                        class="group flex items-center px-4 py-3 text-sm font-bold text-slate-600 hover:bg-slate-50 rounded-2xl transition-all">
                                         <i class="fa-solid fa-chart-pie fa-fw mr-3 text-lg opacity-70"></i>
                                         Statistik Penduduk
                                     </Link>
-                                    <Link :href="route('galeri')" class="group flex items-center px-4 py-3 text-sm font-bold text-slate-600 hover:bg-slate-50 rounded-2xl transition-all">
+                                    <Link :href="route('galeri')"
+                                        class="group flex items-center px-4 py-3 text-sm font-bold text-slate-600 hover:bg-slate-50 rounded-2xl transition-all">
                                         <i class="fa-solid fa-camera-retro fa-fw mr-3 text-lg opacity-70"></i>
                                         Galeri Kegiatan
                                     </Link>
@@ -435,17 +447,21 @@ onUnmounted(() => {
 
                             <!-- Section: Layanan -->
                             <div class="px-2">
-                                <Link :href="route('layanan')" class="flex items-center justify-between p-4 bg-gradient-to-r from-blue-600 to-indigo-700 rounded-3xl shadow-lg shadow-blue-200 group transition-all active:scale-[0.98]">
+                                <Link :href="route('layanan')"
+                                    class="flex items-center justify-between p-4 bg-gradient-to-r from-blue-600 to-indigo-700 rounded-3xl shadow-lg shadow-blue-200 group transition-all active:scale-[0.98]">
                                     <div class="flex items-center gap-3">
-                                        <div class="w-10 h-10 rounded-2xl bg-white/20 flex items-center justify-center text-white">
+                                        <div
+                                            class="w-10 h-10 rounded-2xl bg-white/20 flex items-center justify-center text-white">
                                             <i class="fa-solid fa-hand-holding-heart"></i>
                                         </div>
                                         <div class="text-left">
-                                            <p class="text-[10px] font-bold text-white/70 uppercase tracking-widest">Akses</p>
+                                            <p class="text-[10px] font-bold text-white/70 uppercase tracking-widest">
+                                                Akses</p>
                                             <p class="text-sm font-black text-white">Layanan Mandiri</p>
                                         </div>
                                     </div>
-                                    <i class="fa-solid fa-chevron-right text-white/50 group-hover:translate-x-1 transition-transform"></i>
+                                    <i
+                                        class="fa-solid fa-chevron-right text-white/50 group-hover:translate-x-1 transition-transform"></i>
                                 </Link>
                             </div>
                         </nav>
@@ -454,11 +470,19 @@ onUnmounted(() => {
                     <!-- Sidebar Footer -->
                     <div class="p-6 bg-slate-50 border-t border-gray-100">
                         <div class="flex items-center justify-center gap-4 mb-6">
-                            <a href="#" class="w-10 h-10 rounded-2xl bg-white border border-gray-200 flex items-center justify-center text-slate-400 hover:text-blue-600 shadow-sm transition-all"><i class="fa-brands fa-facebook-f"></i></a>
-                            <a href="#" class="w-10 h-10 rounded-2xl bg-white border border-gray-200 flex items-center justify-center text-slate-400 hover:text-pink-500 shadow-sm transition-all"><i class="fa-brands fa-instagram"></i></a>
-                            <a href="#" class="w-10 h-10 rounded-2xl bg-white border border-gray-200 flex items-center justify-center text-slate-400 hover:text-green-500 shadow-sm transition-all"><i class="fa-brands fa-whatsapp"></i></a>
+                            <a href="#"
+                                class="w-10 h-10 rounded-2xl bg-white border border-gray-200 flex items-center justify-center text-slate-400 hover:text-blue-600 shadow-sm transition-all"><i
+                                    class="fa-brands fa-facebook-f"></i></a>
+                            <a href="#"
+                                class="w-10 h-10 rounded-2xl bg-white border border-gray-200 flex items-center justify-center text-slate-400 hover:text-pink-500 shadow-sm transition-all"><i
+                                    class="fa-brands fa-instagram"></i></a>
+                            <a href="#"
+                                class="w-10 h-10 rounded-2xl bg-white border border-gray-200 flex items-center justify-center text-slate-400 hover:text-green-500 shadow-sm transition-all"><i
+                                    class="fa-brands fa-whatsapp"></i></a>
                         </div>
-                        <p class="text-[10px] text-center font-bold text-slate-400 uppercase tracking-widest">&copy; 2026 Admin Portal</p>
+                        <p class="text-[10px] text-center font-bold text-slate-400 uppercase tracking-widest">&copy;
+                            2026 Admin
+                            Portal</p>
                     </div>
                 </div>
             </transition>
