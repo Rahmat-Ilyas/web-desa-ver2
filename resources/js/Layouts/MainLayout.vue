@@ -16,6 +16,17 @@ const handleScroll = () => {
     scrolled.value = window.scrollY > 20;
 };
 
+// Mobile Accordion State
+const activeMobileSection = ref(null);
+
+const toggleMobileSection = (section) => {
+    if (activeMobileSection.value === section) {
+        activeMobileSection.value = null;
+    } else {
+        activeMobileSection.value = section;
+    }
+};
+
 // Lock body scroll when mobile menu is open
 watch(showingNavigationDropdown, (value) => {
     if (value) {
@@ -396,72 +407,138 @@ onUnmounted(() => {
 
                     <!-- Sidebar Content -->
                     <div class="flex-1 overflow-y-auto px-4 py-6">
-                        <nav class="space-y-6">
-                            <!-- Section: Utama -->
-                            <div>
-                                <h3 class="px-4 text-[10px] font-black text-slate-400 uppercase tracking-[0.2em] mb-4">
-                                    Navigasi
-                                    Utama</h3>
-                                <div class="space-y-1">
-                                    <Link :href="route('landing')"
-                                        :class="[route().current('landing') ? 'bg-blue-50 text-blue-600' : 'text-slate-600 hover:bg-slate-50', 'group flex items-center px-4 py-3 text-sm font-bold rounded-2xl transition-all']">
-                                        <i class="fa-solid fa-house fa-fw mr-3 text-lg opacity-70"></i>
-                                        Beranda
-                                    </Link>
-                                    <Link :href="route('pemerintahan.aparatur')"
-                                        :class="[route().current('pemerintahan.aparatur') ? 'bg-blue-50 text-blue-600' : 'text-slate-600 hover:bg-slate-50', 'group flex items-center px-4 py-3 text-sm font-bold rounded-2xl transition-all']">
-                                        <i class="fa-solid fa-users-gear fa-fw mr-3 text-lg opacity-70"></i>
-                                        Aparatur
-                                    </Link>
-                                    <Link :href="route('pemerintahan.anggaran')"
-                                        :class="[route().current('pemerintahan.anggaran') ? 'bg-blue-50 text-blue-600' : 'text-slate-600 hover:bg-slate-50', 'group flex items-center px-4 py-3 text-sm font-bold rounded-2xl transition-all']">
-                                        <i class="fa-solid fa-chart-line fa-fw mr-3 text-lg opacity-70"></i>
-                                        Transparansi Anggaran
-                                    </Link>
+                        <nav class="space-y-4">
+                            <!-- Beranda -->
+                            <Link :href="route('landing')"
+                                :class="[route().current('landing') ? 'bg-blue-50 text-blue-600' : 'text-slate-600 hover:bg-slate-50', 'group flex items-center px-4 py-3 text-sm font-bold rounded-2xl transition-all']">
+                            <i class="fa-solid fa-house fa-fw mr-3 text-lg opacity-70"></i>
+                            Beranda
+                            </Link>
+
+                            <!-- Profil Accordion -->
+                            <div class="space-y-1">
+                                <button @click="toggleMobileSection('profil')"
+                                    :class="[route().current('profil.*') ? 'text-blue-600' : 'text-slate-600', 'w-full group flex items-center justify-between px-4 py-3 text-sm font-bold rounded-2xl hover:bg-slate-50 transition-all']">
+                                    <div class="flex items-center">
+                                        <i class="fa-solid fa-building-user fa-fw mr-3 text-lg opacity-70"></i>
+                                        Profil
+                                    </div>
+                                    <i :class="['fa-solid fa-chevron-down text-xs transition-transform duration-300', activeMobileSection === 'profil' ? 'rotate-180' : '']"></i>
+                                </button>
+                                <div v-show="activeMobileSection === 'profil'" class="pl-12 pr-4 space-y-1 overflow-hidden transition-all">
+                                    <Link :href="route('profil.sambutan')" class="block py-2 text-sm font-medium text-slate-500 hover:text-blue-600">Sambutan Lurah</Link>
+                                    <Link :href="route('profil.visimisi')" class="block py-2 text-sm font-medium text-slate-500 hover:text-blue-600">Visi & Misi</Link>
+                                    <Link :href="route('profil.sejarah')" class="block py-2 text-sm font-medium text-slate-500 hover:text-blue-600">Sejarah Kelurahan</Link>
+                                    <Link :href="route('profil.kondisi')" class="block py-2 text-sm font-medium text-slate-500 hover:text-blue-600">Kondisi Kelurahan</Link>
+                                    <Link :href="route('profil.lokasi-kantor')" class="block py-2 text-sm font-medium text-slate-500 hover:text-blue-600">Lokasi Kantor</Link>
+                                    <Link :href="route('profil.peta-lokasi')" class="block py-2 text-sm font-medium text-slate-500 hover:text-blue-600">Peta Lokasi</Link>
                                 </div>
                             </div>
 
-                            <!-- Section: Informasi Publik -->
-                            <div>
-                                <h3 class="px-4 text-[10px] font-black text-slate-400 uppercase tracking-[0.2em] mb-4">
-                                    Informasi &
-                                    Data</h3>
-                                <div class="space-y-1">
-                                    <Link :href="route('informasi.berita')"
-                                        class="group flex items-center px-4 py-3 text-sm font-bold text-slate-600 hover:bg-slate-50 rounded-2xl transition-all">
-                                        <i class="fa-solid fa-newspaper fa-fw mr-3 text-lg opacity-70"></i>
-                                        Berita Terbaru
-                                    </Link>
-                                    <Link :href="route('data.statistik')"
-                                        class="group flex items-center px-4 py-3 text-sm font-bold text-slate-600 hover:bg-slate-50 rounded-2xl transition-all">
-                                        <i class="fa-solid fa-chart-pie fa-fw mr-3 text-lg opacity-70"></i>
-                                        Statistik Penduduk
-                                    </Link>
-                                    <Link :href="route('galeri')"
-                                        class="group flex items-center px-4 py-3 text-sm font-bold text-slate-600 hover:bg-slate-50 rounded-2xl transition-all">
-                                        <i class="fa-solid fa-camera-retro fa-fw mr-3 text-lg opacity-70"></i>
-                                        Galeri Kegiatan
-                                    </Link>
+                            <!-- Lembaga Accordion -->
+                            <div class="space-y-1">
+                                <button @click="toggleMobileSection('lembaga')"
+                                    :class="[route().current('lembaga.*') ? 'text-blue-600' : 'text-slate-600', 'w-full group flex items-center justify-between px-4 py-3 text-sm font-bold rounded-2xl hover:bg-slate-50 transition-all']">
+                                    <div class="flex items-center">
+                                        <i class="fa-solid fa-sitemap fa-fw mr-3 text-lg opacity-70"></i>
+                                        Lembaga
+                                    </div>
+                                    <i :class="['fa-solid fa-chevron-down text-xs transition-transform duration-300', activeMobileSection === 'lembaga' ? 'rotate-180' : '']"></i>
+                                </button>
+                                <div v-show="activeMobileSection === 'lembaga'" class="pl-12 pr-4 space-y-1 transition-all">
+                                    <Link :href="route('lembaga.rt')" class="block py-2 text-sm font-medium text-slate-500 hover:text-blue-600">Rukun Tetangga (RT)</Link>
+                                    <Link :href="route('lembaga.rw')" class="block py-2 text-sm font-medium text-slate-500 hover:text-blue-600">Rukun Warga (RW)</Link>
+                                    <Link :href="route('lembaga.pkk')" class="block py-2 text-sm font-medium text-slate-500 hover:text-blue-600">PKK</Link>
+                                    <Link :href="route('lembaga.karang-taruna')" class="block py-2 text-sm font-medium text-slate-500 hover:text-blue-600">Karang Taruna</Link>
+                                    <Link :href="route('lembaga.lpmk')" class="block py-2 text-sm font-medium text-slate-500 hover:text-blue-600">LPMK</Link>
+                                    <Link :href="route('lembaga.majelis-taklim')" class="block py-2 text-sm font-medium text-slate-500 hover:text-blue-600">Majelis Taklim</Link>
                                 </div>
                             </div>
+
+                            <!-- Aparatur -->
+                            <Link :href="route('pemerintahan.aparatur')"
+                                :class="[route().current('pemerintahan.aparatur') ? 'bg-blue-50 text-blue-600' : 'text-slate-600 hover:bg-slate-50', 'group flex items-center px-4 py-3 text-sm font-bold rounded-2xl transition-all']">
+                            <i class="fa-solid fa-users-gear fa-fw mr-3 text-lg opacity-70"></i>
+                            Aparatur
+                            </Link>
+
+                            <!-- Anggaran -->
+                            <Link :href="route('pemerintahan.anggaran')"
+                                :class="[route().current('pemerintahan.anggaran') ? 'bg-blue-50 text-blue-600' : 'text-slate-600 hover:bg-slate-50', 'group flex items-center px-4 py-3 text-sm font-bold rounded-2xl transition-all']">
+                            <i class="fa-solid fa-chart-line fa-fw mr-3 text-lg opacity-70"></i>
+                            Anggaran
+                            </Link>
+
+                            <!-- Data Accordion -->
+                            <div class="space-y-1">
+                                <button @click="toggleMobileSection('data')"
+                                    :class="[route().current('data.*') ? 'text-blue-600' : 'text-slate-600', 'w-full group flex items-center justify-between px-4 py-3 text-sm font-bold rounded-2xl hover:bg-slate-50 transition-all']">
+                                    <div class="flex items-center">
+                                        <i class="fa-solid fa-chart-pie fa-fw mr-3 text-lg opacity-70"></i>
+                                        Data
+                                    </div>
+                                    <i :class="['fa-solid fa-chevron-down text-xs transition-transform duration-300', activeMobileSection === 'data' ? 'rotate-180' : '']"></i>
+                                </button>
+                                <div v-show="activeMobileSection === 'data'" class="pl-12 pr-4 space-y-1 transition-all">
+                                    <Link :href="route('data.statistik')" class="block py-2 text-sm font-medium text-slate-500 hover:text-blue-600">Statistik Penduduk</Link>
+                                    <Link :href="route('data.umur')" class="block py-2 text-sm font-medium text-slate-500 hover:text-blue-600">Berdasarkan Umur</Link>
+                                    <Link :href="route('data.pemilih')" class="block py-2 text-sm font-medium text-slate-500 hover:text-blue-600">Pemilih Tetap</Link>
+                                    <Link :href="route('data.agama')" class="block py-2 text-sm font-medium text-slate-500 hover:text-blue-600">Statistik Agama</Link>
+                                    <Link :href="route('data.pendidikan')" class="block py-2 text-sm font-medium text-slate-500 hover:text-blue-600">Statistik Pendidikan</Link>
+                                </div>
+                            </div>
+
+                            <!-- Galeri -->
+                            <Link :href="route('galeri')"
+                                :class="[route().current('galeri') ? 'bg-blue-50 text-blue-600' : 'text-slate-600 hover:bg-slate-50', 'group flex items-center px-4 py-3 text-sm font-bold rounded-2xl transition-all']">
+                            <i class="fa-solid fa-camera-retro fa-fw mr-3 text-lg opacity-70"></i>
+                            Galeri
+                            </Link>
+
+                            <!-- Download -->
+                            <Link :href="route('download')"
+                                :class="[route().current('download') ? 'bg-blue-50 text-blue-600' : 'text-slate-600 hover:bg-slate-50', 'group flex items-center px-4 py-3 text-sm font-bold rounded-2xl transition-all']">
+                            <i class="fa-solid fa-download fa-fw mr-3 text-lg opacity-70"></i>
+                            Download
+                            </Link>
+
+                            <!-- Informasi Accordion -->
+                            <div class="space-y-1">
+                                <button @click="toggleMobileSection('informasi')"
+                                    :class="[route().current('informasi.*') ? 'text-blue-600' : 'text-slate-600', 'w-full group flex items-center justify-between px-4 py-3 text-sm font-bold rounded-2xl hover:bg-slate-50 transition-all']">
+                                    <div class="flex items-center">
+                                        <i class="fa-solid fa-circle-info fa-fw mr-3 text-lg opacity-70"></i>
+                                        Informasi
+                                    </div>
+                                    <i :class="['fa-solid fa-chevron-down text-xs transition-transform duration-300', activeMobileSection === 'informasi' ? 'rotate-180' : '']"></i>
+                                </button>
+                                <div v-show="activeMobileSection === 'informasi'" class="pl-12 pr-4 space-y-1 transition-all">
+                                    <Link :href="route('informasi.berita')" class="block py-2 text-sm font-medium text-slate-500 hover:text-blue-600">Berita</Link>
+                                    <Link :href="route('informasi.potensi')" class="block py-2 text-sm font-medium text-slate-500 hover:text-blue-600">Potensi</Link>
+                                    <Link :href="route('informasi.program')" class="block py-2 text-sm font-medium text-slate-500 hover:text-blue-600">Program</Link>
+                                </div>
+                            </div>
+
+                            <!-- Divider -->
+                            <div class="border-t border-slate-100 my-4"></div>
 
                             <!-- Section: Layanan -->
                             <div class="px-2">
                                 <Link :href="route('layanan')"
-                                    class="flex items-center justify-between p-4 bg-gradient-to-r from-blue-600 to-indigo-700 rounded-3xl shadow-lg shadow-blue-200 group transition-all active:scale-[0.98]">
-                                    <div class="flex items-center gap-3">
-                                        <div
-                                            class="w-10 h-10 rounded-2xl bg-white/20 flex items-center justify-center text-white">
-                                            <i class="fa-solid fa-hand-holding-heart"></i>
-                                        </div>
-                                        <div class="text-left">
-                                            <p class="text-[10px] font-bold text-white/70 uppercase tracking-widest">
-                                                Akses</p>
-                                            <p class="text-sm font-black text-white">Layanan Mandiri</p>
-                                        </div>
+                                    class="flex items-center justify-between p-4 bg-gradient-to-r from-blue-600 to-indigo-700 rounded-2xl shadow-lg shadow-blue-200 group transition-all active:scale-[0.98]">
+                                <div class="flex items-center gap-3">
+                                    <div
+                                        class="w-10 h-10 rounded-2xl bg-white/20 flex items-center justify-center text-white">
+                                        <i class="fa-solid fa-hand-holding-heart"></i>
                                     </div>
-                                    <i
-                                        class="fa-solid fa-chevron-right text-white/50 group-hover:translate-x-1 transition-transform"></i>
+                                    <div class="text-left">
+                                        <p class="text-[10px] font-bold text-white/70 uppercase tracking-widest">
+                                            Akses</p>
+                                        <p class="text-sm font-black text-white">Layanan Mandiri</p>
+                                    </div>
+                                </div>
+                                <i
+                                    class="fa-solid fa-chevron-right text-white/50 group-hover:translate-x-1 transition-transform"></i>
                                 </Link>
                             </div>
                         </nav>
