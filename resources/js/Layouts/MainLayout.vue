@@ -109,11 +109,11 @@ onUnmounted(() => {
                                 <img class="h-12 w-auto transition-transform duration-300 group-hover:scale-105"
                                     src="/assets/images/icons/logo.png" alt="Logo Kelurahan"
                                     onerror="this.src='https://upload.wikimedia.org/wikipedia/commons/thumb/a/ac/No_image_available.svg/1024px-No_image_available.svg.png'" />
-                                <div class="hidden md:block">
+                                <div class="flex flex-col">
                                     <h1
-                                        class="text-sm font-bold text-gray-800 leading-tight uppercase tracking-wide group-hover:text-blue-600 transition-colors">
+                                        class="text-[11px] sm:text-sm font-bold text-gray-800 leading-tight uppercase tracking-wide group-hover:text-blue-600 transition-colors">
                                         KEL. UJUNG SABBANG</h1>
-                                    <p class="text-[10px] text-gray-500 font-medium tracking-wider">KOTA PAREPARE</p>
+                                    <p class="text-[9px] sm:text-[10px] text-gray-500 font-medium tracking-wider">KOTA PAREPARE</p>
                                 </div>
                             </Link>
                         </div>
@@ -519,29 +519,27 @@ onUnmounted(() => {
                                 </div>
                             </div>
 
-                            <!-- Divider -->
-                            <div class="border-t border-slate-100 my-4"></div>
-
-                            <!-- Section: Layanan -->
-                            <div class="px-2">
-                                <Link :href="route('layanan')"
-                                    class="flex items-center justify-between p-4 bg-gradient-to-r from-blue-600 to-indigo-700 rounded-2xl shadow-lg shadow-blue-200 group transition-all active:scale-[0.98]">
-                                <div class="flex items-center gap-3">
-                                    <div
-                                        class="w-10 h-10 rounded-2xl bg-white/20 flex items-center justify-center text-white">
-                                        <i class="fa-solid fa-hand-holding-heart"></i>
-                                    </div>
-                                    <div class="text-left">
-                                        <p class="text-[10px] font-bold text-white/70 uppercase tracking-widest">
-                                            Akses</p>
-                                        <p class="text-sm font-black text-white">Layanan Mandiri</p>
-                                    </div>
-                                </div>
-                                <i
-                                    class="fa-solid fa-chevron-right text-white/50 group-hover:translate-x-1 transition-transform"></i>
-                                </Link>
-                            </div>
                         </nav>
+                    </div>
+
+                    <!-- Fixed Action: Layanan (Always Visible) -->
+                    <div class="px-6 py-4 border-t border-slate-50">
+                        <Link :href="route('layanan')"
+                            class="flex items-center justify-between p-4 bg-gradient-to-r from-blue-600 to-indigo-700 rounded-2xl shadow-lg shadow-blue-200 group transition-all active:scale-[0.98]">
+                        <div class="flex items-center gap-3">
+                            <div
+                                class="w-10 h-10 rounded-2xl bg-white/20 flex items-center justify-center text-white">
+                                <i class="fa-solid fa-hand-holding-heart"></i>
+                            </div>
+                            <div class="text-left">
+                                <p class="text-[10px] font-bold text-white/70 uppercase tracking-widest">
+                                    Akses</p>
+                                <p class="text-sm font-black text-white">Layanan Mandiri</p>
+                            </div>
+                        </div>
+                        <i
+                            class="fa-solid fa-chevron-right text-white/50 group-hover:translate-x-1 transition-transform"></i>
+                        </Link>
                     </div>
 
                     <!-- Sidebar Footer -->
