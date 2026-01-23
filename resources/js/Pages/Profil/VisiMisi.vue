@@ -42,7 +42,7 @@ const props = defineProps({
                     </div>
 
                     <div
-                        class="relative pt-16 pb-12 px-10 bg-slate-50 rounded-[3rem] border border-slate-100 text-center group hover:shadow-xl transition-shadow duration-300">
+                        class="relative pt-16 pb-12 px-6 md:px-10 bg-slate-50 rounded-[3rem] border border-slate-100 text-center group hover:shadow-xl transition-shadow duration-300">
                         <div
                             class="absolute top-0 left-1/2 -translate-x-1/2 -translate-y-1/2 w-20 h-20 bg-blue-600 rounded-2xl flex items-center justify-center text-white text-3xl shadow-lg ring-8 ring-white">
                             <i class="fas fa-eye"></i>
@@ -68,7 +68,7 @@ const props = defineProps({
                     </div>
 
                     <div
-                        class="relative pt-16 pb-12 px-10 bg-white rounded-[2.5rem] shadow-xl shadow-slate-200/50 border border-slate-100 leading-relaxed">
+                        class="relative pt-16 pb-12 px-6 md:px-10 bg-white rounded-[2.5rem] shadow-xl shadow-slate-200/50 border border-slate-100 leading-relaxed">
                         <div
                             class="absolute top-0 left-1/2 -translate-x-1/2 -translate-y-1/2 w-20 h-20 bg-indigo-600 rounded-2xl flex items-center justify-center text-white text-3xl shadow-lg ring-8 ring-white">
                             <i class="fas fa-bullseye"></i>

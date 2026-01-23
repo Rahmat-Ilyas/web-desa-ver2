@@ -62,7 +62,7 @@ defineProps({
                     </div>
 
                     <div v-if="sambutan?.quote"
-                        class="relative py-8 px-10 bg-slate-50 rounded-[2rem] border-l-8 border-blue-600">
+                        class="relative py-8 px-6 md:px-10 bg-slate-50 rounded-[2rem] border-l-8 border-blue-600">
                         <i class="fas fa-quote-right absolute top-4 right-8 text-6xl text-blue-200/30"></i>
                         <p class="text-xl md:text-2xl font-bold text-slate-700 italic leading-relaxed relative z-10">
                             "{{ sambutan.quote }}"

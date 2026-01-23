@@ -46,7 +46,7 @@ const copyLink = () => {
                         <div class="sticky top-32">
                             <div class="relative group">
                                 <div
-                                    class="absolute -inset-4 bg-gradient-to-tr from-blue-600 to-indigo-600 rounded-[2.5rem] transform rotate-3 opacity-20 group-hover:rotate-1 transition-all duration-700 blur-xl">
+                                    class="absolute -inset-2 md:-inset-4 bg-gradient-to-tr from-blue-600 to-indigo-600 rounded-[2.5rem] transform rotate-3 opacity-20 group-hover:rotate-1 transition-all duration-700 blur-xl">
                                 </div>
 
                                 <div
@@ -113,7 +113,7 @@ const copyLink = () => {
                     <!-- Main Content -->
                     <div class="lg:col-span-8 animate-fade-in-up">
                         <div v-if="props.sambutan?.quote"
-                            class="relative py-10 px-12 bg-slate-50 rounded-[2.5rem] border-l-8 border-blue-600 mb-12 group overflow-hidden">
+                            class="relative py-10 px-6 md:px-12 bg-slate-50 rounded-[2.5rem] border-l-8 border-blue-600 mb-12 group overflow-hidden">
                             <i
                                 class="fas fa-quote-right absolute top-6 right-10 text-7xl text-blue-200/20 group-hover:scale-110 transition-transform duration-700"></i>
                             <p
