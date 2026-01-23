@@ -26,6 +26,35 @@ const formatRupiah = (number) => {
     }).format(number);
 };
 
+const formatCompactRupiah = (number) => {
+    if (number === 0) return 'Rp 0';
+
+    const absNumber = Math.abs(number);
+    let result = '';
+    let suffix = '';
+
+    if (absNumber >= 1e12) {
+        result = (number / 1e12).toFixed(1);
+        suffix = ' T';
+    } else if (absNumber >= 1e9) {
+        result = (number / 1e9).toFixed(1);
+        suffix = ' M';
+    } else if (absNumber >= 1e6) {
+        result = (number / 1e6).toFixed(1);
+        suffix = ' Jt';
+    } else if (absNumber >= 1e3) {
+        result = (number / 1e3).toFixed(1);
+        suffix = ' K';
+    } else {
+        result = number.toString();
+    }
+
+    // Remove .0 if it exists
+    result = result.replace(/\.0$/, '');
+
+    return 'Rp ' + result + suffix;
+};
+
 const totalPendapatan = 1250000000;
 const totalBelanja = 1180500000;
 const silpa = totalPendapatan - totalBelanja;
@@ -59,18 +88,10 @@ const belanjaData = {
 const chartOptions = {
     responsive: true,
     maintainAspectRatio: false,
+    cutout: '80%',
     plugins: {
         legend: {
-            position: 'bottom',
-            labels: {
-                usePointStyle: true,
-                padding: 24,
-                font: {
-                    family: "'Inter', sans-serif",
-                    size: 13,
-                    weight: '500'
-                }
-            }
+            display: false, // Kita akan buat legend kustom agar lebih rapi
         },
         tooltip: {
             backgroundColor: '#1f2937',
@@ -82,7 +103,7 @@ const chartOptions = {
                     let label = context.label || '';
                     if (label) label += ': ';
                     if (context.dataset.label === 'Rupiah') {
-                        label += formatRupiah(context.raw);
+                        label += formatRupiah(context.raw) + ' (' + formatCompactRupiah(context.raw) + ')';
                     } else {
                         label += context.raw + '%';
                     }
@@ -137,7 +158,7 @@ const activeCategory = ref('pendapatan');
         </div>
 
         <!-- Main Content -->
-        <div class="bg-slate-50 min-h-screen -mt-20 relative z-20 pb-24">
+        <div class="bg-slate-50 min-h-screen mt-20 relative z-20 pb-24">
             <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
 
                 <!-- Summary Stats Cards -->
@@ -149,7 +170,8 @@ const activeCategory = ref('pendapatan');
                             <div>
                                 <p class="text-slate-500 font-semibold text-sm uppercase tracking-wider mb-1">Total
                                     Pendapatan</p>
-                                <h3 class="text-3xl font-black text-slate-900">{{ formatRupiah(totalPendapatan) }}</h3>
+                                <h3 class="text-2xl md:text-3xl font-black text-slate-900">{{
+                                    formatRupiah(totalPendapatan) }}</h3>
                             </div>
                             <div
                                 class="w-14 h-14 rounded-2xl bg-green-50 flex items-center justify-center text-green-600 group-hover:bg-green-600 group-hover:text-white transition-colors duration-300">
@@ -169,7 +191,8 @@ const activeCategory = ref('pendapatan');
                             <div>
                                 <p class="text-slate-500 font-semibold text-sm uppercase tracking-wider mb-1">Total
                                     Belanja</p>
-                                <h3 class="text-3xl font-black text-slate-900">{{ formatRupiah(totalBelanja) }}</h3>
+                                <h3 class="text-2xl md:text-3xl font-black text-slate-900">{{ formatRupiah(totalBelanja)
+                                    }}</h3>
                             </div>
                             <div
                                 class="w-14 h-14 rounded-2xl bg-red-50 flex items-center justify-center text-red-600 group-hover:bg-red-600 group-hover:text-white transition-colors duration-300">
@@ -192,7 +215,8 @@ const activeCategory = ref('pendapatan');
                             <div>
                                 <p class="text-slate-500 font-semibold text-sm uppercase tracking-wider mb-1">SiLPA /
                                     Sisa</p>
-                                <h3 class="text-3xl font-black text-slate-900">{{ formatRupiah(silpa) }}</h3>
+                                <h3 class="text-2xl md:text-3xl font-black text-slate-900">{{ formatRupiah(silpa) }}
+                                </h3>
                             </div>
                             <div
                                 class="w-14 h-14 rounded-2xl bg-blue-50 flex items-center justify-center text-blue-600 group-hover:bg-blue-600 group-hover:text-white transition-colors duration-300">
@@ -229,18 +253,37 @@ const activeCategory = ref('pendapatan');
 
                     <div class="grid grid-cols-1 lg:grid-cols-12 gap-12 items-center">
                         <!-- Chart Column -->
-                        <div class="lg:col-span-5 relative h-80 md:h-[400px]">
-                            <Doughnut v-if="activeCategory === 'pendapatan'" :data="pendapatanData"
-                                :options="chartOptions" />
-                            <Doughnut v-else :data="belanjaData" :options="chartOptions" />
+                        <div class="lg:col-span-5 flex flex-col items-center">
+                            <div class="relative w-full h-80 md:h-[400px]">
+                                <Doughnut v-if="activeCategory === 'pendapatan'" :data="pendapatanData"
+                                    :options="chartOptions" />
+                                <Doughnut v-else :data="belanjaData" :options="chartOptions" />
 
-                            <!-- Center Text Overlay -->
-                            <div
-                                class="absolute inset-x-0 top-[35%] flex flex-col items-center justify-center pointer-events-none">
-                                <span class="text-slate-400 text-sm font-medium uppercase">Total</span>
-                                <span class="text-xl md:text-2xl font-black text-slate-900">
-                                    {{ activeCategory === 'pendapatan' ? formatRupiah(totalPendapatan) : '100%' }}
-                                </span>
+                                <!-- Center Text Overlay -->
+                                <div
+                                    class="absolute inset-0 flex flex-col items-center justify-center pointer-events-none">
+                                    <span class="text-slate-400 text-[10px] md:text-sm font-bold uppercase tracking-widest mb-1">Total</span>
+                                    <span class="text-xl md:text-3xl font-black text-slate-900 leading-none">
+                                        {{ activeCategory === 'pendapatan' ? formatCompactRupiah(totalPendapatan) : '100%'
+                                        }}
+                                    </span>
+                                </div>
+                            </div>
+
+                            <!-- Custom Legend (Neater) -->
+                            <div class="mt-8 flex flex-wrap justify-center gap-x-6 gap-y-3 px-4">
+                                <template v-if="activeCategory === 'pendapatan'">
+                                    <div v-for="(label, index) in pendapatanData.labels" :key="index" class="flex items-center gap-2">
+                                        <div :style="{ backgroundColor: pendapatanData.datasets[0].backgroundColor[index] }" class="w-3 h-3 rounded-full"></div>
+                                        <span class="text-xs font-semibold text-slate-600">{{ label }}</span>
+                                    </div>
+                                </template>
+                                <template v-else>
+                                    <div v-for="(label, index) in belanjaData.labels" :key="index" class="flex items-center gap-2">
+                                        <div :style="{ backgroundColor: belanjaData.datasets[0].backgroundColor[index] }" class="w-3 h-3 rounded-full"></div>
+                                        <span class="text-xs font-semibold text-slate-600">{{ label }}</span>
+                                    </div>
+                                </template>
                             </div>
                         </div>
 
@@ -258,7 +301,7 @@ const activeCategory = ref('pendapatan');
                                             </div>
                                             <span
                                                 class="font-black text-slate-900 group-hover:text-green-600 transition-colors">{{
-                                                formatRupiah(pendapatanData.datasets[0].data[index]) }}</span>
+                                                    formatRupiah(pendapatanData.datasets[0].data[index]) }}</span>
                                         </div>
                                         <div class="w-full bg-slate-200 rounded-full h-2 overflow-hidden">
                                             <div class="h-full rounded-full transition-all duration-1000" :style="{
@@ -279,7 +322,7 @@ const activeCategory = ref('pendapatan');
                                             </div>
                                             <span
                                                 class="font-black text-slate-900 group-hover:text-red-600 transition-colors">{{
-                                                belanjaData.datasets[0].data[index] }}%</span>
+                                                    belanjaData.datasets[0].data[index] }}%</span>
                                         </div>
                                         <div class="w-full bg-slate-200 rounded-full h-2 overflow-hidden">
                                             <div class="h-full rounded-full transition-all duration-1000" :style="{

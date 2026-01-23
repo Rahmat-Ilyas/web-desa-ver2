@@ -1,6 +1,7 @@
 <script setup>
 import { Head, Link } from '@inertiajs/vue3';
 import MainLayout from '@/Layouts/MainLayout.vue';
+import { ref, onMounted, computed } from 'vue';
 
 const props = defineProps({
     berita: Object,
@@ -21,6 +22,31 @@ const handleImageError = (e) => {
 const formatDate = (dateString) => {
     const options = { year: 'numeric', month: 'long', day: 'numeric', hour: '2-digit', minute: '2-digit' };
     return new Date(dateString).toLocaleDateString('id-ID', options);
+};
+
+const currentUrl = ref('');
+const copied = ref(false);
+
+onMounted(() => {
+    currentUrl.value = window.location.href;
+});
+
+const shareLinks = computed(() => {
+    const url = encodeURIComponent(currentUrl.value);
+    const text = encodeURIComponent(props.berita.judul);
+    return {
+        facebook: `https://www.facebook.com/sharer/sharer.php?u=${url}`,
+        twitter: `https://twitter.com/intent/tweet?url=${url}&text=${text}`,
+        whatsapp: `https://api.whatsapp.com/send?text=${text}%20${url}`
+    };
+});
+
+const copyLink = () => {
+    if (currentUrl.value) {
+        navigator.clipboard.writeText(currentUrl.value);
+        copied.value = true;
+        setTimeout(() => copied.value = false, 3000);
+    }
 };
 </script>
 
@@ -87,19 +113,45 @@ const formatDate = (dateString) => {
                             class="mt-20 pt-10 border-t border-slate-100 flex flex-col sm:flex-row items-center justify-between gap-6">
                             <div class="flex items-center gap-4">
                                 <span class="text-xs font-black text-slate-400 uppercase tracking-widest">Share:</span>
-                                <div class="flex gap-2">
-                                    <button
-                                        class="w-10 h-10 rounded-xl bg-slate-50 flex items-center justify-center text-slate-400 hover:bg-blue-600 hover:text-white transition-all shadow-sm">
+                                <div class="flex gap-2 relative">
+                                    <a :href="shareLinks.facebook"
+                                        target="_blank"
+                                        class="w-10 h-10 rounded-xl bg-slate-50 flex items-center justify-center text-slate-400 hover:bg-[#1877F2] hover:text-white transition-all shadow-sm"
+                                        title="Bagikan ke Facebook">
                                         <i class="fab fa-facebook-f text-sm"></i>
-                                    </button>
-                                    <button
-                                        class="w-10 h-10 rounded-xl bg-slate-50 flex items-center justify-center text-slate-400 hover:bg-sky-400 hover:text-white transition-all shadow-sm">
+                                    </a>
+                                    <a :href="shareLinks.twitter"
+                                        target="_blank"
+                                        class="w-10 h-10 rounded-xl bg-slate-50 flex items-center justify-center text-slate-400 hover:bg-[#1DA1F2] hover:text-white transition-all shadow-sm"
+                                        title="Bagikan ke Twitter">
                                         <i class="fab fa-twitter text-sm"></i>
-                                    </button>
-                                    <button
-                                        class="w-10 h-10 rounded-xl bg-slate-50 flex items-center justify-center text-slate-400 hover:bg-emerald-500 hover:text-white transition-all shadow-sm">
+                                    </a>
+                                    <a :href="shareLinks.whatsapp"
+                                        target="_blank"
+                                        class="w-10 h-10 rounded-xl bg-slate-50 flex items-center justify-center text-slate-400 hover:bg-[#25D366] hover:text-white transition-all shadow-sm"
+                                        title="Bagikan ke WhatsApp">
                                         <i class="fab fa-whatsapp text-sm"></i>
+                                    </a>
+                                    <button @click="copyLink"
+                                        class="w-10 h-10 rounded-xl bg-slate-50 flex items-center justify-center text-slate-400 hover:bg-slate-900 hover:text-white transition-all shadow-sm"
+                                        title="Salin Tautan">
+                                        <i class="fas fa-link text-sm"></i>
                                     </button>
+
+                                    <transition enter-active-class="transition ease-out duration-200"
+                                        enter-from-class="opacity-0 translate-y-1"
+                                        enter-to-class="opacity-100 translate-y-0"
+                                        leave-active-class="transition ease-in duration-150"
+                                        leave-from-class="opacity-100 translate-y-0"
+                                        leave-to-class="opacity-0 translate-y-1">
+                                        <div v-if="copied"
+                                            class="absolute -top-12 left-1/2 -translate-x-1/2 px-4 py-2 bg-slate-900 text-white text-[10px] font-bold rounded-lg whitespace-nowrap shadow-xl z-20">
+                                            Tautan Berhasil Disalin!
+                                            <div
+                                                class="absolute -bottom-1 left-1/2 -translate-x-1/2 w-2 h-2 bg-slate-900 rotate-45">
+                                            </div>
+                                        </div>
+                                    </transition>
                                 </div>
                             </div>
                             <Link :href="route('informasi.berita')"

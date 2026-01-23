@@ -47,7 +47,7 @@ onUnmounted(() => {
 </script>
 
 <template>
-    <div class="font-sans antialiased text-gray-900 bg-gray-50 min-h-screen flex flex-col overflow-x-hidden">
+    <div class="font-sans antialiased text-gray-900 bg-gray-50 min-h-screen flex flex-col">
 
         <!-- Top Utility Bar -->
         <div class="bg-blue-900 text-white py-2 text-xs font-medium">
