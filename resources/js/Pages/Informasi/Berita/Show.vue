@@ -114,23 +114,20 @@ const copyLink = () => {
                             <div class="flex items-center gap-4">
                                 <span class="text-xs font-black text-slate-400 uppercase tracking-widest">Share:</span>
                                 <div class="flex gap-2 relative">
-                                    <a :href="shareLinks.facebook"
-                                        target="_blank"
+                                    <a :href="shareLinks.facebook" target="_blank"
                                         class="w-10 h-10 rounded-xl bg-slate-50 flex items-center justify-center text-slate-400 hover:bg-[#1877F2] hover:text-white transition-all shadow-sm"
                                         title="Bagikan ke Facebook">
                                         <i class="fab fa-facebook-f text-sm"></i>
                                     </a>
-                                    <a :href="shareLinks.twitter"
-                                        target="_blank"
-                                        class="w-10 h-10 rounded-xl bg-slate-50 flex items-center justify-center text-slate-400 hover:bg-[#1DA1F2] hover:text-white transition-all shadow-sm"
-                                        title="Bagikan ke Twitter">
-                                        <i class="fab fa-twitter text-sm"></i>
-                                    </a>
-                                    <a :href="shareLinks.whatsapp"
-                                        target="_blank"
+                                    <a :href="shareLinks.whatsapp" target="_blank"
                                         class="w-10 h-10 rounded-xl bg-slate-50 flex items-center justify-center text-slate-400 hover:bg-[#25D366] hover:text-white transition-all shadow-sm"
                                         title="Bagikan ke WhatsApp">
                                         <i class="fab fa-whatsapp text-sm"></i>
+                                    </a>
+                                    <a :href="shareLinks.twitter" target="_blank"
+                                        class="w-10 h-10 rounded-xl bg-slate-50 flex items-center justify-center text-slate-400 hover:bg-[#1DA1F2] hover:text-white transition-all shadow-sm"
+                                        title="Bagikan ke Twitter">
+                                        <i class="fab fa-twitter text-sm"></i>
                                     </a>
                                     <button @click="copyLink"
                                         class="w-10 h-10 rounded-xl bg-slate-50 flex items-center justify-center text-slate-400 hover:bg-slate-900 hover:text-white transition-all shadow-sm"

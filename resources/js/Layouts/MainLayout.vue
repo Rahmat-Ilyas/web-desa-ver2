@@ -7,6 +7,10 @@ import NavLink from '@/Components/NavLink.vue';
 
 defineProps({
     title: String,
+    latestGaleris: {
+        type: Array,
+        default: () => []
+    }
 });
 
 const showingNavigationDropdown = ref(false);
@@ -113,7 +117,8 @@ onUnmounted(() => {
                                     <h1
                                         class="text-[11px] sm:text-sm font-bold text-gray-800 leading-tight uppercase tracking-wide group-hover:text-blue-600 transition-colors">
                                         KEL. UJUNG SABBANG</h1>
-                                    <p class="text-[9px] sm:text-[10px] text-gray-500 font-medium tracking-wider">KOTA PAREPARE</p>
+                                    <p class="text-[9px] sm:text-[10px] text-gray-500 font-medium tracking-wider">KOTA
+                                        PAREPARE</p>
                                 </div>
                             </Link>
                         </div>
@@ -413,8 +418,8 @@ onUnmounted(() => {
                         <!-- Beranda -->
                         <Link :href="route('landing')"
                             :class="[route().current('landing') ? 'bg-blue-50 text-blue-600' : 'text-slate-600 hover:bg-slate-50', 'group flex items-center px-4 py-3 text-sm font-bold rounded-2xl transition-all']">
-                        <i class="fa-solid fa-house fa-fw mr-3 text-lg opacity-70"></i>
-                        Beranda
+                            <i class="fa-solid fa-house fa-fw mr-3 text-lg opacity-70"></i>
+                            Beranda
                         </Link>
 
                         <!-- Profil Accordion -->
@@ -425,15 +430,33 @@ onUnmounted(() => {
                                     <i class="fa-solid fa-building-user fa-fw mr-3 text-lg opacity-70"></i>
                                     Profil
                                 </div>
-                                <i :class="['fa-solid fa-chevron-down text-xs transition-transform duration-300', activeMobileSection === 'profil' ? 'rotate-180' : '']"></i>
+                                <i
+                                    :class="['fa-solid fa-chevron-down text-xs transition-transform duration-300', activeMobileSection === 'profil' ? 'rotate-180' : '']"></i>
                             </button>
-                            <div v-show="activeMobileSection === 'profil'" class="pl-12 pr-4 space-y-1 overflow-hidden transition-all">
-                                <Link :href="route('profil.sambutan')" class="block py-2 text-sm font-medium text-slate-500 hover:text-blue-600">Sambutan Lurah</Link>
-                                <Link :href="route('profil.visimisi')" class="block py-2 text-sm font-medium text-slate-500 hover:text-blue-600">Visi & Misi</Link>
-                                <Link :href="route('profil.sejarah')" class="block py-2 text-sm font-medium text-slate-500 hover:text-blue-600">Sejarah Kelurahan</Link>
-                                <Link :href="route('profil.kondisi')" class="block py-2 text-sm font-medium text-slate-500 hover:text-blue-600">Kondisi Kelurahan</Link>
-                                <Link :href="route('profil.lokasi-kantor')" class="block py-2 text-sm font-medium text-slate-500 hover:text-blue-600">Lokasi Kantor</Link>
-                                <Link :href="route('profil.peta-lokasi')" class="block py-2 text-sm font-medium text-slate-500 hover:text-blue-600">Peta Lokasi</Link>
+                            <div v-show="activeMobileSection === 'profil'"
+                                class="pl-12 pr-4 space-y-1 overflow-hidden transition-all">
+                                <Link :href="route('profil.sambutan')"
+                                    class="block py-2 text-sm font-medium text-slate-500 hover:text-blue-600">Sambutan
+                                    Lurah
+                                </Link>
+                                <Link :href="route('profil.visimisi')"
+                                    class="block py-2 text-sm font-medium text-slate-500 hover:text-blue-600">Visi &
+                                    Misi</Link>
+                                <Link :href="route('profil.sejarah')"
+                                    class="block py-2 text-sm font-medium text-slate-500 hover:text-blue-600">Sejarah
+                                    Kelurahan
+                                </Link>
+                                <Link :href="route('profil.kondisi')"
+                                    class="block py-2 text-sm font-medium text-slate-500 hover:text-blue-600">Kondisi
+                                    Kelurahan
+                                </Link>
+                                <Link :href="route('profil.lokasi-kantor')"
+                                    class="block py-2 text-sm font-medium text-slate-500 hover:text-blue-600">Lokasi
+                                    Kantor
+                                </Link>
+                                <Link :href="route('profil.peta-lokasi')"
+                                    class="block py-2 text-sm font-medium text-slate-500 hover:text-blue-600">Peta
+                                    Lokasi</Link>
                             </div>
                         </div>
 
@@ -445,30 +468,46 @@ onUnmounted(() => {
                                     <i class="fa-solid fa-sitemap fa-fw mr-3 text-lg opacity-70"></i>
                                     Lembaga
                                 </div>
-                                <i :class="['fa-solid fa-chevron-down text-xs transition-transform duration-300', activeMobileSection === 'lembaga' ? 'rotate-180' : '']"></i>
+                                <i
+                                    :class="['fa-solid fa-chevron-down text-xs transition-transform duration-300', activeMobileSection === 'lembaga' ? 'rotate-180' : '']"></i>
                             </button>
                             <div v-show="activeMobileSection === 'lembaga'" class="pl-12 pr-4 space-y-1 transition-all">
-                                <Link :href="route('lembaga.rt')" class="block py-2 text-sm font-medium text-slate-500 hover:text-blue-600">Rukun Tetangga (RT)</Link>
-                                <Link :href="route('lembaga.rw')" class="block py-2 text-sm font-medium text-slate-500 hover:text-blue-600">Rukun Warga (RW)</Link>
-                                <Link :href="route('lembaga.pkk')" class="block py-2 text-sm font-medium text-slate-500 hover:text-blue-600">PKK</Link>
-                                <Link :href="route('lembaga.karang-taruna')" class="block py-2 text-sm font-medium text-slate-500 hover:text-blue-600">Karang Taruna</Link>
-                                <Link :href="route('lembaga.lpmk')" class="block py-2 text-sm font-medium text-slate-500 hover:text-blue-600">LPMK</Link>
-                                <Link :href="route('lembaga.majelis-taklim')" class="block py-2 text-sm font-medium text-slate-500 hover:text-blue-600">Majelis Taklim</Link>
+                                <Link :href="route('lembaga.rt')"
+                                    class="block py-2 text-sm font-medium text-slate-500 hover:text-blue-600">Rukun
+                                    Tetangga
+                                    (RT)</Link>
+                                <Link :href="route('lembaga.rw')"
+                                    class="block py-2 text-sm font-medium text-slate-500 hover:text-blue-600">Rukun
+                                    Warga (RW)
+                                </Link>
+                                <Link :href="route('lembaga.pkk')"
+                                    class="block py-2 text-sm font-medium text-slate-500 hover:text-blue-600">PKK</Link>
+                                <Link :href="route('lembaga.karang-taruna')"
+                                    class="block py-2 text-sm font-medium text-slate-500 hover:text-blue-600">Karang
+                                    Taruna
+                                </Link>
+                                <Link :href="route('lembaga.lpmk')"
+                                    class="block py-2 text-sm font-medium text-slate-500 hover:text-blue-600">LPMK
+                                </Link>
+                                <Link :href="route('lembaga.majelis-taklim')"
+                                    class="block py-2 text-sm font-medium text-slate-500 hover:text-blue-600">Majelis
+                                    Taklim
+                                </Link>
                             </div>
                         </div>
 
                         <!-- Aparatur -->
                         <Link :href="route('pemerintahan.aparatur')"
                             :class="[route().current('pemerintahan.aparatur') ? 'bg-blue-50 text-blue-600' : 'text-slate-600 hover:bg-slate-50', 'group flex items-center px-4 py-3 text-sm font-bold rounded-2xl transition-all']">
-                        <i class="fa-solid fa-users-gear fa-fw mr-3 text-lg opacity-70"></i>
-                        Aparatur
+                            <i class="fa-solid fa-users-gear fa-fw mr-3 text-lg opacity-70"></i>
+                            Aparatur
                         </Link>
 
                         <!-- Anggaran -->
                         <Link :href="route('pemerintahan.anggaran')"
                             :class="[route().current('pemerintahan.anggaran') ? 'bg-blue-50 text-blue-600' : 'text-slate-600 hover:bg-slate-50', 'group flex items-center px-4 py-3 text-sm font-bold rounded-2xl transition-all']">
-                        <i class="fa-solid fa-chart-line fa-fw mr-3 text-lg opacity-70"></i>
-                        Anggaran
+                            <i class="fa-solid fa-chart-line fa-fw mr-3 text-lg opacity-70"></i>
+                            Anggaran
                         </Link>
 
                         <!-- Data Accordion -->
@@ -479,29 +518,44 @@ onUnmounted(() => {
                                     <i class="fa-solid fa-chart-pie fa-fw mr-3 text-lg opacity-70"></i>
                                     Data
                                 </div>
-                                <i :class="['fa-solid fa-chevron-down text-xs transition-transform duration-300', activeMobileSection === 'data' ? 'rotate-180' : '']"></i>
+                                <i
+                                    :class="['fa-solid fa-chevron-down text-xs transition-transform duration-300', activeMobileSection === 'data' ? 'rotate-180' : '']"></i>
                             </button>
                             <div v-show="activeMobileSection === 'data'" class="pl-12 pr-4 space-y-1 transition-all">
-                                <Link :href="route('data.statistik')" class="block py-2 text-sm font-medium text-slate-500 hover:text-blue-600">Statistik Penduduk</Link>
-                                <Link :href="route('data.umur')" class="block py-2 text-sm font-medium text-slate-500 hover:text-blue-600">Berdasarkan Umur</Link>
-                                <Link :href="route('data.pemilih')" class="block py-2 text-sm font-medium text-slate-500 hover:text-blue-600">Pemilih Tetap</Link>
-                                <Link :href="route('data.agama')" class="block py-2 text-sm font-medium text-slate-500 hover:text-blue-600">Statistik Agama</Link>
-                                <Link :href="route('data.pendidikan')" class="block py-2 text-sm font-medium text-slate-500 hover:text-blue-600">Statistik Pendidikan</Link>
+                                <Link :href="route('data.statistik')"
+                                    class="block py-2 text-sm font-medium text-slate-500 hover:text-blue-600">Statistik
+                                    Penduduk
+                                </Link>
+                                <Link :href="route('data.umur')"
+                                    class="block py-2 text-sm font-medium text-slate-500 hover:text-blue-600">
+                                    Berdasarkan Umur
+                                </Link>
+                                <Link :href="route('data.pemilih')"
+                                    class="block py-2 text-sm font-medium text-slate-500 hover:text-blue-600">Pemilih
+                                    Tetap
+                                </Link>
+                                <Link :href="route('data.agama')"
+                                    class="block py-2 text-sm font-medium text-slate-500 hover:text-blue-600">Statistik
+                                    Agama
+                                </Link>
+                                <Link :href="route('data.pendidikan')"
+                                    class="block py-2 text-sm font-medium text-slate-500 hover:text-blue-600">Statistik
+                                    Pendidikan</Link>
                             </div>
                         </div>
 
                         <!-- Galeri -->
                         <Link :href="route('galeri')"
                             :class="[route().current('galeri') ? 'bg-blue-50 text-blue-600' : 'text-slate-600 hover:bg-slate-50', 'group flex items-center px-4 py-3 text-sm font-bold rounded-2xl transition-all']">
-                        <i class="fa-solid fa-camera-retro fa-fw mr-3 text-lg opacity-70"></i>
-                        Galeri
+                            <i class="fa-solid fa-camera-retro fa-fw mr-3 text-lg opacity-70"></i>
+                            Galeri
                         </Link>
 
                         <!-- Download -->
                         <Link :href="route('download')"
                             :class="[route().current('download') ? 'bg-blue-50 text-blue-600' : 'text-slate-600 hover:bg-slate-50', 'group flex items-center px-4 py-3 text-sm font-bold rounded-2xl transition-all']">
-                        <i class="fa-solid fa-download fa-fw mr-3 text-lg opacity-70"></i>
-                        Download
+                            <i class="fa-solid fa-download fa-fw mr-3 text-lg opacity-70"></i>
+                            Download
                         </Link>
 
                         <!-- Informasi Accordion -->
@@ -512,12 +566,20 @@ onUnmounted(() => {
                                     <i class="fa-solid fa-circle-info fa-fw mr-3 text-lg opacity-70"></i>
                                     Informasi
                                 </div>
-                                <i :class="['fa-solid fa-chevron-down text-xs transition-transform duration-300', activeMobileSection === 'informasi' ? 'rotate-180' : '']"></i>
+                                <i
+                                    :class="['fa-solid fa-chevron-down text-xs transition-transform duration-300', activeMobileSection === 'informasi' ? 'rotate-180' : '']"></i>
                             </button>
-                            <div v-show="activeMobileSection === 'informasi'" class="pl-12 pr-4 space-y-1 transition-all">
-                                <Link :href="route('informasi.berita')" class="block py-2 text-sm font-medium text-slate-500 hover:text-blue-600">Berita</Link>
-                                <Link :href="route('informasi.potensi')" class="block py-2 text-sm font-medium text-slate-500 hover:text-blue-600">Potensi</Link>
-                                <Link :href="route('informasi.program')" class="block py-2 text-sm font-medium text-slate-500 hover:text-blue-600">Program</Link>
+                            <div v-show="activeMobileSection === 'informasi'"
+                                class="pl-12 pr-4 space-y-1 transition-all">
+                                <Link :href="route('informasi.berita')"
+                                    class="block py-2 text-sm font-medium text-slate-500 hover:text-blue-600">Berita
+                                </Link>
+                                <Link :href="route('informasi.potensi')"
+                                    class="block py-2 text-sm font-medium text-slate-500 hover:text-blue-600">Potensi
+                                </Link>
+                                <Link :href="route('informasi.program')"
+                                    class="block py-2 text-sm font-medium text-slate-500 hover:text-blue-600">Program
+                                </Link>
                             </div>
                         </div>
 
@@ -528,19 +590,18 @@ onUnmounted(() => {
                 <div class="px-6 py-4 border-t border-slate-50">
                     <Link :href="route('layanan')"
                         class="flex items-center justify-between p-4 bg-gradient-to-r from-blue-600 to-indigo-700 rounded-2xl shadow-lg shadow-blue-200 group transition-all active:scale-[0.98]">
-                    <div class="flex items-center gap-3">
-                        <div
-                            class="w-10 h-10 rounded-2xl bg-white/20 flex items-center justify-center text-white">
-                            <i class="fa-solid fa-hand-holding-heart"></i>
+                        <div class="flex items-center gap-3">
+                            <div class="w-10 h-10 rounded-2xl bg-white/20 flex items-center justify-center text-white">
+                                <i class="fa-solid fa-hand-holding-heart"></i>
+                            </div>
+                            <div class="text-left">
+                                <p class="text-[10px] font-bold text-white/70 uppercase tracking-widest">
+                                    Akses</p>
+                                <p class="text-sm font-black text-white">Layanan Mandiri</p>
+                            </div>
                         </div>
-                        <div class="text-left">
-                            <p class="text-[10px] font-bold text-white/70 uppercase tracking-widest">
-                                Akses</p>
-                            <p class="text-sm font-black text-white">Layanan Mandiri</p>
-                        </div>
-                    </div>
-                    <i
-                        class="fa-solid fa-chevron-right text-white/50 group-hover:translate-x-1 transition-transform"></i>
+                        <i
+                            class="fa-solid fa-chevron-right text-white/50 group-hover:translate-x-1 transition-transform"></i>
                     </Link>
                 </div>
 
@@ -628,17 +689,37 @@ onUnmounted(() => {
                         </ul>
                     </div>
 
-                    <!-- Gallery Preview (Mockup) -->
+                    <!-- Gallery Preview -->
                     <div>
                         <h3 class="text-lg font-semibold mb-4 border-b border-gray-600 pb-2 inline-block">Galeri Terbaru
                         </h3>
                         <div class="grid grid-cols-3 gap-2">
-                            <div class="h-16 bg-gray-700 rounded bg-cover bg-center"
-                                style="background-image: url('https://placehold.co/100x100?text=IMG1')"></div>
-                            <div class="h-16 bg-gray-700 rounded bg-cover bg-center"
-                                style="background-image: url('https://placehold.co/100x100?text=IMG2')"></div>
-                            <div class="h-16 bg-gray-700 rounded bg-cover bg-center"
-                                style="background-image: url('https://placehold.co/100x100?text=IMG3')"></div>
+                            <template v-if="$page.props.footerGaleris && $page.props.footerGaleris.length > 0">
+                                <Link :href="route('galeri')" v-for="item in $page.props.footerGaleris" :key="item.id"
+                                    class="h-16 bg-gray-700 rounded-lg bg-cover bg-center hover:opacity-80 transition-opacity border border-gray-600 block"
+                                    :style="{ backgroundImage: `url(${item.image})` }" :title="item.judul">
+                                </Link>
+                            </template>
+                            <template v-else>
+                                <div
+                                    class="h-16 bg-gray-700/50 rounded flex items-center justify-center text-xs text-gray-500 border border-gray-700">
+                                    Empty</div>
+                                <div
+                                    class="h-16 bg-gray-700/50 rounded flex items-center justify-center text-xs text-gray-500 border border-gray-700">
+                                    Empty</div>
+                                <div
+                                    class="h-16 bg-gray-700/50 rounded flex items-center justify-center text-xs text-gray-500 border border-gray-700">
+                                    Empty</div>
+                                <div
+                                    class="h-16 bg-gray-700/50 rounded flex items-center justify-center text-xs text-gray-500 border border-gray-700">
+                                    Empty</div>
+                                <div
+                                    class="h-16 bg-gray-700/50 rounded flex items-center justify-center text-xs text-gray-500 border border-gray-700">
+                                    Empty</div>
+                                <div
+                                    class="h-16 bg-gray-700/50 rounded flex items-center justify-center text-xs text-gray-500 border border-gray-700">
+                                    Empty</div>
+                            </template>
                         </div>
                     </div>
 

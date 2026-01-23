@@ -30,7 +30,8 @@ class HomeController extends Controller
                 'visi' => $settings['visi'] ?? '',
                 'misi' => $settings['misi'] ?? ''
             ],
-            'latestBeritas' => \App\Models\Berita::latest()->take(3)->get()
+            'latestBeritas' => \App\Models\Berita::latest()->take(3)->get(),
+            'latestGaleris' => \App\Models\Galeri::latest()->take(8)->get()
         ]);
     }
 
@@ -162,6 +163,23 @@ class HomeController extends Controller
             'berita' => $berita,
             'latestBeritas' => $latestBeritas,
             'categories' => $categories
+        ]);
+    }
+
+    public function galeri()
+    {
+        $kategori = request()->query('kategori');
+        $query = \App\Models\Galeri::latest();
+
+        if ($kategori && $kategori !== 'Semua') {
+            $query->where('kategori', $kategori);
+        }
+
+        $galeris = $query->paginate(12)->withQueryString();
+
+        return Inertia::render('Galeri/Index', [
+            'galeris' => $galeris,
+            'currentCategory' => $kategori ?? 'Semua'
         ]);
     }
 }

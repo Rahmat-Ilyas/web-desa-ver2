@@ -46,6 +46,10 @@ class HandleInertiaRequests extends Middleware
                 'success' => $request->session()->get('success'),
                 'error' => $request->session()->get('error'),
             ],
+            'footerGaleris' => \App\Models\Galeri::latest()
+                ->select('id', 'judul', 'image')
+                ->take(6)
+                ->get(),
         ]);
     }
 }

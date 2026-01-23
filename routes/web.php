@@ -75,9 +75,7 @@ Route::get('/data/pendidikan', function () {
 })->name('data.pendidikan');
 
 // Galeri & Download Routes
-Route::get('/galeri', function () {
-    return inertia('Galeri/Index');
-})->name('galeri');
+Route::get('/galeri', [HomeController::class, 'galeri'])->name('galeri');
 
 Route::get('/download', function () {
     return inertia('Download/Index');
@@ -157,5 +155,14 @@ Route::prefix('admin')->middleware(['auth'])->group(function () {
         'edit' => 'admin.berita.edit',
         'update' => 'admin.berita.update',
         'destroy' => 'admin.berita.destroy',
+    ]);
+    // Galeri
+    Route::resource('galeri', \App\Http\Controllers\Admin\GaleriController::class)->names([
+        'index' => 'admin.galeri.index',
+        'create' => 'admin.galeri.create',
+        'store' => 'admin.galeri.store',
+        'edit' => 'admin.galeri.edit',
+        'update' => 'admin.galeri.update',
+        'destroy' => 'admin.galeri.destroy',
     ]);
 });

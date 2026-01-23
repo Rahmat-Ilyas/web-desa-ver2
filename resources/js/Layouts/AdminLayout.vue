@@ -33,7 +33,7 @@ const menus = [
         ]
     },
     { name: 'Kependudukan', icon: 'fa-users', route: '#' },
-    { name: 'Galeri Foto', icon: 'fa-images', route: '#' },
+    { name: 'Galeri Foto', icon: 'fa-images', route: 'admin.galeri.index' },
     { name: 'Layanan & Surat', icon: 'fa-concierge-bell', route: '#' },
     { name: 'Pengaduan Warga', icon: 'fa-exclamation-circle', route: '#' },
     { name: 'Kontak & Sosmed', icon: 'fa-address-book', route: 'admin.kontak' },

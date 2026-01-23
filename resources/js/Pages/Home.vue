@@ -18,7 +18,8 @@ defineProps({
     structures: Array,
     sambutan: Object,
     visimisi: Object,
-    latestBeritas: Array
+    latestBeritas: Array,
+    latestGaleris: Array
 });
 </script>
 
@@ -26,7 +27,7 @@ defineProps({
 
     <Head title="Beranda" />
 
-    <MainLayout>
+    <MainLayout :latestGaleris="latestGaleris">
         <!-- Hero Section -->
         <Hero :villageName="villageName" />
 
@@ -43,7 +44,7 @@ defineProps({
         <Structure :structures="structures" />
 
         <!-- Galeri Kegiatan -->
-        <Gallery />
+        <Gallery :latestGaleris="latestGaleris" />
 
         <!-- CTA Pengaduan -->
         <CallToAction />

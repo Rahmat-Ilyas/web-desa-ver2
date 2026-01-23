@@ -9,11 +9,50 @@ const props = defineProps({
 });
 
 const copied = ref(false);
+const currentUrl = ref('');
+
+import { onMounted } from 'vue';
+
+onMounted(() => {
+    currentUrl.value = window.location.href;
+});
+
 const copyLink = () => {
-    navigator.clipboard.writeText(window.location.href);
-    copied.value = true;
-    setTimeout(() => copied.value = false, 3000);
+    if (navigator.clipboard && window.isSecureContext) {
+        navigator.clipboard.writeText(currentUrl.value);
+        copied.value = true;
+        setTimeout(() => copied.value = false, 3000);
+    } else {
+        // Fallback for non-secure context or older browsers
+        const textArea = document.createElement("textarea");
+        textArea.value = currentUrl.value;
+        document.body.appendChild(textArea);
+        textArea.focus();
+        textArea.select();
+        try {
+            document.execCommand('copy');
+            copied.value = true;
+            setTimeout(() => copied.value = false, 3000);
+        } catch (err) {
+            console.error('Unable to copy to clipboard', err);
+        }
+        document.body.removeChild(textArea);
+    }
 };
+
+const facebookShareUrl = computed(() => {
+    return `https://www.facebook.com/sharer/sharer.php?u=${encodeURIComponent(currentUrl.value)}`;
+});
+
+const whatsappShareUrl = computed(() => {
+    return `https://api.whatsapp.com/send?text=${encodeURIComponent('Baca Sambutan Lurah Ujung Sabbang: ' + currentUrl.value)}`;
+});
+
+const twitterShareUrl = computed(() => {
+    return `https://twitter.com/intent/tweet?text=${encodeURIComponent('Baca Sambutan Lurah Ujung Sabbang')}&url=${encodeURIComponent(currentUrl.value)}`;
+});
+
+import { computed } from 'vue';
 </script>
 
 <template>
@@ -74,19 +113,25 @@ const copyLink = () => {
                                 <div class="mt-8 pt-8 border-t border-slate-100">
                                     <p
                                         class="text-[10px] font-black text-slate-400 uppercase tracking-[0.2em] mb-4 text-center lg:text-left">
-                                        Bagikan Halaman:</p>
+                                        Share:</p>
                                     <div class="flex justify-center lg:justify-start gap-3">
-                                        <a :href="'https://www.facebook.com/sharer/sharer.php?u=' + encodeURIComponent(typeof window !== 'undefined' ? window.location.href : '')"
+                                        <a :href="facebookShareUrl"
                                             target="_blank"
                                             class="w-10 h-10 rounded-xl bg-slate-50 text-slate-400 flex items-center justify-center hover:bg-[#1877F2] hover:text-white transition-all transform hover:-translate-y-1 shadow-sm group/share"
                                             title="Bagikan ke Facebook">
                                             <i class="fab fa-facebook-f text-sm"></i>
                                         </a>
-                                        <a :href="'https://api.whatsapp.com/send?text=Baca Sambutan Lurah Ujung Sabbang: ' + encodeURIComponent(typeof window !== 'undefined' ? window.location.href : '')"
+                                        <a :href="whatsappShareUrl"
                                             target="_blank"
                                             class="w-10 h-10 rounded-xl bg-slate-50 text-slate-400 flex items-center justify-center hover:bg-[#25D366] hover:text-white transition-all transform hover:-translate-y-1 shadow-sm group/share"
                                             title="Bagikan ke WhatsApp">
                                             <i class="fab fa-whatsapp text-sm"></i>
+                                        </a>
+                                        <a :href="twitterShareUrl"
+                                            target="_blank"
+                                            class="w-10 h-10 rounded-xl bg-slate-50 text-slate-400 flex items-center justify-center hover:bg-[#1DA1F2] hover:text-white transition-all transform hover:-translate-y-1 shadow-sm group/share"
+                                            title="Bagikan ke Twitter / X">
+                                            <i class="fab fa-twitter text-sm"></i>
                                         </a>
                                         <button @click="copyLink"
                                             class="w-10 h-10 rounded-xl bg-slate-50 text-slate-400 flex items-center justify-center hover:bg-slate-900 hover:text-white transition-all transform hover:-translate-y-1 shadow-sm group/share"
