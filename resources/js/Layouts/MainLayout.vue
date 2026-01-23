@@ -342,130 +342,126 @@ onUnmounted(() => {
                     </div>
 
 
-                    <!-- Hamburger -->
+                    <!-- Modern Hamburger -->
                     <div class="-mr-2 flex items-center xl:hidden">
-                        <button @click="showingNavigationDropdown = !showingNavigationDropdown"
-                            class="inline-flex items-center justify-center p-2 rounded-md text-gray-400 hover:text-gray-500 hover:bg-gray-100 focus:outline-none focus:bg-gray-100 focus:text-gray-500 transition duration-150 ease-in-out">
-                            <svg class="h-6 w-6" stroke="currentColor" fill="none" viewBox="0 0 24 24">
-                                <path
-                                    :class="{ 'hidden': showingNavigationDropdown, 'inline-flex': !showingNavigationDropdown }"
-                                    stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
-                                    d="M4 6h16M4 12h16M4 18h16" />
-                                <path
-                                    :class="{ 'hidden': !showingNavigationDropdown, 'inline-flex': showingNavigationDropdown }"
-                                    stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
-                                    d="M6 18L18 6M6 6l12 12" />
-                            </svg>
+                        <button @click="showingNavigationDropdown = true"
+                            class="inline-flex items-center justify-center p-2.5 rounded-xl bg-white border border-gray-100 text-slate-500 hover:text-blue-600 hover:bg-slate-50 shadow-sm transition-all active:scale-90 focus:outline-none">
+                            <i class="fa-solid fa-bars-staggered text-xl"></i>
                         </button>
                     </div>
                 </div>
             </div>
 
-            <!-- Responsive Navigation Menu -->
-            <div :class="{ 'block': showingNavigationDropdown, 'hidden': !showingNavigationDropdown }"
-                class="xl:hidden bg-white border-t border-gray-100 shadow-lg">
-                <div class="pt-2 pb-3 space-y-1">
-                    <NavLink :href="route('landing')" :active="route().current('landing')"
-                        class="block w-full pl-3 pr-4 py-2 border-l-4 border-blue-500 text-base font-medium text-blue-700 bg-blue-50 transition duration-150 ease-in-out">
-                        HOME
-                    </NavLink>
-                    <NavLink :href="route('pemerintahan.aparatur')" :active="route().current('pemerintahan.aparatur')"
-                        class="block w-full pl-3 pr-4 py-2 text-base font-medium text-gray-600 hover:text-blue-600 hover:bg-gray-50 transition duration-150 ease-in-out">
-                        APARATUR
-                    </NavLink>
-                    <NavLink :href="route('pemerintahan.anggaran')" :active="route().current('pemerintahan.anggaran')"
-                        class="block w-full pl-3 pr-4 py-2 text-base font-medium text-gray-600 hover:text-blue-600 hover:bg-gray-50 transition duration-150 ease-in-out">
-                        ANGGARAN
-                    </NavLink>
-                    <div class="pt-2 pb-1 border-t border-gray-200">
-                        <div class="px-4 text-xs font-semibold text-gray-500 uppercase tracking-wider">PROFIL</div>
-                        <div class="ml-4 border-l-2 border-gray-200 pl-2">
-                            <Link :href="route('profil.sambutan')"
-                                class="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100">
-                                Sambutan
-                                Lurah</Link>
-                            <Link :href="route('profil.visimisi')"
-                                class="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100">
-                                Visi &
-                                Misi</Link>
-                            <Link :href="route('profil.sejarah')"
-                                class="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100">
-                                Sejarah</Link>
-                            <Link :href="route('profil.kondisi')"
-                                class="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100">
-                                Kondisi Kelurahan
-                            </Link>
-                            <Link :href="route('profil.lokasi-kantor')"
-                                class="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100">Lokasi Kantor</Link>
-                            <Link :href="route('profil.peta-lokasi')"
-                                class="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100">Peta
-                                Lokasi</Link>
-                        </div>
-                    </div>
-                    <div class="pt-2 pb-1 border-t border-gray-200">
-                        <div class="px-4 text-xs font-semibold text-gray-500 uppercase tracking-wider">LEMBAGA</div>
-                        <div class="ml-4 border-l-2 border-gray-200 pl-2">
-                            <Link :href="route('lembaga.rt')"
-                                class="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100">RT
-                            </Link>
-                            <Link :href="route('lembaga.rw')"
-                                class="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100">RW
-                            </Link>
-                            <Link :href="route('lembaga.pkk')"
-                                class="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100">PKK
-                            </Link>
-                            <Link :href="route('lembaga.karang-taruna')"
-                                class="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100">Karang Taruna</Link>
-                            <Link :href="route('lembaga.lpmk')"
-                                class="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100">LPMK
-                            </Link>
-                            <Link :href="route('lembaga.majelis-taklim')"
-                                class="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100">Majelis Taklim</Link>
-                        </div>
-                        <div class="pt-2 pb-1 border-t border-gray-200">
-                            <div class="px-4 text-xs font-semibold text-gray-500 uppercase tracking-wider">DATA PENDUDUK
-                            </div>
-                            <div class="ml-4 border-l-2 border-gray-200 pl-2">
-                                <Link :href="route('data.statistik')"
-                                    class="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100">Statistik Penduduk
-                                </Link>
-                                <Link :href="route('data.umur')"
-                                    class="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100">
-                                    Berdasarkan Umur</Link>
-                                <Link :href="route('data.pemilih')"
-                                    class="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100">
-                                    Pemilih Tetap</Link>
-                                <Link :href="route('data.agama')"
-                                    class="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100">
-                                    Statistik Agama</Link>
-                                <Link :href="route('data.pendidikan')"
-                                    class="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100">Statistik Pendidikan
-                                </Link>
+            <!-- Modern Mobile Sidebar/Drawer -->
+            <transition 
+                enter-active-class="transition ease-out duration-300"
+                enter-from-class="opacity-0"
+                enter-to-class="opacity-100"
+                leave-active-class="transition ease-in duration-200"
+                leave-from-class="opacity-100"
+                leave-to-class="opacity-0"
+            >
+                <div v-show="showingNavigationDropdown" 
+                    class="fixed inset-0 z-50 bg-slate-900/60 backdrop-blur-sm lg:hidden"
+                    @click="showingNavigationDropdown = false">
+                </div>
+            </transition>
+
+            <transition 
+                enter-active-class="transition ease-in-out duration-500 transform"
+                enter-from-class="-translate-x-full"
+                enter-to-class="translate-x-0"
+                leave-active-class="transition ease-in-out duration-500 transform"
+                leave-from-class="translate-x-0"
+                leave-to-class="-translate-x-full"
+            >
+                <div v-show="showingNavigationDropdown" 
+                    class="fixed inset-y-0 left-0 z-[60] w-full max-w-xs bg-white shadow-2xl flex flex-col lg:hidden overflow-hidden"
+                >
+                    <!-- Sidebar Header -->
+                    <div class="flex items-center justify-between p-6 border-b border-gray-100 bg-slate-50">
+                        <div class="flex items-center gap-3">
+                            <img class="h-10 w-auto" src="/assets/images/icons/logo.png" alt="Logo" />
+                            <div>
+                                <h2 class="text-sm font-black text-slate-800 leading-tight">UJUNG SABBANG</h2>
+                                <p class="text-[10px] text-slate-500 font-bold tracking-widest uppercase">Official Portal</p>
                             </div>
                         </div>
+                        <button @click="showingNavigationDropdown = false" class="p-2 rounded-xl bg-white border border-gray-100 text-slate-400 hover:text-slate-600 shadow-sm transition-all active:scale-95">
+                            <i class="fa-solid fa-xmark text-xl"></i>
+                        </button>
                     </div>
-                    <Link :href="route('galeri')" :active="route().current('galeri')"
-                        class="block w-full pl-3 pr-4 py-2 text-base font-medium text-gray-600 hover:text-blue-600 hover:bg-gray-50 transition duration-150 ease-in-out">
-                        GALERI
-                    </Link>
-                    <Link :href="route('download')" :active="route().current('download')"
-                        class="block w-full pl-3 pr-4 py-2 text-base font-medium text-gray-600 hover:text-blue-600 hover:bg-gray-50 transition duration-150 ease-in-out">
-                        DOWNLOAD
-                    </Link>
-                    <div class="pt-2 pb-1 border-t border-gray-200">
-                        <div class="px-4 text-xs font-semibold text-gray-500 uppercase tracking-wider">INFORMASI</div>
-                        <div class="ml-4 border-l-2 border-gray-200 pl-2">
-                            <Link :href="route('informasi.berita')"
-                                class="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100">
-                                Berita</Link>
-                            <Link :href="route('informasi.potensi')"
-                                class="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100">Potensi</Link>
-                            <Link :href="route('informasi.program')"
-                                class="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100">Program</Link>
+
+                    <!-- Sidebar Content -->
+                    <div class="flex-1 overflow-y-auto px-4 py-6">
+                        <nav class="space-y-6">
+                            <!-- Section: Utama -->
+                            <div>
+                                <h3 class="px-4 text-[10px] font-black text-slate-400 uppercase tracking-[0.2em] mb-4">Navigasi Utama</h3>
+                                <div class="space-y-1">
+                                    <Link :href="route('landing')" :class="[route().current('landing') ? 'bg-blue-50 text-blue-600' : 'text-slate-600 hover:bg-slate-50', 'group flex items-center px-4 py-3 text-sm font-bold rounded-2xl transition-all']">
+                                        <i class="fa-solid fa-house fa-fw mr-3 text-lg opacity-70"></i>
+                                        Beranda
+                                    </Link>
+                                    <Link :href="route('pemerintahan.aparatur')" :class="[route().current('pemerintahan.aparatur') ? 'bg-blue-50 text-blue-600' : 'text-slate-600 hover:bg-slate-50', 'group flex items-center px-4 py-3 text-sm font-bold rounded-2xl transition-all']">
+                                        <i class="fa-solid fa-users-gear fa-fw mr-3 text-lg opacity-70"></i>
+                                        Aparatur
+                                    </Link>
+                                    <Link :href="route('pemerintahan.anggaran')" :class="[route().current('pemerintahan.anggaran') ? 'bg-blue-50 text-blue-600' : 'text-slate-600 hover:bg-slate-50', 'group flex items-center px-4 py-3 text-sm font-bold rounded-2xl transition-all']">
+                                        <i class="fa-solid fa-chart-line fa-fw mr-3 text-lg opacity-70"></i>
+                                        Transparansi Anggaran
+                                    </Link>
+                                </div>
+                            </div>
+
+                            <!-- Section: Informasi Publik -->
+                            <div>
+                                <h3 class="px-4 text-[10px] font-black text-slate-400 uppercase tracking-[0.2em] mb-4">Informasi & Data</h3>
+                                <div class="space-y-1">
+                                    <Link :href="route('informasi.berita')" class="group flex items-center px-4 py-3 text-sm font-bold text-slate-600 hover:bg-slate-50 rounded-2xl transition-all">
+                                        <i class="fa-solid fa-newspaper fa-fw mr-3 text-lg opacity-70"></i>
+                                        Berita Terbaru
+                                    </Link>
+                                    <Link :href="route('data.statistik')" class="group flex items-center px-4 py-3 text-sm font-bold text-slate-600 hover:bg-slate-50 rounded-2xl transition-all">
+                                        <i class="fa-solid fa-chart-pie fa-fw mr-3 text-lg opacity-70"></i>
+                                        Statistik Penduduk
+                                    </Link>
+                                    <Link :href="route('galeri')" class="group flex items-center px-4 py-3 text-sm font-bold text-slate-600 hover:bg-slate-50 rounded-2xl transition-all">
+                                        <i class="fa-solid fa-camera-retro fa-fw mr-3 text-lg opacity-70"></i>
+                                        Galeri Kegiatan
+                                    </Link>
+                                </div>
+                            </div>
+
+                            <!-- Section: Layanan -->
+                            <div class="px-2">
+                                <Link :href="route('layanan')" class="flex items-center justify-between p-4 bg-gradient-to-r from-blue-600 to-indigo-700 rounded-3xl shadow-lg shadow-blue-200 group transition-all active:scale-[0.98]">
+                                    <div class="flex items-center gap-3">
+                                        <div class="w-10 h-10 rounded-2xl bg-white/20 flex items-center justify-center text-white">
+                                            <i class="fa-solid fa-hand-holding-heart"></i>
+                                        </div>
+                                        <div class="text-left">
+                                            <p class="text-[10px] font-bold text-white/70 uppercase tracking-widest">Akses</p>
+                                            <p class="text-sm font-black text-white">Layanan Mandiri</p>
+                                        </div>
+                                    </div>
+                                    <i class="fa-solid fa-chevron-right text-white/50 group-hover:translate-x-1 transition-transform"></i>
+                                </Link>
+                            </div>
+                        </nav>
+                    </div>
+
+                    <!-- Sidebar Footer -->
+                    <div class="p-6 bg-slate-50 border-t border-gray-100">
+                        <div class="flex items-center justify-center gap-4 mb-6">
+                            <a href="#" class="w-10 h-10 rounded-2xl bg-white border border-gray-200 flex items-center justify-center text-slate-400 hover:text-blue-600 shadow-sm transition-all"><i class="fa-brands fa-facebook-f"></i></a>
+                            <a href="#" class="w-10 h-10 rounded-2xl bg-white border border-gray-200 flex items-center justify-center text-slate-400 hover:text-pink-500 shadow-sm transition-all"><i class="fa-brands fa-instagram"></i></a>
+                            <a href="#" class="w-10 h-10 rounded-2xl bg-white border border-gray-200 flex items-center justify-center text-slate-400 hover:text-green-500 shadow-sm transition-all"><i class="fa-brands fa-whatsapp"></i></a>
                         </div>
+                        <p class="text-[10px] text-center font-bold text-slate-400 uppercase tracking-widest">&copy; 2026 Admin Portal</p>
                     </div>
                 </div>
-            </div>
+            </transition>
         </nav>
 
         <!-- Page Content -->
