@@ -1,4 +1,4 @@
-name: Deploy Only (Pre-built Assets)
+name: Deploy to Server via SSH
 
 on:
   push:
@@ -18,7 +18,7 @@ jobs:
           key: ${{ secrets.SSH_PRIVATE_KEY }}
           port: ${{ secrets.SERVER_PORT || '22' }}
           script: |
-            cd /path/ke/folder/project/anda
+            cd /var/www/ujung-sabbang
             git pull origin main
             composer install --no-dev --optimize-autoloader
             php artisan migrate --force
