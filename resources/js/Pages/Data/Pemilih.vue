@@ -18,6 +18,15 @@ const voterStats = [
     { label: 'Pemilih Laki-laki', value: pemilih.laki, percentage: ((parseInt(pemilih.laki.replace(/\D/g, '')) / parseInt(pemilih.total.replace(/\D/g, ''))) * 100).toFixed(1), color: 'bg-blue-600', icon: 'fa-male' },
     { label: 'Pemilih Perempuan', value: pemilih.perempuan, percentage: ((parseInt(pemilih.perempuan.replace(/\D/g, '')) / parseInt(pemilih.total.replace(/\D/g, ''))) * 100).toFixed(1), color: 'bg-pink-500', icon: 'fa-female' },
 ];
+
+const handleDownload = () => {
+    const filePath = props.settings?.dpt_file_path;
+    if (filePath) {
+        window.open(filePath, '_blank');
+    } else {
+        alert('Maaf, file data DPT belum tersedia untuk saat ini. Silakan hubungi admin kelurahan.');
+    }
+};
 </script>
 
 <template>
@@ -93,9 +102,9 @@ const voterStats = [
                             <h3 class="text-2xl font-bold text-gray-900 mb-4">Rincian per TPS</h3>
                             <p class="text-gray-500 max-w-md mb-8">Data rincian pemilih per Tempat Pemungutan Suara
                                 (TPS) tersedia untuk dilihat oleh warga yang berkepentingan.</p>
-                            <button
+                            <button @click="handleDownload"
                                 class="px-8 py-3 bg-red-600 text-white font-bold rounded-full hover:bg-red-700 shadow-lg transition-colors flex items-center">
-                                <i class="fas fa-download mr-2"></i> Unduh Data DPT (PDF)
+                                <i class="fas fa-download mr-2"></i> Unduh Data DPT
                             </button>
                         </div>
 

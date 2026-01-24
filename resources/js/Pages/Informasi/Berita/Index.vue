@@ -42,29 +42,17 @@ const formatDate = (dateString) => {
 
     <MainLayout>
         <!-- Hero Section -->
-        <div class="relative bg-slate-900 py-20 overflow-hidden border-b border-white/5">
-            <div
-                class="absolute inset-0 opacity-20 bg-[radial-gradient(#3b82f6_1px,transparent_1px)] [background-size:24px_24px]">
+        <div class="bg-blue-600 py-16 relative overflow-hidden">
+            <div class="absolute inset-0 opacity-50 bg-[url('https://www.transparenttextures.com/patterns/cubes.png')]">
             </div>
-            <div class="absolute -top-24 -right-24 w-96 h-96 bg-blue-600/20 rounded-full blur-3xl"></div>
-
-            <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10 text-left">
-                <div class="flex flex-col md:flex-row md:items-center gap-6 mb-4">
-                    <div
-                        class="w-14 h-14 bg-blue-600 rounded-2xl flex items-center justify-center shadow-2xl shadow-blue-600/30 text-white shrink-0">
-                        <i class="fas fa-newspaper text-2xl"></i>
-                    </div>
-                    <div>
-                        <h1
-                            class="text-3xl md:text-5xl font-black text-white tracking-tight leading-tight font-sans">
-                            Informasi & Berita
-                        </h1>
-                    </div>
+            <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10 text-center">
+                <div
+                    class="w-16 h-16 bg-white/20 backdrop-blur rounded-2xl flex items-center justify-center mx-auto mb-6 shadow-xl border border-white/30 rotate-3">
+                    <i class="fas fa-newspaper text-3xl text-blue-100"></i>
                 </div>
-                <p class="text-slate-400 text-base md:text-lg max-w-2xl font-medium leading-relaxed opacity-80 pl-1">
-                    Kumpulan kabar terbaru, pengumuman resmi, dan dokumentasi kegiatan di lingkungan Kelurahan Ujung
-                    Sabbang.
-                </p>
+                <h1 class="text-4xl md:text-5xl font-black text-white tracking-tight mb-4">Informasi & Berita</h1>
+                <p class="text-blue-100 text-lg max-w-2xl mx-auto font-medium">Kumpulan kabar terbaru, pengumuman resmi,
+                    dan dokumentasi kegiatan di lingkungan Kelurahan Ujung Sabbang.</p>
             </div>
         </div>
 

@@ -50,7 +50,7 @@ const getTextClass = (color) => {
 
     <MainLayout>
         <!-- Hero Section -->
-        <div class="relative bg-slate-900 py-24 overflow-hidden border-b border-white/5">
+        <div class="relative bg-slate-900 py-16 overflow-hidden border-b border-white/5">
             <div
                 class="absolute inset-0 opacity-20 bg-[radial-gradient(#3b82f6_1px,transparent_1px)] [background-size:24px_24px]">
             </div>

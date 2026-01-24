@@ -108,7 +108,9 @@ Route::get('/informasi/berita', [HomeController::class, 'berita'])->name('inform
 Route::get('/informasi/berita/{slug}', [HomeController::class, 'beritaDetail'])->name('informasi.berita.show');
 
 Route::get('/informasi/potensi', function () {
-    return inertia('Informasi/Potensi');
+    return inertia('Informasi/Potensi', [
+        'potensis' => \App\Models\Potensi::latest()->get()
+    ]);
 })->name('informasi.potensi');
 
 Route::get('/informasi/program', function () {
@@ -117,7 +119,9 @@ Route::get('/informasi/program', function () {
 
 // Layanan Route
 Route::get('/layanan', function () {
-    return inertia('Layanan/Index');
+    return inertia('Layanan/Index', [
+        'services' => \App\Models\Layanan::orderBy('order')->get()
+    ]);
 })->name('layanan');
 
 // Pengaduan Route
@@ -205,13 +209,29 @@ Route::prefix('admin')->middleware(['auth'])->group(function () {
         'destroy' => 'admin.download.destroy',
     ]);
 
-    // Pengaduan
     Route::resource('pengaduan', \App\Http\Controllers\Admin\PengaduanController::class)->names([
         'index' => 'admin.pengaduan.index',
         'update' => 'admin.pengaduan.update',
         'destroy' => 'admin.pengaduan.destroy',
     ])->only(['index', 'update', 'destroy']);
 
+    // Layanan
+    Route::post('/layanan/order', [\App\Http\Controllers\Admin\LayananController::class, 'updateOrder'])->name('admin.layanan.order');
+    Route::resource('layanan', \App\Http\Controllers\Admin\LayananController::class)->names([
+        'index' => 'admin.layanan.index',
+        'store' => 'admin.layanan.store',
+        'update' => 'admin.layanan.update',
+        'destroy' => 'admin.layanan.destroy',
+    ])->except(['create', 'edit', 'show']);
+
+
+    // Potensi Desa
+    Route::resource('potensi', \App\Http\Controllers\Admin\PotensiController::class)->names([
+        'index' => 'admin.potensi.index',
+        'store' => 'admin.potensi.store',
+        'update' => 'admin.potensi.update',
+        'destroy' => 'admin.potensi.destroy',
+    ])->except(['create', 'edit', 'show']);
 
     // Statistik Penduduk (Kependudukan)
     Route::get('/kependudukan', [\App\Http\Controllers\Admin\StatistikController::class, 'index'])->name('admin.kependudukan.index');

@@ -74,12 +74,12 @@ const menus = [
             { name: 'APBDes / Anggaran', route: 'admin.anggaran.index' },
             { name: 'Pusat Download', route: 'admin.download.index' },
             { name: 'Program Kerja', route: '#' },
-            { name: 'Potensi Wilayah', route: '#' },
+            { name: 'Potensi Wilayah', route: 'admin.potensi.index' },
         ]
     },
     { name: 'Statistik Penduduk', icon: 'fa-users', route: 'admin.kependudukan.index' },
     { name: 'Galeri Foto', icon: 'fa-images', route: 'admin.galeri.index' },
-    { name: 'Layanan & Surat', icon: 'fa-concierge-bell', route: '#' },
+    { name: 'Layanan & Surat', icon: 'fa-concierge-bell', route: 'admin.layanan.index' },
     { name: 'Pengaduan Warga', icon: 'fa-exclamation-circle', route: 'admin.pengaduan.index' },
     { name: 'Kontak & Sosmed', icon: 'fa-address-book', route: 'admin.kontak' },
     { name: 'Konfigurasi Web', icon: 'fa-cogs', route: 'admin.konfigurasi' },
@@ -197,7 +197,7 @@ const menus = [
                                 <p class="text-[10px] font-black text-slate-400 uppercase tracking-widest">{{
                                     $page.props.auth.user.name }}</p>
                                 <p class="text-xs font-bold text-slate-500 truncate mt-1">{{ $page.props.auth.user.email
-                                }}</p>
+                                    }}</p>
                             </div>
 
                             <Link :href="route('admin.profile.index')"

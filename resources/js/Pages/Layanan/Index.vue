@@ -2,112 +2,9 @@
 import { Head } from '@inertiajs/vue3';
 import MainLayout from '@/Layouts/MainLayout.vue';
 
-const services = [
-    {
-        title: 'KTP, KK & Surat Pindah',
-        desc: 'Pengurusan surat pengantar untuk pembuatan KTP baru, perpanjangan KK, maupun surat pindah datang/keluar.',
-        icon: 'fa-id-card',
-        color: 'bg-orange-50 text-orange-600',
-        requirements: [
-            'Kartu Keluarga (KK) Asli & Fotokopi',
-            'KTP lama (untuk perpanjangan)',
-            'Surat Pengantar dari RT/RW setempat',
-            'Pas foto terbaru (jika diperlukan untuk dokumen fisik)',
-            'Akta Kelahiran (untuk pembuatan KTP baru)'
-        ]
-    },
-    {
-        title: 'Akta Kelahiran & Nikah',
-        desc: 'Layanan pengantar untuk penerbitan akta kelahiran anak dan surat pengantar nikah (NA).',
-        icon: 'fa-file-signature',
-        color: 'bg-blue-50 text-blue-600',
-        requirements: [
-            'Surat Keterangan Lahir dari Bidan/RS',
-            'Buku Nikah/Akta Perkawinan Orang Tua',
-            'KTP & KK Orang Tua',
-            'Fotokopi KTP 2 orang saksi kelahiran',
-            'Surat Pengantar RT/RW'
-        ]
-    },
-    {
-        title: 'Ahli Waris & Surat Kuasa',
-        desc: 'Pembuatan surat pernyataan ahli waris dan legalitas surat kuasa untuk berbagai keperluan hukum.',
-        icon: 'fa-users',
-        color: 'bg-emerald-50 text-emerald-600',
-        requirements: [
-            'Surat Kematian Pewaris',
-            'Fotokopi KTP & KK seluruh Ahli Waris',
-            'Surat Pernyataan Ahli Waris (bermaterai)',
-            'Saksi minimum 2 orang (beserta fotokopi KTP)',
-            'Surat Pengantar dari RT/RW'
-        ]
-    },
-    {
-        title: 'SKCK & Ijin Keramaian',
-        desc: 'Pengurusan pengantar SKCK untuk melamar pekerjaan dan ijin pelaksanaan kegiatan/keramaian.',
-        icon: 'fa-shield-alt',
-        color: 'bg-red-50 text-red-600',
-        requirements: [
-            'Fotokopi KTP & KK',
-            'Fotokopi Akta Kelahiran/Ijazah',
-            'Surat Pengantar dari RT/RW',
-            'Pas Foto 4x6 latar merah (3 lembar)',
-            'Proposal kegiatan (khusus ijin keramaian)'
-        ]
-    },
-    {
-        title: 'Pengantar IMB',
-        desc: 'Surat pengantar untuk pengurusan Ijin Mendirikan Bangunan (IMB) atau PBG.',
-        icon: 'fa-building',
-        color: 'bg-amber-50 text-amber-600',
-        requirements: [
-            'Fotokopi Sertifikat Tanah',
-            'Fotokopi KTP Pemohon',
-            'Fotokopi PBB Tahun Terakhir',
-            'Gambar Denah Bangunan',
-            'Surat Persetujuan Tetangga (jika diperlukan)'
-        ]
-    },
-    {
-        title: 'Akta Kematian',
-        desc: 'Layanan pelaporan kematian warga untuk penerbitan akta kematian dari Disdukcapil.',
-        icon: 'fa-book-reader',
-        color: 'bg-gray-50 text-gray-600',
-        requirements: [
-            'Surat Kematian dari RS/Puskesmas/Kelurahan',
-            'KTP & KK Asli Almarhum/Almarhumah',
-            'Fotokopi KTP Pelapor (Ahli Waris)',
-            'Fotokopi KTP 2 orang saksi',
-            'Surat Pengantar RT/RW'
-        ]
-    },
-    {
-        title: 'SITU & Keterangan Usaha',
-        desc: 'Pembuatan Surat Keterangan Usaha (SKU) untuk pengajuan modal atau legalitas IKM/UMKM.',
-        icon: 'fa-store',
-        color: 'bg-indigo-50 text-indigo-600',
-        requirements: [
-            'Fotokopi KTP & KK Pemilik Usaha',
-            'Surat Pengantar dari RT/RW',
-            'Foto lokasi atau tempat usaha',
-            'Surat pernyataan tidak keberatan tetangga',
-            'Dokumen legalitas tanah lokasi (jika perlu)'
-        ]
-    },
-    {
-        title: 'Keterangan Tidak Mampu',
-        desc: 'Penerbitan SKTM untuk keperluan keringanan biaya sekolah, kesehatan, atau bantuan sosial.',
-        icon: 'fa-hand-holding-heart',
-        color: 'bg-rose-50 text-rose-600',
-        requirements: [
-            'Fotokopi KTP & KK',
-            'Surat Pengantar dari RT/RW (mencantumkan keterangan tidak mampu)',
-            'Surat pernyataan penghasilan orang tua',
-            'Foto kondisi rumah (opsional)',
-            'Tujuan penggunaan SKTM (Sekolah/RS/Bansos)'
-        ]
-    }
-];
+const props = defineProps({
+    services: Array
+});
 
 import { ref } from 'vue';
 const selectedService = ref(null);
@@ -131,12 +28,15 @@ const closeModal = () => {
 
     <MainLayout>
         <!-- Hero Section -->
-        <div class="bg-orange-600 py-20 relative overflow-hidden">
+        <div class="bg-orange-600 py-16 relative overflow-hidden">
             <div class="absolute inset-0 opacity-10 bg-[url('https://www.transparenttextures.com/patterns/cubes.png')]">
             </div>
-            <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10 text-center text-white">
-                <h1 class="text-4xl md:text-6xl font-black mb-6 tracking-tight">Pusat Layanan Warga</h1>
-                <p class="text-orange-50 text-xl max-w-2xl mx-auto">Informasi persyaratan dan prosedur pengurusan
+            <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10 text-center">
+                <div class="w-16 h-16 bg-white/20 backdrop-blur rounded-2xl flex items-center justify-center mx-auto mb-6 shadow-xl border border-white/30 rotate-3">
+                    <i class="fas fa-concierge-bell text-3xl text-orange-100"></i>
+                </div>
+                <h1 class="text-4xl md:text-5xl font-black text-white tracking-tight mb-4">Pusat Layanan Warga</h1>
+                <p class="text-orange-100 text-lg max-w-2xl mx-auto font-medium">Informasi persyaratan dan prosedur pengurusan
                     administrasi di Kelurahan Ujung Sabbang secara transparan dan cepat.</p>
             </div>
         </div>
@@ -144,24 +44,30 @@ const closeModal = () => {
         <!-- Services Grid -->
         <div class="py-20 bg-gray-50">
             <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-                <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8">
-                    <div v-for="service in services" :key="service.title"
-                        class="bg-white rounded-3xl p-8 shadow-xl shadow-orange-900/5 hover:shadow-2xl transition-all duration-500 group border border-gray-100 flex flex-col items-start">
+                <div v-if="props.services.length > 0" class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8">
+                    <div v-for="service in props.services" :key="service.id"
+                        class="bg-white rounded-3xl p-8 shadow-xl shadow-orange-900/5 hover:shadow-2xl transition-all duration-500 group border border-gray-100 flex flex-col items-start translate-y-0 hover:-translate-y-2">
                         <div
-                            :class="[service.color, 'w-16 h-16 rounded-2xl flex items-center justify-center text-2xl mb-6 group-hover:scale-110 transition-transform duration-500 shadow-sm']">
+                            :class="[service.color, 'w-16 h-16 rounded-2xl flex items-center justify-center text-2xl mb-6 group-hover:rotate-12 transition-all duration-500 shadow-sm']">
                             <i :class="['fas', service.icon]"></i>
                         </div>
                         <h3
                             class="text-xl font-bold text-gray-900 mb-4 group-hover:text-orange-600 transition-colors leading-tight">
                             {{ service.title }}</h3>
                         <p class="text-gray-500 text-sm leading-relaxed mb-8 flex-grow">
-                            {{ service.desc }}
+                            {{ service.description }}
                         </p>
                         <button @click="openModal(service)"
                             class="w-full py-3 bg-gray-50 text-gray-700 font-bold rounded-xl group-hover:bg-orange-600 group-hover:text-white transition-all duration-300 flex items-center justify-center">
                             Lihat Syarat <i class="fas fa-chevron-right ml-2 text-xs"></i>
                         </button>
                     </div>
+                </div>
+                <div v-else class="text-center py-20 bg-white rounded-[3rem] border-2 border-dashed border-gray-200">
+                    <div class="w-20 h-20 bg-gray-50 rounded-full flex items-center justify-center mx-auto mb-6 text-gray-300">
+                        <i class="fas fa-file-invoice text-4xl"></i>
+                    </div>
+                    <h3 class="text-xl font-bold text-gray-400">Belum ada data layanan tersedia.</h3>
                 </div>
 
                 <!-- Assistance Section -->

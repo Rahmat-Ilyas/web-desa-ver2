@@ -61,7 +61,7 @@ import { computed } from 'vue';
 
     <MainLayout>
         <!-- Hero Title -->
-        <div class="bg-blue-900 py-24 relative overflow-hidden">
+        <div class="bg-blue-900 py-16 relative overflow-hidden">
             <div class="absolute inset-0 opacity-10 bg-[url('https://www.transparenttextures.com/patterns/cubes.png')]">
             </div>
             <div class="absolute -top-24 -right-24 w-96 h-96 bg-blue-600/20 rounded-full blur-3xl"></div>

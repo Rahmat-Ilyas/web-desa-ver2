@@ -50,7 +50,7 @@ const getColors = (index) => {
 
     <MainLayout>
         <!-- Hero Title -->
-        <div class="bg-blue-900 py-20 relative overflow-hidden">
+        <div class="bg-blue-900 py-16 relative overflow-hidden">
             <div class="absolute inset-0 opacity-10 bg-[url('https://www.transparenttextures.com/patterns/cubes.png')]">
             </div>
             <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10 text-center">

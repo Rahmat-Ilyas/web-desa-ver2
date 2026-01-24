@@ -12,8 +12,10 @@ return new class extends Migration {
     {
         Schema::create('potensis', function (Blueprint $table) {
             $table->id();
-            $table->string('nama');
+            $table->string('judul');
+            $table->string('kategori')->default('Umum');
             $table->text('deskripsi');
+            $table->string('lokasi')->nullable();
             $table->string('image')->nullable();
             $table->timestamps();
         });

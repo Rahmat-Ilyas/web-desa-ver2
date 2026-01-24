@@ -30,7 +30,19 @@ class StatistikController extends Controller
             'statistik_pendidikan' => 'nullable|array',
             'statistik_umur' => 'nullable|array',
             'statistik_pemilih' => 'nullable|array',
+            'dpt_file' => 'nullable|file|mimes:pdf,xls,xlsx,doc,docx|max:10240', // Max 10MB
         ]);
+
+        if ($request->hasFile('dpt_file')) {
+            $file = $request->file('dpt_file');
+            $path = $file->store('dpt', 'public');
+            Setting::updateOrCreate(
+                ['key' => 'dpt_file_path'],
+                ['value' => '/storage/' . $path]
+            );
+        }
+
+        unset($data['dpt_file']); // Don't try to json_encode the file object
 
         foreach ($data as $key => $value) {
             Setting::updateOrCreate(

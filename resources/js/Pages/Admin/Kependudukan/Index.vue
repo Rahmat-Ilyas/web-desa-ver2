@@ -54,7 +54,8 @@ const statsForm = useForm({
         total: '2990',
         laki: '1450',
         perempuan: '1540'
-    }
+    },
+    dpt_file: null
 });
 
 // Helpers for numeric only input
@@ -372,7 +373,7 @@ const removeItem = (key, index) => {
                                     class="mt-4 p-4 bg-rose-50 rounded-2xl border border-rose-100 flex items-center gap-3 text-rose-600">
                                     <i class="fas fa-exclamation-triangle"></i>
                                     <span class="text-[10px] font-black uppercase tracking-wider">{{ errors.agama
-                                        }}</span>
+                                    }}</span>
                                 </div>
                             </transition>
                         </div>
@@ -434,7 +435,7 @@ const removeItem = (key, index) => {
                                     class="mt-4 p-4 bg-rose-50 rounded-2xl border border-rose-100 flex items-center gap-3 text-rose-600">
                                     <i class="fas fa-exclamation-triangle"></i>
                                     <span class="text-[10px] font-black uppercase tracking-wider">{{ errors.pendidikan
-                                        }}</span>
+                                    }}</span>
                                 </div>
                             </transition>
                         </div>
@@ -498,7 +499,7 @@ const removeItem = (key, index) => {
                                     class="mt-4 p-4 bg-rose-50 rounded-2xl border border-rose-100 flex items-center gap-3 text-rose-600">
                                     <i class="fas fa-exclamation-triangle"></i>
                                     <span class="text-[10px] font-black uppercase tracking-wider">{{ errors.umur
-                                        }}</span>
+                                    }}</span>
                                 </div>
                             </transition>
                         </div>
@@ -546,6 +547,27 @@ const removeItem = (key, index) => {
                                         class="w-full bg-white border-none rounded-xl px-4 py-3 font-bold text-slate-700 shadow-sm text-left">
                                 </div>
                             </div>
+
+                            <!-- Upload DPT File -->
+                            <div class="mt-4 p-6 bg-slate-50 rounded-[2rem] border border-slate-100">
+                                <label
+                                    class="block text-[10px] font-black text-slate-500 uppercase tracking-widest mb-3">Upload
+                                    File DPT (PDF/Excel)</label>
+                                <div class="flex items-center gap-4">
+                                    <div class="flex-grow">
+                                        <input type="file" @input="statsForm.dpt_file = $event.target.files[0]"
+                                            class="block w-full text-xs text-slate-500 file:mr-4 file:py-2 file:px-4 file:rounded-full file:border-0 file:text-[10px] file:font-black file:bg-blue-50 file:text-blue-700 hover:file:bg-blue-100 transition-all"
+                                            accept=".pdf,.doc,.docx,.xls,.xlsx" />
+                                    </div>
+                                    <a v-if="settings?.dpt_file_path" :href="settings.dpt_file_path" target="_blank"
+                                        class="px-4 py-2 bg-emerald-50 text-emerald-600 rounded-full text-[10px] font-black uppercase tracking-widest hover:bg-emerald-600 hover:text-white transition-all">
+                                        <i class="fas fa-eye mr-2"></i> Lihat File
+                                    </a>
+                                </div>
+                                <p class="mt-2 text-[9px] text-slate-400 font-bold italic">*File ini yang akan diunduh
+                                    warga di halaman statistik depan.</p>
+                            </div>
+
                             <!-- Validation Error -->
                             <transition-group enter-active-class="transition duration-300 ease-out"
                                 enter-from-class="opacity-0 -translate-y-2" enter-to-class="opacity-100 translate-y-0">
