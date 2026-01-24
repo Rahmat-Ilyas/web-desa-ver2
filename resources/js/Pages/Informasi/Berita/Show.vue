@@ -125,9 +125,9 @@ const copyLink = () => {
                                         <i class="fab fa-whatsapp text-sm"></i>
                                     </a>
                                     <a :href="shareLinks.twitter" target="_blank"
-                                        class="w-10 h-10 rounded-xl bg-slate-50 flex items-center justify-center text-slate-400 hover:bg-[#1DA1F2] hover:text-white transition-all shadow-sm"
-                                        title="Bagikan ke Twitter">
-                                        <i class="fab fa-twitter text-sm"></i>
+                                        class="w-10 h-10 rounded-xl bg-slate-50 flex items-center justify-center text-slate-400 hover:bg-black hover:text-white transition-all shadow-sm"
+                                        title="Bagikan ke Twitter / X">
+                                        <i class="fab fa-x-twitter text-sm"></i>
                                     </a>
                                     <button @click="copyLink"
                                         class="w-10 h-10 rounded-xl bg-slate-50 flex items-center justify-center text-slate-400 hover:bg-slate-900 hover:text-white transition-all shadow-sm"

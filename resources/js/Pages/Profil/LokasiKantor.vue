@@ -42,29 +42,35 @@ defineProps({});
                                 </h3>
 
                                 <address class="not-italic text-gray-600 space-y-4">
-                                    <div class="flex items-start">
+                                    <div v-if="$page.props.settings?.info_umum?.alamat" class="flex items-start">
                                         <i class="fas fa-map-marker-alt mt-1.5 w-6 text-red-500"></i>
                                         <div>
                                             <span class="block font-semibold text-gray-900">Alamat:</span>
-                                            Jl. Sulawesi No. 4, Ujung Sabbang,<br>
-                                            Kec. Ujung, Kota Parepare,<br>
-                                            Sulawesi Selatan 91111
+                                            {{ $page.props.settings.info_umum.alamat }}
                                         </div>
                                     </div>
 
-                                    <div class="flex items-center">
+                                    <div v-if="$page.props.settings?.info_umum?.telepon" class="flex items-center">
                                         <i class="fas fa-phone-alt w-6 text-green-500"></i>
                                         <div>
                                             <span class="block font-semibold text-gray-900">Telepon:</span>
-                                            (0421) 123456
+                                            {{ $page.props.settings.info_umum.telepon }}
                                         </div>
                                     </div>
 
-                                    <div class="flex items-center">
+                                    <div v-if="$page.props.settings?.info_umum?.whatsapp" class="flex items-center">
+                                        <i class="fab fa-whatsapp w-6 text-emerald-500"></i>
+                                        <div>
+                                            <span class="block font-semibold text-gray-900">WhatsApp:</span>
+                                            {{ $page.props.settings.info_umum.whatsapp }}
+                                        </div>
+                                    </div>
+
+                                    <div v-if="$page.props.settings?.info_umum?.email" class="flex items-center">
                                         <i class="fas fa-envelope w-6 text-orange-500"></i>
                                         <div>
                                             <span class="block font-semibold text-gray-900">Email:</span>
-                                            admin@ujungsabbang.go.id
+                                            {{ $page.props.settings.info_umum.email }}
                                         </div>
                                     </div>
                                 </address>
@@ -96,7 +102,8 @@ defineProps({});
                             <h3 class="text-lg font-bold mb-2">Ingin berkunjung?</h3>
                             <p class="text-blue-100 text-sm mb-4">Dapatkan petunjuk arah langsung melalui Google Maps.
                             </p>
-                            <a href="https://www.google.com/maps/dir/?api=1&destination=Kantor+Kelurahan+Ujung+Sabbang,+Parepare" target="_blank"
+                            <a href="https://www.google.com/maps/dir/?api=1&destination=Kantor+Kelurahan+Ujung+Sabbang,+Parepare"
+                                target="_blank"
                                 class="inline-flex items-center px-4 py-2 bg-white text-blue-700 rounded-full font-bold text-sm hover:bg-blue-50 transition-colors shadow-sm">
                                 <i class="fas fa-directions mr-2"></i> Buka Rute
                             </a>

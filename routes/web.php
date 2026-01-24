@@ -150,8 +150,18 @@ Route::prefix('admin')->middleware(['auth'])->group(function () {
     Route::get('/dashboard', [\App\Http\Controllers\Admin\DashboardController::class, 'index'])->name('admin.dashboard');
 
     Route::get('/kontak', function () {
-        return inertia('Admin/Kontak/Index');
+        $info_umum = \App\Models\Setting::where('key', 'info_umum')->first();
+        $sosial_media = \App\Models\Setting::where('key', 'sosial_media')->first();
+
+        return inertia('Admin/Kontak/Index', [
+            'settings' => [
+                'info_umum' => $info_umum ? json_decode($info_umum->value, true) : [],
+                'sosial_media' => $sosial_media ? json_decode($sosial_media->value, true) : []
+            ]
+        ]);
     })->name('admin.kontak');
+
+    Route::post('/kontak', [\App\Http\Controllers\Admin\SettingController::class, 'updateKontak'])->name('admin.kontak.update');
 
     // Struktur Organisasi
     Route::get('/struktur', [\App\Http\Controllers\Admin\StructureController::class, 'index'])->name('admin.struktur.index');

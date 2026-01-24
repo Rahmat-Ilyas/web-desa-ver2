@@ -97,10 +97,12 @@ const formatDate = (dateString) => {
                                 Sampaikan berita atau kegiatan di lingkungan sekitar Anda untuk kami publikasikan di
                                 sini.
                             </p>
-                            <Link :href="route('pengaduan')"
-                                class="inline-flex px-6 py-3 bg-white text-blue-600 font-black text-xs uppercase tracking-widest rounded-xl hover:bg-blue-50 transition-all relative z-10">
-                                Hubungi Kami
-                            </Link>
+                            <a v-if="$page.props.settings?.info_umum?.whatsapp"
+                                :href="'https://wa.me/' + $page.props.settings.info_umum.whatsapp" target="_blank"
+                                class="flex items-center justify-center gap-3 w-full py-4 bg-white text-emerald-600 font-black text-xs uppercase tracking-widest rounded-2xl hover:bg-emerald-50 hover:-translate-y-1 transition-all shadow-xl shadow-blue-900/10 active:scale-[0.98] relative z-10 border border-emerald-100/50">
+                                <i class="fab fa-whatsapp text-lg"></i>
+                                Hubungi via WhatsApp
+                            </a>
                         </div>
                     </div>
 

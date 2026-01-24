@@ -115,23 +115,20 @@ import { computed } from 'vue';
                                         class="text-[10px] font-black text-slate-400 uppercase tracking-[0.2em] mb-4 text-center lg:text-left">
                                         Share:</p>
                                     <div class="flex justify-center lg:justify-start gap-3">
-                                        <a :href="facebookShareUrl"
-                                            target="_blank"
+                                        <a :href="facebookShareUrl" target="_blank"
                                             class="w-10 h-10 rounded-xl bg-slate-50 text-slate-400 flex items-center justify-center hover:bg-[#1877F2] hover:text-white transition-all transform hover:-translate-y-1 shadow-sm group/share"
                                             title="Bagikan ke Facebook">
                                             <i class="fab fa-facebook-f text-sm"></i>
                                         </a>
-                                        <a :href="whatsappShareUrl"
-                                            target="_blank"
+                                        <a :href="whatsappShareUrl" target="_blank"
                                             class="w-10 h-10 rounded-xl bg-slate-50 text-slate-400 flex items-center justify-center hover:bg-[#25D366] hover:text-white transition-all transform hover:-translate-y-1 shadow-sm group/share"
                                             title="Bagikan ke WhatsApp">
                                             <i class="fab fa-whatsapp text-sm"></i>
                                         </a>
-                                        <a :href="twitterShareUrl"
-                                            target="_blank"
-                                            class="w-10 h-10 rounded-xl bg-slate-50 text-slate-400 flex items-center justify-center hover:bg-[#1DA1F2] hover:text-white transition-all transform hover:-translate-y-1 shadow-sm group/share"
+                                        <a :href="twitterShareUrl" target="_blank"
+                                            class="w-10 h-10 rounded-xl bg-slate-50 text-slate-400 flex items-center justify-center hover:bg-black hover:text-white transition-all transform hover:-translate-y-1 shadow-sm group/share"
                                             title="Bagikan ke Twitter / X">
-                                            <i class="fab fa-twitter text-sm"></i>
+                                            <i class="fab fa-x-twitter text-sm"></i>
                                         </a>
                                         <button @click="copyLink"
                                             class="w-10 h-10 rounded-xl bg-slate-50 text-slate-400 flex items-center justify-center hover:bg-slate-900 hover:text-white transition-all transform hover:-translate-y-1 shadow-sm group/share"

@@ -17,17 +17,17 @@ const formatPhoneNumber = (number) => {
     if (!number) return '';
     // Remove all non-numeric characters
     let cleaned = number.replace(/\D/g, '');
-    
+
     // Convert 08... to 628...
     if (cleaned.startsWith('0')) {
         cleaned = '62' + cleaned.substring(1);
     }
-    
+
     // If it starts with 8... (no 0 or 62), add 62
     if (cleaned.startsWith('8')) {
         cleaned = '62' + cleaned;
     }
-    
+
     return cleaned;
 };
 
@@ -112,7 +112,7 @@ const getStatusColor = (status) => {
 };
 
 const getWhatsAppLink = (aduan) => {
-    const adminPhone = '628123456789'; // Placeholder, ideally from settings
+    const adminPhone = page.props.settings?.info_umum?.whatsapp || '628123456789';
     const message = `Halo Admin Kelurahan Ujung Sabbang, saya ingin menanyakan progres aduan saya:
     
 Kode Aduan: ${aduan.kode}
@@ -129,7 +129,7 @@ Mohon informasinya. Terima kasih.`;
 const submit = () => {
     // Format phone before submit
     form.phone = formatPhoneNumber(form.phone);
-    
+
     form.post(route('pengaduan.store'), {
         forceFormData: true,
         preserveScroll: true,
@@ -170,19 +170,23 @@ const submit = () => {
 
         <!-- Hero Section -->
         <div class="bg-gradient-to-br from-red-600 to-rose-700 py-20 relative overflow-hidden">
-             <div class="absolute inset-x-0 bottom-0 top-0 opacity-10 bg-[url('https://www.transparenttextures.com/patterns/cubes.png')]"></div>
+            <div
+                class="absolute inset-x-0 bottom-0 top-0 opacity-10 bg-[url('https://www.transparenttextures.com/patterns/cubes.png')]">
+            </div>
             <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10 text-center">
-                <div class="w-16 h-16 bg-white/20 backdrop-blur-md rounded-2xl flex items-center justify-center mx-auto mb-6 shadow-xl border border-white/30 rotate-3 transition-transform hover:rotate-0">
+                <div
+                    class="w-16 h-16 bg-white/20 backdrop-blur-md rounded-2xl flex items-center justify-center mx-auto mb-6 shadow-xl border border-white/30 rotate-3 transition-transform hover:rotate-0">
                     <i class="fas fa-search-location text-3xl text-white"></i>
                 </div>
                 <h1 class="text-4xl md:text-6xl font-black text-white tracking-tight mb-6">Lacak & Lapor</h1>
-                <p class="text-rose-50 text-xl max-w-2xl mx-auto font-medium">Sampaikan keluhan Anda atau pantau status penanganan aduan yang telah dikirim.</p>
+                <p class="text-rose-50 text-xl max-w-2xl mx-auto font-medium">Sampaikan keluhan Anda atau pantau status
+                    penanganan aduan yang telah dikirim.</p>
             </div>
         </div>
 
         <div class="py-20 bg-gray-50 min-h-screen">
             <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-                
+
                 <div class="grid grid-cols-1 lg:grid-cols-2 gap-16 items-start mb-20">
 
                     <!-- Form Section -->
@@ -302,21 +306,26 @@ const submit = () => {
                         </div>
 
                         <!-- Tracking Section -->
-                        <div class="bg-white rounded-[3rem] p-8 md:p-10 shadow-xl border border-gray-100 overflow-hidden relative">
-                            <div class="absolute top-0 right-0 p-8 opacity-[0.03] scale-125 rotate-12 pointer-events-none text-rose-900">
+                        <div
+                            class="bg-white rounded-[3rem] p-8 md:p-10 shadow-xl border border-gray-100 overflow-hidden relative">
+                            <div
+                                class="absolute top-0 right-0 p-8 opacity-[0.03] scale-125 rotate-12 pointer-events-none text-rose-900">
                                 <i class="fas fa-search-location text-7xl"></i>
                             </div>
-                            
+
                             <div class="relative z-10">
-                                <h2 class="text-xl font-black text-gray-900 mb-2 font-poppins text-left">Lacak Status Aduan</h2>
-                                <p class="text-gray-500 font-bold text-[11px] mb-6">Masukkan nomor WhatsApp Anda saat melapor.</p>
-                                
+                                <h2 class="text-xl font-black text-gray-900 mb-2 font-poppins text-left">Lacak Status
+                                    Aduan</h2>
+                                <p class="text-gray-500 font-bold text-[11px] mb-6">Masukkan nomor WhatsApp Anda saat
+                                    melapor.</p>
+
                                 <div class="space-y-4">
                                     <div class="relative group">
-                                        <div class="absolute left-5 top-1/2 -translate-y-1/2 text-gray-400 group-focus-within:text-rose-500 transition-colors">
+                                        <div
+                                            class="absolute left-5 top-1/2 -translate-y-1/2 text-gray-400 group-focus-within:text-rose-500 transition-colors">
                                             <i class="fab fa-whatsapp"></i>
                                         </div>
-                                        <input v-model="trackPhone" type="tel" placeholder="Contoh: 081234567890" 
+                                        <input v-model="trackPhone" type="tel" placeholder="Contoh: 081234567890"
                                             @keyup.enter="handleTrack"
                                             class="w-full pl-14 pr-4 py-4 bg-gray-50 border-none rounded-2xl focus:ring-4 focus:ring-rose-500/10 focus:bg-white font-bold text-gray-700 transition-all text-sm">
                                     </div>
@@ -330,29 +339,37 @@ const submit = () => {
                             </div>
 
                             <!-- Results inside column -->
-                            <div v-if="trackResults" class="mt-8 space-y-3 animate-in fade-in slide-in-from-top-4 duration-500 relative z-10">
-                                <div v-if="trackResults.length === 0" class="p-6 bg-gray-50 rounded-[2rem] text-center border border-dashed border-gray-200">
+                            <div v-if="trackResults"
+                                class="mt-8 space-y-3 animate-in fade-in slide-in-from-top-4 duration-500 relative z-10">
+                                <div v-if="trackResults.length === 0"
+                                    class="p-6 bg-gray-50 rounded-[2rem] text-center border border-dashed border-gray-200">
                                     <p class="text-gray-400 font-bold text-xs">Data tidak ditemukan.</p>
                                 </div>
-                                <div v-for="res in trackResults" :key="res.id" 
+                                <div v-for="res in trackResults" :key="res.id"
                                     class="p-4 bg-white border border-gray-100 rounded-2xl shadow-sm hover:shadow-md transition-all flex flex-col gap-3 group">
                                     <div class="flex items-start gap-3">
-                                        <div class="w-8 h-8 rounded-lg bg-gray-50 flex items-center justify-center text-gray-400 group-hover:bg-rose-50 group-hover:text-rose-500 transition-colors shrink-0">
+                                        <div
+                                            class="w-8 h-8 rounded-lg bg-gray-50 flex items-center justify-center text-gray-400 group-hover:bg-rose-50 group-hover:text-rose-500 transition-colors shrink-0">
                                             <i class="fas fa-file-alt text-xs"></i>
                                         </div>
                                         <div>
                                             <div class="flex flex-wrap items-center gap-2 mb-1">
-                                                <span class="text-[9px] font-black text-rose-500 bg-rose-50 px-1.5 py-0.5 rounded-md">{{ res.kode }}</span>
-                                                <span class="text-[9px] font-bold text-gray-400">{{ res.created_at }}</span>
+                                                <span
+                                                    class="text-[9px] font-black text-rose-500 bg-rose-50 px-1.5 py-0.5 rounded-md">{{
+                                                    res.kode }}</span>
+                                                <span class="text-[9px] font-bold text-gray-400">{{ res.created_at
+                                                    }}</span>
                                             </div>
-                                            <p class="font-bold text-gray-900 text-[11px] line-clamp-1 italic">"{{ res.pesan }}"</p>
+                                            <p class="font-bold text-gray-900 text-[11px] line-clamp-1 italic">"{{
+                                                res.pesan }}"</p>
                                         </div>
                                     </div>
                                     <div class="flex items-center justify-between border-t border-gray-50 pt-3">
-                                        <div :class="['px-3 py-1 rounded-lg text-[9px] font-black uppercase tracking-tight border', getStatusColor(res.status)]">
+                                        <div
+                                            :class="['px-3 py-1 rounded-lg text-[9px] font-black uppercase tracking-tight border', getStatusColor(res.status)]">
                                             {{ getStatusLabel(res.status) }}
                                         </div>
-                                        <a :href="getWhatsAppLink(res)" target="_blank" 
+                                        <a :href="getWhatsAppLink(res)" target="_blank"
                                             class="flex items-center gap-2 text-[10px] font-black text-emerald-600 hover:text-emerald-700 transition-colors">
                                             <i class="fab fa-whatsapp"></i> Chat Admin
                                         </a>
@@ -374,7 +391,8 @@ const submit = () => {
                                     class="p-4 bg-white/20 backdrop-blur-md rounded-2xl hover:bg-white/30 transition-colors">
                                     <i class="fas fa-phone-alt mr-2"></i> <strong>112</strong>
                                 </a>
-                                <a href="#" class="p-4 bg-rose-600 rounded-2xl hover:bg-rose-700 transition-all">
+                                <a v-if="$page.props.settings?.info_umum?.whatsapp" :href="'https://wa.me/' + $page.props.settings.info_umum.whatsapp" target="_blank"
+                                    class="p-4 bg-rose-600 rounded-2xl hover:bg-rose-700 transition-all flex items-center justify-center">
                                     <i class="fab fa-whatsapp mr-2"></i> Chat Admin
                                 </a>
                             </div>

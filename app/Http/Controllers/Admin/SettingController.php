@@ -30,4 +30,29 @@ class SettingController extends Controller
 
         return Redirect::back()->with('success', 'Konfigurasi web berhasil diperbarui');
     }
+    public function updateKontak(Request $request)
+    {
+        $request->validate([
+            'alamat' => 'nullable|string',
+            'email' => 'nullable|string',
+            'telepon' => 'nullable|string',
+            'whatsapp' => 'nullable|string',
+            'instagram' => 'nullable|string',
+            'facebook' => 'nullable|string',
+            'twitter' => 'nullable|string',
+            'youtube' => 'nullable|string',
+        ]);
+
+        Setting::updateOrCreate(
+            ['key' => 'info_umum'],
+            ['value' => json_encode($request->only(['alamat', 'email', 'telepon', 'whatsapp']))]
+        );
+
+        Setting::updateOrCreate(
+            ['key' => 'sosial_media'],
+            ['value' => json_encode($request->only(['instagram', 'facebook', 'twitter', 'youtube']))]
+        );
+
+        return Redirect::back()->with('success', 'Informasi kontak berhasil diperbarui');
+    }
 }

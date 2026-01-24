@@ -154,7 +154,8 @@ const getFileIcon = (type) => {
                         <p class="text-blue-100 text-sm">Jika dokumen yang Anda cari tidak tersedia, silakan hubungi
                             layanan pengaduan kami.</p>
                     </div>
-                    <a href="#"
+                    <a v-if="$page.props.settings?.info_umum?.whatsapp"
+                        :href="'https://wa.me/' + $page.props.settings.info_umum.whatsapp" target="_blank"
                         class="px-8 py-3 bg-emerald-500 text-white font-bold rounded-full hover:bg-emerald-600 transition-colors shadow-lg flex items-center gap-2">
                         <i class="fab fa-whatsapp text-xl"></i> Hubungi Petugas
                     </a>
