@@ -1,20 +1,13 @@
 <script setup>
-import { Head } from '@inertiajs/vue3';
+import { Head, Link } from '@inertiajs/vue3';
 import AdminLayout from '@/Layouts/AdminLayout.vue';
 
-const stats = [
-    { name: 'Total Berita', value: '42', icon: 'fa-newspaper', color: 'blue' },
-    { name: 'Aduan Masuk', value: '12', icon: 'fa-exclamation-circle', color: 'rose' },
-    { name: 'Data Penduduk', value: '1,240', icon: 'fa-users', color: 'emerald' },
-    { name: 'Dokumen Download', value: '15', icon: 'fa-file-download', color: 'amber' },
-];
-
-const recentActivities = [
-    { title: 'Update Berita: Kerja Bakti', time: '5 Menit yang lalu', type: 'Berita' },
-    { title: 'Aduan Baru: Lampu Jalan Mati', time: '1 Jam yang lalu', type: 'Pengaduan' },
-    { title: 'Upload Galeri: Musrenbang', time: '4 Jam yang lalu', type: 'Galeri' },
-    { title: 'Perubahan Struktur Organisasi', time: 'Kemarin', type: 'Profil' },
-];
+const props = defineProps({
+    stats: Array,
+    recentActivities: Array,
+    pendingPengaduanCount: Number,
+    serverStatus: Array
+});
 </script>
 
 <template>
@@ -49,7 +42,6 @@ const recentActivities = [
                 <div class="bg-white rounded-[2.5rem] shadow-sm border border-gray-100 overflow-hidden">
                     <div class="p-8 border-b border-gray-50 flex items-center justify-between">
                         <h2 class="text-xl font-black text-slate-900">Aktivitas Terakhir</h2>
-                        <button class="text-blue-600 font-bold text-sm hover:underline">Lihat Semua</button>
                     </div>
                     <div class="p-4">
                         <div v-for="act in recentActivities" :key="act.title"
@@ -77,29 +69,59 @@ const recentActivities = [
                     <h3 class="text-xl font-black mb-2 relative z-10">Pintasan Cepat</h3>
                     <p class="text-indigo-200 text-xs font-bold mb-6 relative z-10">Kelola konten yang paling sering
                         diupdate.</p>
-                    <div class="grid grid-cols-2 gap-3 relative z-10">
-                        <button
-                            class="bg-white/10 hover:bg-white/20 backdrop-blur-md p-4 rounded-2xl transition-all flex flex-col items-center gap-3 active:scale-95">
-                            <i class="fas fa-plus-circle text-xl text-blue-400"></i>
-                            <span class="text-[10px] font-bold uppercase">Tambah Berita</span>
-                        </button>
-                        <button
-                            class="bg-white/10 hover:bg-white/20 backdrop-blur-md p-4 rounded-2xl transition-all flex flex-col items-center gap-3 active:scale-95">
-                            <i class="fas fa-image text-xl text-emerald-400"></i>
-                            <span class="text-[10px] font-bold uppercase">Upload Foto</span>
-                        </button>
+                    <div class="grid grid-cols-3 gap-3 relative z-10">
+                        <Link :href="route('admin.berita.create')"
+                            class="bg-white/10 hover:bg-white/20 backdrop-blur-md p-3 rounded-[2rem] transition-all flex flex-col items-center gap-3 active:scale-95 group/btn">
+                            <div
+                                class="w-10 h-10 bg-blue-500/20 rounded-xl flex items-center justify-center group-hover/btn:scale-110 transition-transform">
+                                <i class="fas fa-plus-circle text-lg text-blue-400"></i>
+                            </div>
+                            <span class="text-[10px] font-black uppercase tracking-widest text-center">Tambah
+                                Berita</span>
+                        </Link>
+
+                        <Link :href="route('admin.galeri.index')"
+                            class="bg-white/10 hover:bg-white/20 backdrop-blur-md p-3 rounded-[2rem] transition-all flex flex-col items-center gap-3 active:scale-95 group/btn">
+                            <div
+                                class="w-10 h-10 bg-emerald-500/20 rounded-xl flex items-center justify-center group-hover/btn:scale-110 transition-transform">
+                                <i class="fas fa-image text-lg text-emerald-400"></i>
+                            </div>
+                            <span class="text-[10px] font-black uppercase tracking-widest text-center">Upload
+                                Foto</span>
+                        </Link>
+
+                        <Link :href="route('admin.pengaduan.index')"
+                            class="bg-white/10 hover:bg-white/20 backdrop-blur-md p-3 rounded-[2rem] transition-all flex flex-col items-center gap-3 active:scale-95 group/btn relative">
+                            <!-- Notification Bubble -->
+                            <div v-if="pendingPengaduanCount > 0"
+                                class="absolute top-4 right-4 w-6 h-6 bg-rose-500 rounded-full flex items-center justify-center text-[10px] font-black shadow-lg shadow-rose-500/40 animate-bounce">
+                                {{ pendingPengaduanCount }}
+                            </div>
+                            <div
+                                class="w-10 h-10 bg-rose-500/20 rounded-xl flex items-center justify-center group-hover/btn:scale-110 transition-transform">
+                                <i class="fas fa-exclamation-circle text-lg text-rose-400"></i>
+                            </div>
+                            <span class="text-[10px] font-black uppercase tracking-widest text-center">Pengaduan
+                                Warga</span>
+                        </Link>
                     </div>
                 </div>
 
                 <div class="bg-white rounded-[2.5rem] p-8 border border-gray-100 shadow-sm">
                     <h3 class="font-black text-slate-900 mb-6">Status Server</h3>
-                    <div class="space-y-4">
-                        <div class="flex items-center justify-between mb-2">
-                            <span class="text-xs font-bold text-slate-500 uppercase tracking-widest">Storage</span>
-                            <span class="text-xs font-bold text-slate-900">45%</span>
-                        </div>
-                        <div class="w-full h-3 bg-gray-100 rounded-full overflow-hidden">
-                            <div class="h-full bg-blue-500 rounded-full" style="width: 45%"></div>
+                    <div class="space-y-6">
+                        <div v-for="item in serverStatus" :key="item.label">
+                            <div class="flex items-center justify-between mb-2">
+                                <span class="text-[10px] font-black text-slate-400 uppercase tracking-widest">{{
+                                    item.label }}</span>
+                                <span :class="[`text-${item.color}-600`, 'text-xs font-black']">{{ item.value }}</span>
+                            </div>
+                            <div class="w-full h-2 bg-gray-50 rounded-full overflow-hidden mb-2">
+                                <div :class="[`bg-${item.color}-500`, 'h-full rounded-full transition-all duration-1000']"
+                                    :style="{ width: item.raw + '%' }"></div>
+                            </div>
+                            <p class="text-[9px] font-bold text-slate-400 uppercase tracking-tight">{{ item.detail }}
+                            </p>
                         </div>
                     </div>
                 </div>

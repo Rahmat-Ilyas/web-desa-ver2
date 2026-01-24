@@ -137,9 +137,7 @@ Route::prefix('admin')->middleware(['auth'])->group(function () {
         return redirect()->route('admin.dashboard');
     });
 
-    Route::get('/dashboard', function () {
-        return inertia('Admin/Dashboard');
-    })->name('admin.dashboard');
+    Route::get('/dashboard', [\App\Http\Controllers\Admin\DashboardController::class, 'index'])->name('admin.dashboard');
 
     Route::get('/kontak', function () {
         return inertia('Admin/Kontak/Index');
@@ -215,12 +213,25 @@ Route::prefix('admin')->middleware(['auth'])->group(function () {
     ])->only(['index', 'update', 'destroy']);
 
 
+    // Statistik Penduduk (Kependudukan)
+    Route::get('/kependudukan', [\App\Http\Controllers\Admin\StatistikController::class, 'index'])->name('admin.kependudukan.index');
+    Route::post('/statistik', [\App\Http\Controllers\Admin\StatistikController::class, 'update'])->name('admin.statistik.update');
+
     // Profile Settings
     Route::get('/profile', [\App\Http\Controllers\Admin\ProfileController::class, 'index'])->name('admin.profile.index');
     Route::post('/profile', [\App\Http\Controllers\Admin\ProfileController::class, 'update'])->name('admin.profile.update');
 
     // Konfigurasi Web
     Route::get('/konfigurasi', function () {
-        return inertia('Admin/Konfigurasi/Index');
+        return inertia('Admin/Konfigurasi/Index', [
+            'settings' => \App\Models\Setting::all()->pluck('value', 'key')->map(function ($value, $key) {
+                if (in_array($key, ['statistik_umum', 'statistik_agama', 'statistik_pendidikan', 'statistik_umur', 'statistik_pemilih'])) {
+                    return json_decode($value, true);
+                }
+                return $value;
+            })
+        ]);
     })->name('admin.konfigurasi');
+
+    Route::post('/konfigurasi', [\App\Http\Controllers\Admin\SettingController::class, 'updateKonfigurasi'])->name('admin.konfigurasi.update');
 });

@@ -2,9 +2,21 @@
 import { Head } from '@inertiajs/vue3';
 import MainLayout from '@/Layouts/MainLayout.vue';
 
+const props = defineProps({
+    settings: Object,
+});
+
+const defaultPemilih = {
+    total: '2.990',
+    laki: '1.450',
+    perempuan: '1.540'
+};
+
+const pemilih = props.settings?.statistik_pemilih || defaultPemilih;
+
 const voterStats = [
-    { label: 'Pemilih Laki-laki', value: '1.450', percentage: '48.5', color: 'bg-blue-600', icon: 'fa-male' },
-    { label: 'Pemilih Perempuan', value: '1.540', percentage: '51.5', color: 'bg-pink-500', icon: 'fa-female' },
+    { label: 'Pemilih Laki-laki', value: pemilih.laki, percentage: ((parseInt(pemilih.laki.replace(/\D/g, '')) / parseInt(pemilih.total.replace(/\D/g, ''))) * 100).toFixed(1), color: 'bg-blue-600', icon: 'fa-male' },
+    { label: 'Pemilih Perempuan', value: pemilih.perempuan, percentage: ((parseInt(pemilih.perempuan.replace(/\D/g, '')) / parseInt(pemilih.total.replace(/\D/g, ''))) * 100).toFixed(1), color: 'bg-pink-500', icon: 'fa-female' },
 ];
 </script>
 
@@ -35,22 +47,27 @@ const voterStats = [
                     <!-- Left Column: Big Total -->
                     <div class="lg:col-span-1">
                         <div
-                            class="bg-gradient-to-br from-red-600 to-red-800 rounded-3xl p-10 text-white shadow-2xl relative overflow-hidden">
-                            <div class="absolute -right-10 -bottom-10 opacity-10">
+                            class="bg-gradient-to-br from-red-600 to-red-800 rounded-3xl p-10 text-white shadow-2xl relative overflow-hidden group/main hover:-translate-y-4 transition-transform duration-700 h-full">
+                            <div
+                                class="absolute -right-10 -bottom-10 opacity-10 group-hover/main:rotate-12 transition-transform duration-1000">
                                 <i class="fas fa-id-card text-[200px]"></i>
                             </div>
-                            <h3 class="text-red-200 font-bold uppercase tracking-widest text-sm mb-2">Total Daftar
+                            <h3
+                                class="text-red-200 font-bold uppercase tracking-widest text-sm mb-2 group-hover/main:text-white transition-colors">
+                                Total Daftar
                                 Pemilih</h3>
-                            <div class="text-6xl font-black mb-4 tracking-tighter">2.990</div>
-                            <div class="text-red-100 font-medium leading-relaxed">Wajib Pilih yang telah terdaftar
+                            <div
+                                class="text-6xl font-black mb-4 tracking-tighter group-hover/main:scale-105 origin-left transition-transform duration-500">
+                                {{ pemilih.total }}</div>
+                            <div class="text-red-100 font-medium leading-relaxed mb-10">Wajib Pilih yang telah terdaftar
                                 secara sah di sistem administrasi kependudukan.</div>
 
-                            <div class="mt-10 space-y-4">
+                            <div class="space-y-4">
                                 <div v-for="stat in voterStats" :key="stat.label"
-                                    class="bg-black/20 backdrop-blur p-4 rounded-2xl flex items-center">
+                                    class="bg-black/20 backdrop-blur p-5 rounded-3xl flex items-center group/item hover:bg-white/10 transition-all duration-300">
                                     <div
-                                        class="w-10 h-10 rounded-full bg-white/20 flex items-center justify-center mr-4">
-                                        <i :class="['fas', stat.icon, 'text-white']"></i>
+                                        class="w-12 h-12 rounded-2xl bg-white/20 flex items-center justify-center mr-5 group-hover/item:rotate-12 transition-transform">
+                                        <i :class="['fas', stat.icon, 'text-xl text-white']"></i>
                                     </div>
                                     <div class="flex-grow">
                                         <div class="text-[10px] text-red-200 uppercase font-bold tracking-widest">{{

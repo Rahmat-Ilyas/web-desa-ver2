@@ -2,12 +2,27 @@
 import { Head } from '@inertiajs/vue3';
 import MainLayout from '@/Layouts/MainLayout.vue';
 
-const religions = [
-    { label: 'Islam', value: '4.150', percentage: '97.6', color: 'bg-emerald-600', icon: 'fa-mosque' },
-    { label: 'Kristen Protestan', value: '65', percentage: '1.5', color: 'bg-blue-600', icon: 'fa-church' },
-    { label: 'Katolik', value: '25', percentage: '0.6', color: 'bg-indigo-600', icon: 'fa-cross' },
-    { label: 'Hindu / Budha / Lainnya', value: '10', percentage: '0.3', color: 'bg-orange-500', icon: 'fa-om' },
+const props = defineProps({
+    settings: Object,
+});
+
+const defaultReligions = [
+    { label: 'Islam', value: '4.150', color: 'bg-emerald-600', icon: 'fa-mosque' },
+    { label: 'Kristen Protestan', value: '65', color: 'bg-blue-600', icon: 'fa-church' },
+    { label: 'Katolik', value: '25', color: 'bg-indigo-600', icon: 'fa-cross' },
+    { label: 'Hindu / Budha / Lainnya', value: '10', color: 'bg-orange-500', icon: 'fa-om' },
 ];
+
+const rawTotal = props.settings?.statistik_umum?.find(s => s.label === 'Total Penduduk')?.value || '1';
+const totalPenduduk = parseInt(rawTotal.toString().replace(/\D/g, '')) || 1;
+
+const religions = (props.settings?.statistik_agama || defaultReligions).map(item => {
+    const val = parseInt(item.value.toString().replace(/\D/g, '')) || 0;
+    return {
+        ...item,
+        percentage: ((val / totalPenduduk) * 100).toFixed(1)
+    };
+});
 </script>
 
 <template>
@@ -28,28 +43,30 @@ const religions = [
         <div class="py-16 bg-white">
             <div class="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8">
 
-                <div class="space-y-12">
-                    <div v-for="rel in religions" :key="rel.label" class="group">
-                        <div class="flex items-center justify-between mb-4">
+                <div class="space-y-8">
+                    <div v-for="rel in religions" :key="rel.label"
+                        class="group bg-white p-8 rounded-[2.5rem] border border-gray-100 shadow-sm hover:shadow-2xl hover:-translate-y-2 transition-all duration-500">
+                        <div class="flex items-center justify-between mb-6">
                             <div class="flex items-center">
                                 <div
-                                    :class="[rel.color, 'w-12 h-12 rounded-2xl flex items-center justify-center text-white text-xl shadow-lg mr-4 group-hover:scale-110 transition-transform']">
+                                    :class="[rel.color, 'w-16 h-16 rounded-[1.5rem] flex items-center justify-center text-white text-2xl shadow-lg mr-6 group-hover:rotate-12 transition-transform duration-500']">
                                     <i :class="['fas', rel.icon]"></i>
                                 </div>
                                 <div>
-                                    <h3 class="text-xl font-bold text-gray-900">{{ rel.label }}</h3>
-                                    <div class="text-2xl font-black text-emerald-600">{{ rel.value }} <span
-                                            class="text-xs font-bold text-gray-400">JIWA</span></div>
+                                    <h3 class="text-xs font-black text-gray-400 uppercase tracking-widest mb-1">{{
+                                        rel.label }}</h3>
+                                    <div class="text-3xl font-black text-slate-800">{{ rel.value }} <span
+                                            class="text-xs font-bold text-gray-300">JIWA</span></div>
                                 </div>
                             </div>
                             <div class="text-right">
                                 <span
-                                    class="text-4xl font-black text-gray-200 group-hover:text-emerald-100 transition-colors">{{
-                                    rel.percentage }}%</span>
+                                    class="text-5xl font-black text-gray-100 group-hover:text-emerald-500/20 transition-colors duration-500">{{
+                                        rel.percentage }}%</span>
                             </div>
                         </div>
-                        <div class="w-full bg-gray-100 rounded-full h-3 overflow-hidden">
-                            <div :class="[rel.color, 'h-full rounded-full transition-all duration-1000']"
+                        <div class="w-full bg-gray-50 rounded-full h-4 overflow-hidden p-1 shadow-inner">
+                            <div :class="[rel.color, 'h-full rounded-full transition-all duration-[1.5s] ease-out group-hover:brightness-110']"
                                 :style="{ width: rel.percentage + '%' }"></div>
                         </div>
                     </div>

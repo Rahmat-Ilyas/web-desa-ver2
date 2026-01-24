@@ -1,15 +1,66 @@
 <script setup>
 import { Head } from '@inertiajs/vue3';
 import MainLayout from '@/Layouts/MainLayout.vue';
+import { computed } from 'vue';
 
-const ageGroups = [
-    { label: '0 - 5 Tahun (Balita)', value: '350', percentage: '8.2', color: 'bg-rose-500' },
-    { label: '6 - 12 Tahun (Anak)', value: '480', percentage: '11.3', color: 'bg-orange-500' },
-    { label: '13 - 17 Tahun (Remaja)', value: '420', percentage: '9.9', color: 'bg-yellow-500' },
-    { label: '18 - 40 Tahun (Pemuda)', value: '1450', percentage: '34.1', color: 'bg-green-500' },
-    { label: '41 - 60 Tahun (Dewasa)', value: '1150', percentage: '27.1', color: 'bg-blue-500' },
-    { label: '60+ Tahun (Lansia)', value: '400', percentage: '9.4', color: 'bg-purple-500' },
+const props = defineProps({
+    settings: Object,
+});
+
+const defaultGroups = [
+    { label: '0 - 5 Tahun (Balita)', value: '350', color: 'bg-rose-500' },
+    { label: '6 - 12 Tahun (Anak)', value: '480', color: 'bg-orange-500' },
+    { label: '13 - 17 Tahun (Remaja)', value: '420', color: 'bg-yellow-500' },
+    { label: '18 - 40 Tahun (Pemuda)', value: '1450', color: 'bg-green-500' },
+    { label: '41 - 60 Tahun (Dewasa)', value: '1150', color: 'bg-blue-500' },
+    { label: '60+ Tahun (Lansia)', value: '400', color: 'bg-purple-500' },
 ];
+
+const rawTotal = props.settings?.statistik_umum?.find(s => s.label === 'Total Penduduk')?.value || '1';
+const totalPenduduk = parseInt(rawTotal.toString().replace(/\D/g, '')) || 1;
+
+const ageGroups = (props.settings?.statistik_umur || defaultGroups).map(item => {
+    const val = parseInt(item.value.toString().replace(/\D/g, '')) || 0;
+    return {
+        ...item,
+        percentage: ((val / totalPenduduk) * 100).toFixed(1)
+    };
+});
+
+// Dynamic Summary Calculations
+const productiveAgeSum = ageGroups.reduce((acc, curr) => {
+    const label = curr.label.toLowerCase();
+    // 18-60 is considered productive based on current labels
+    if (label.includes('pemuda') || label.includes('dewasa') || label.includes('18-40') || label.includes('41-60')) {
+        return acc + (parseInt(curr.value.toString().replace(/\D/g, '')) || 0);
+    }
+    return acc;
+}, 0);
+
+const productivePercent = ((productiveAgeSum / totalPenduduk) * 100).toFixed(1);
+
+const nonProductiveSum = totalPenduduk - productiveAgeSum;
+const dependencyRatio = ((nonProductiveSum / productiveAgeSum) * 100).toFixed(1);
+
+const dependencyInfo = computed(() => {
+    const ratio = parseFloat(dependencyRatio);
+    if (ratio < 50) {
+        return {
+            text: 'Sangat Rendah',
+            desc: 'yang menunjukkan stabilitas ekonomi mikro di wilayah ini serta tingginya potensi tenaga kerja produktif.'
+        };
+    } else if (ratio < 70) {
+        return {
+            text: 'Moderat',
+            desc: 'yang mencerminkan keseimbangan beban tanggungan penduduk namun tetap memerlukan penguatan sektor ekonomi lokal.'
+        };
+    } else {
+        return {
+            text: 'Tinggi',
+            desc: 'yang menunjukkan beban tanggungan yang cukup besar, sehingga memerlukan perhatian lebih pada program perlindungan sosial.'
+        };
+    }
+});
 </script>
 
 <template>
@@ -35,39 +86,41 @@ const ageGroups = [
                         <h2 class="text-2xl font-bold text-gray-900">Rincian Kelompok Usia</h2>
                         <p class="text-gray-500 text-sm">Data dihitung berdasarkan tahun berjalan.</p>
                     </div>
-                    <div class="p-8 space-y-8">
-                        <div v-for="group in ageGroups" :key="group.label">
-                            <div class="flex justify-between items-end mb-2">
-                                <span class="text-gray-700 font-bold">{{ group.label }}</span>
+                    <div class="p-8 space-y-6">
+                        <div v-for="group in ageGroups" :key="group.label" 
+                             class="group p-6 rounded-[2rem] hover:bg-white hover:shadow-2xl hover:-translate-y-1 transition-all duration-500 border border-transparent hover:border-gray-100">
+                            <div class="flex justify-between items-center mb-4">
+                                <div class="flex items-center gap-3">
+                                    <span class="text-xs font-black text-gray-400 uppercase tracking-widest group-hover:text-slate-900 transition-colors">{{ group.label }}</span>
+                                    <span class="px-2 py-0.5 rounded-md bg-slate-100 text-[10px] font-black text-slate-500 group-hover:bg-slate-900 group-hover:text-white transition-all duration-300">
+                                        {{ group.percentage }}%
+                                    </span>
+                                </div>
                                 <div class="text-right">
-                                    <span class="text-2xl font-black text-gray-900 block leading-none">{{ group.value }}
-                                        <span class="text-sm font-medium text-gray-400">Jiwa</span></span>
+                                    <span class="text-3xl font-black text-slate-800 block leading-none tracking-tight">{{ group.value }}
+                                         <span class="text-[10px] font-bold text-gray-300">JIWA</span></span>
                                 </div>
                             </div>
-                            <div class="w-full bg-gray-100 rounded-full h-4 overflow-hidden shadow-inner">
-                                <div :class="[group.color, 'h-full rounded-full transition-all duration-[1.5s] ease-out']"
+                            <div class="w-full bg-gray-50 rounded-full h-4 overflow-hidden p-1 shadow-inner relative">
+                                <div :class="[group.color, 'h-full rounded-full transition-all duration-[2s] ease-out group-hover:brightness-110']"
                                     :style="{ width: group.percentage + '%' }"></div>
                             </div>
-                            <div class="text-[10px] font-bold text-gray-400 mt-1 uppercase tracking-widest">{{
-                                group.percentage }}% DARI TOTAL POPULASI</div>
                         </div>
                     </div>
                 </div>
 
                 <div class="mt-12 grid grid-cols-1 md:grid-cols-2 gap-8">
-                    <div class="bg-blue-50 p-6 rounded-2xl border border-blue-100">
-                        <h4 class="font-bold text-blue-900 mb-2 flex items-center">
-                            <i class="fas fa-baby mr-2"></i> Usia Produktif
+                    <div class="bg-blue-50 p-8 rounded-[2.5rem] border border-blue-100 hover:shadow-xl transition-all duration-500 group">
+                        <h4 class="font-black text-blue-900 mb-3 flex items-center group-hover:translate-x-2 transition-transform">
+                            <i class="fas fa-briefcase mr-3 text-blue-500"></i> Usia Produktif
                         </h4>
-                        <p class="text-blue-800 text-sm">Populasi usia produktif (18-60 thn) mendominasi sebesar 61.2%
-                            dari total penduduk.</p>
+                        <p class="text-blue-800 text-sm leading-relaxed font-medium">Berdasarkan data terbaru, populasi usia produktif (18-60 thn) mencapai <span class="font-black text-blue-600 underline decoration-blue-200 decoration-4 underline-offset-4">{{ productivePercent }}%</span> dari total seluruh penduduk.</p>
                     </div>
-                    <div class="bg-purple-50 p-6 rounded-2xl border border-purple-100">
-                        <h4 class="font-bold text-purple-900 mb-2 flex items-center">
-                            <i class="fas fa-wheelchair mr-2"></i> Angka Ketergantungan
+                    <div class="bg-purple-50 p-8 rounded-[2.5rem] border border-purple-100 hover:shadow-xl transition-all duration-500 group">
+                        <h4 class="font-black text-purple-900 mb-3 flex items-center group-hover:translate-x-2 transition-transform">
+                            <i class="fas fa-chart-line mr-3 text-purple-500"></i> Rasio Ketergantungan
                         </h4>
-                        <p class="text-purple-800 text-sm">Rasio penduduk tidak produktif terhadap penduduk produktif
-                            berada pada level yang stabil.</p>
+                        <p class="text-purple-800 text-sm leading-relaxed font-medium">Angka beban ketergantungan berada pada level <span class="font-black text-purple-600 underline decoration-purple-200 decoration-4 underline-offset-4">{{ dependencyInfo.text }}</span> ({{ dependencyRatio }}%), {{ dependencyInfo.desc }}</p>
                     </div>
                 </div>
             </div>

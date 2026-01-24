@@ -61,6 +61,12 @@ class HandleInertiaRequests extends Middleware
             'pendingPengaduanCount' => $request->user()
                 ? \App\Models\Pengaduan::where('status', 'pending')->count()
                 : 0,
+            'settings' => \App\Models\Setting::all()->pluck('value', 'key')->map(function ($value, $key) {
+                if (in_array($key, ['statistik_umum', 'statistik_agama', 'statistik_pendidikan', 'statistik_umur', 'statistik_pemilih'])) {
+                    return json_decode($value, true);
+                }
+                return $value;
+            }),
         ]);
     }
 }
