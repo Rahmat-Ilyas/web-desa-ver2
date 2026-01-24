@@ -55,12 +55,12 @@ Route::get('/pemerintahan/anggaran', function () {
 
     // Get available years for filter
     $years = \App\Models\Anggaran::select('tahun')->distinct()->orderBy('tahun', 'asc')->pluck('tahun')->toArray();
-    
+
     // Add current year if not present
     if (!in_array(date('Y'), $years)) {
         $years[] = date('Y');
     }
-    
+
     // Ensure unique and sorted ascending
     $years = array_unique($years);
     sort($years);
@@ -121,9 +121,10 @@ Route::get('/layanan', function () {
 })->name('layanan');
 
 // Pengaduan Route
-Route::get('/pengaduan', function () {
-    return inertia('Pengaduan/Index');
-})->name('pengaduan');
+Route::get('/pengaduan', [\App\Http\Controllers\PengaduanController::class, 'index'])->name('pengaduan');
+Route::post('/pengaduan', [\App\Http\Controllers\PengaduanController::class, 'store'])->name('pengaduan.store');
+Route::post('/pengaduan/track', [\App\Http\Controllers\PengaduanController::class, 'track'])->name('pengaduan.track');
+
 
 // Home route needed for some redirects
 Route::get('/home', function () {
@@ -205,4 +206,21 @@ Route::prefix('admin')->middleware(['auth'])->group(function () {
         'update' => 'admin.download.update',
         'destroy' => 'admin.download.destroy',
     ]);
+
+    // Pengaduan
+    Route::resource('pengaduan', \App\Http\Controllers\Admin\PengaduanController::class)->names([
+        'index' => 'admin.pengaduan.index',
+        'update' => 'admin.pengaduan.update',
+        'destroy' => 'admin.pengaduan.destroy',
+    ])->only(['index', 'update', 'destroy']);
+
+
+    // Profile Settings
+    Route::get('/profile', [\App\Http\Controllers\Admin\ProfileController::class, 'index'])->name('admin.profile.index');
+    Route::post('/profile', [\App\Http\Controllers\Admin\ProfileController::class, 'update'])->name('admin.profile.update');
+
+    // Konfigurasi Web
+    Route::get('/konfigurasi', function () {
+        return inertia('Admin/Konfigurasi/Index');
+    })->name('admin.konfigurasi');
 });

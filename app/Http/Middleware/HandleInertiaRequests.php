@@ -46,10 +46,21 @@ class HandleInertiaRequests extends Middleware
                 'success' => $request->session()->get('success'),
                 'error' => $request->session()->get('error'),
             ],
+            'auth' => [
+                'user' => $request->user() ? [
+                    'id' => $request->user()->id,
+                    'name' => $request->user()->name,
+                    'email' => $request->user()->email,
+                    'updated_at' => $request->user()->updated_at,
+                ] : null,
+            ],
             'footerGaleris' => \App\Models\Galeri::latest()
                 ->select('id', 'judul', 'image')
                 ->take(6)
                 ->get(),
+            'pendingPengaduanCount' => $request->user()
+                ? \App\Models\Pengaduan::where('status', 'pending')->count()
+                : 0,
         ]);
     }
 }
