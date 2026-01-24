@@ -258,7 +258,7 @@ Route::prefix('admin')->middleware(['auth'])->group(function () {
         'destroy' => 'admin.program.destroy',
     ])->except(['create', 'edit', 'show']);
 
-    // Lembaga Desa Routes
+    // Lembaga Kelurahan Routes
     Route::resource('rukun-warga', \App\Http\Controllers\Admin\RukunWargaController::class)->names([
         'index' => 'admin.rukun-warga.index',
         'store' => 'admin.rukun-warga.store',
