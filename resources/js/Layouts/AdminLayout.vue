@@ -87,8 +87,8 @@ const menus = [
             { name: 'Rukun Warga (RW)', route: 'admin.rukun-warga.index' },
             { name: 'Rukun Tetangga (RT)', route: 'admin.rukun-tetangga.index' },
             { name: 'LPMK', route: 'admin.lpmk.index' },
-            { name: 'Karang Taruna', route: 'admin.karang-taruna.index' },
             { name: 'PKK', route: 'admin.pkk.index' },
+            { name: 'Karang Taruna', route: 'admin.karang-taruna.index' },
             { name: 'Majelis Taklim', route: 'admin.majelis-taklim.index' },
         ]
     },

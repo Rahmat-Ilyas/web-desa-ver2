@@ -35,7 +35,17 @@ Route::get('/lembaga/rw', function () {
 })->name('lembaga.rw');
 
 Route::get('/lembaga/pkk', function () {
-    return inertia('Lembaga/PKK');
+    $programs = \App\Models\Setting::where('key', 'program_pkk')->first()?->value;
+    $programsArray = json_decode($programs, true);
+    if (!is_array($programsArray)) {
+        $programsArray = $programs ? explode("\n", $programs) : [];
+    }
+
+    return inertia('Lembaga/PKK', [
+        'members' => \App\Models\Pkk::orderBy('urutan', 'asc')->get(),
+        'profile' => \App\Models\Setting::where('key', 'profil_pkk')->first()?->value,
+        'programs' => $programsArray
+    ]);
 })->name('lembaga.pkk');
 
 Route::get('/lembaga/karang-taruna', function () {
@@ -43,7 +53,17 @@ Route::get('/lembaga/karang-taruna', function () {
 })->name('lembaga.karang-taruna');
 
 Route::get('/lembaga/lpmk', function () {
-    return inertia('Lembaga/LPMK');
+    $tasks = \App\Models\Setting::where('key', 'tugas_lpmk')->first()?->value;
+    $tasksArray = json_decode($tasks, true);
+    if (!is_array($tasksArray)) {
+        $tasksArray = $tasks ? explode("\n", $tasks) : [];
+    }
+
+    return inertia('Lembaga/LPMK', [
+        'members' => \App\Models\Lpmk::orderBy('urutan', 'asc')->get(),
+        'profile' => \App\Models\Setting::where('key', 'profil_lpmk')->first()?->value,
+        'tasks' => $tasksArray
+    ]);
 })->name('lembaga.lpmk');
 
 Route::get('/lembaga/majelis-taklim', function () {
@@ -273,6 +293,7 @@ Route::prefix('admin')->middleware(['auth'])->group(function () {
         'destroy' => 'admin.rukun-tetangga.destroy',
     ])->except(['create', 'edit', 'show']);
 
+    Route::put('pkk/profile', [\App\Http\Controllers\Admin\PkkController::class, 'updateProfile'])->name('admin.pkk.profile.update');
     Route::resource('pkk', \App\Http\Controllers\Admin\PkkController::class)->names([
         'index' => 'admin.pkk.index',
         'store' => 'admin.pkk.store',
@@ -287,6 +308,7 @@ Route::prefix('admin')->middleware(['auth'])->group(function () {
         'destroy' => 'admin.karang-taruna.destroy',
     ])->except(['create', 'edit', 'show']);
 
+    Route::put('lpmk/profile', [\App\Http\Controllers\Admin\LpmkController::class, 'updateProfile'])->name('admin.lpmk.profile.update');
     Route::resource('lpmk', \App\Http\Controllers\Admin\LpmkController::class)->names([
         'index' => 'admin.lpmk.index',
         'store' => 'admin.lpmk.store',

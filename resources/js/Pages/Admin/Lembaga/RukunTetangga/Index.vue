@@ -219,8 +219,9 @@ const formatWa = (number) => {
                 <div class="flex min-h-full items-center justify-center p-4">
                     <div class="relative bg-white rounded-[2.5rem] shadow-2xl w-full max-w-lg p-8 overflow-hidden">
                         <div class="flex justify-between items-center mb-8">
-                            <h2 class="text-xl font-black text-slate-900">{{ editingItem ? 'Edit Data RT' : 'Tambah RT
-                                Baru' }}</h2>
+                            <h2 class="text-xl font-black text-slate-900">
+                                {{ editingItem ? 'Edit Data RT' : 'Tambah RT Baru' }}
+                            </h2>
                             <button @click="closeModal"
                                 class="p-2 hover:bg-slate-100 rounded-xl transition-colors text-slate-400">
                                 <i class="fas fa-times"></i>
@@ -287,8 +288,8 @@ const formatWa = (number) => {
                                         <i class="fas fa-camera text-slate-400 group-hover:text-blue-500"></i>
                                         <span
                                             class="text-xs font-bold text-slate-500 group-hover:text-blue-600 line-clamp-1">{{
-                                                form.foto_ketua ? (form.foto_ketua.name || 'Ganti foto terpilih') : 'Upload
-                                            Foto JPG/PNG' }}</span>
+                                                form.foto_ketua ? (form.foto_ketua.name || 'Ganti foto terpilih') :
+                                                    'Upload Foto JPG/PNG' }}</span>
                                     </div>
                                 </div>
                             </div>
