@@ -4,17 +4,18 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Model;
 
-class RukunWarga extends Model
+class RukunTetangga extends Model
 {
     protected $fillable = [
-        'no_rw',
+        'rukun_warga_id',
+        'no_rt',
         'nama_ketua',
         'no_hp',
         'foto_ketua'
     ];
 
-    public function rukunTetanggas()
+    public function rukunWarga()
     {
-        return $this->hasMany(RukunTetangga::class);
+        return $this->belongsTo(RukunWarga::class);
     }
 }

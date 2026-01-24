@@ -226,6 +226,11 @@ onUnmounted(() => {
                                                     class="fas fa-users w-5 text-gray-400 group-hover:text-blue-500 transition-colors"></i>
                                                 Rukun Tetangga (RT)
                                             </DropdownLink>
+                                            <DropdownLink :href="route('lembaga.lpmk')">
+                                                <i
+                                                    class="fas fa-hands-helping w-5 text-gray-400 group-hover:text-blue-500 transition-colors"></i>
+                                                LPMK
+                                            </DropdownLink>
                                             <DropdownLink :href="route('lembaga.pkk')">
                                                 <i
                                                     class="fas fa-female w-5 text-gray-400 group-hover:text-blue-500 transition-colors"></i>
@@ -235,11 +240,6 @@ onUnmounted(() => {
                                                 <i
                                                     class="fas fa-child w-5 text-gray-400 group-hover:text-blue-500 transition-colors"></i>
                                                 Karang Taruna
-                                            </DropdownLink>
-                                            <DropdownLink :href="route('lembaga.lpmk')">
-                                                <i
-                                                    class="fas fa-hands-helping w-5 text-gray-400 group-hover:text-blue-500 transition-colors"></i>
-                                                LPMK
                                             </DropdownLink>
                                             <DropdownLink :href="route('lembaga.majelis-taklim')">
                                                 <i

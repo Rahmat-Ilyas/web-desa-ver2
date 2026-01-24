@@ -23,11 +23,15 @@ Route::get('/profil/peta-lokasi', function () {
 
 // Lembaga Routes
 Route::get('/lembaga/rt', function () {
-    return inertia('Lembaga/RT');
+    return inertia('Lembaga/RT', [
+        'members' => \App\Models\RukunTetangga::with('rukunWarga')->orderBy('no_rt', 'asc')->get()
+    ]);
 })->name('lembaga.rt');
 
 Route::get('/lembaga/rw', function () {
-    return inertia('Lembaga/RW');
+    return inertia('Lembaga/RW', [
+        'members' => \App\Models\RukunWarga::orderBy('no_rw', 'asc')->get()
+    ]);
 })->name('lembaga.rw');
 
 Route::get('/lembaga/pkk', function () {

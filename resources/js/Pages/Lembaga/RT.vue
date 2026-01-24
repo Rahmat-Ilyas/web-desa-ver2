@@ -2,58 +2,106 @@
 import { Head } from '@inertiajs/vue3';
 import MainLayout from '@/Layouts/MainLayout.vue';
 
-const rts = [
-    { no: '001', ketua: 'Bapak Ahmad', wilayah: 'Lingkungan 1' },
-    { no: '002', ketua: 'Bapak Supardi', wilayah: 'Lingkungan 1' },
-    { no: '003', ketua: 'Bapak Junaedi', wilayah: 'Lingkungan 1' },
-    { no: '004', ketua: 'Ibu Ratna', wilayah: 'Lingkungan 2' },
-    { no: '005', ketua: 'Bapak Jamal', wilayah: 'Lingkungan 2' },
-    { no: '006', ketua: 'Bapak Hendra', wilayah: 'Lingkungan 2' },
-    { no: '007', ketua: 'Bapak Syamsul', wilayah: 'Lingkungan 2' },
-    { no: '008', ketua: 'Ibu Murni', wilayah: 'Lingkungan 3' },
-    { no: '009', ketua: 'Bapak Rizal', wilayah: 'Lingkungan 3' },
-    { no: '010', ketua: 'Bapak Anto', wilayah: 'Lingkungan 3' },
-    { no: '011', ketua: 'Bapak Basri', wilayah: 'Lingkungan 4' },
-    { no: '012', ketua: 'Ibu Haryati', wilayah: 'Lingkungan 4' },
-    { no: '013', ketua: 'Bapak Ridwan', wilayah: 'Lingkungan 4' },
-    { no: '014', ketua: 'Bapak Lukman', wilayah: 'Lingkungan 4' },
-];
+const props = defineProps({
+    members: Array
+});
+
+const formatPhone = (number) => {
+    if (!number) return '';
+    let n = number.toString().replace(/\D/g, '');
+    if (n.startsWith('0')) return '62' + n.slice(1);
+    if (n.startsWith('62')) return n;
+    return '62' + n;
+};
 </script>
 
 <template>
 
-    <Head title="Lembaga RT" />
+    <Head title="Lembaga Rukun Tetangga (RT)" />
 
     <MainLayout>
-        <div class="bg-blue-900 py-16 relative overflow-hidden">
+        <!-- Hero Section -->
+        <div class="bg-indigo-900 py-16 relative overflow-hidden">
             <div class="absolute inset-0 opacity-10 bg-[url('https://www.transparenttextures.com/patterns/cubes.png')]">
             </div>
             <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10 text-center">
+                <div
+                    class="inline-flex items-center justify-center w-16 h-16 rounded-2xl bg-white/10 backdrop-blur-md border border-white/20 mb-6 text-white shadow-lg shadow-indigo-900/20">
+                    <i class="fas fa-users text-3xl"></i>
+                </div>
                 <h1 class="text-3xl md:text-5xl font-extrabold text-white tracking-tight mb-4">Rukun Tetangga (RT)</h1>
-                <p class="text-blue-100 text-lg max-w-2xl mx-auto">Daftar Ketua RT dan Wilayah Administrasi di Kelurahan
-                    Ujung Sabbang.</p>
+                <p class="text-indigo-100 text-lg max-w-2xl mx-auto">Daftar Ketua RT dan Administrasi Wilayah di
+                    Kelurahan Ujung Sabbang.</p>
             </div>
         </div>
 
-        <div class="py-16 bg-white">
+        <!-- Content Section -->
+        <div class="py-16 bg-white min-h-[50vh]">
             <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-                <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
-                    <div v-for="rt in rts" :key="rt.no"
-                        class="bg-white rounded-xl shadow-md border border-gray-100 p-6 hover:shadow-lg transition-shadow border-l-4 border-l-blue-500">
-                        <div class="flex items-center justify-between mb-4">
-                            <h3 class="text-2xl font-bold text-gray-800">RT {{ rt.no }}</h3>
-                            <span class="bg-blue-100 text-blue-800 text-xs font-semibold px-2.5 py-0.5 rounded">{{
-                                rt.wilayah }}</span>
+
+                <div v-if="members.length > 0" class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+                    <div v-for="item in members" :key="item.id"
+                        class="bg-white rounded-2xl shadow-lg border border-gray-100 overflow-visible hover:shadow-xl hover:-translate-y-1 transition-all duration-300 group">
+
+                        <!-- Header / Cover Pattern -->
+                        <div class="h-24 bg-gradient-to-r from-blue-600 to-indigo-700 relative rounded-t-2xl">
+                            <div
+                                class="absolute inset-0 opacity-20 bg-[url('https://www.transparenttextures.com/patterns/cubes.png')] invert rounded-t-2xl">
+                            </div>
+                            <div class="absolute -bottom-10 left-6">
+                                <div
+                                    class="w-20 h-20 rounded-full border-4 border-white bg-gray-100 overflow-hidden shadow-md z-10 relative">
+                                    <img v-if="item.foto_ketua" :src="'/storage/' + item.foto_ketua"
+                                        class="w-full h-full object-cover" alt="Ketua RT">
+                                    <div v-else
+                                        class="w-full h-full flex items-center justify-center bg-indigo-50 text-indigo-300">
+                                        <i class="fas fa-user text-3xl"></i>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="absolute top-4 right-4 flex gap-2">
+                                <div
+                                    class="bg-white/20 backdrop-blur-sm px-3 py-1 rounded-full border border-white/30 text-white font-black text-[10px]">
+                                    RT {{ item.no_rt }}
+                                </div>
+                                <div
+                                    class="bg-white/20 backdrop-blur-sm px-3 py-1 rounded-full border border-white/30 text-white font-black text-[10px]">
+                                    RW {{ item.rukun_warga?.no_rw || '??' }}
+                                </div>
+                            </div>
                         </div>
-                        <div class="flex items-center text-gray-600">
-                            <i class="fas fa-user-tie w-6 text-center mr-2 text-blue-500"></i>
-                            <div>
-                                <span class="text-xs text-gray-400 uppercase block tracking-wider">Ketua RT</span>
-                                <span class="font-medium">{{ rt.ketua }}</span>
+
+                        <div class="pt-12 px-6 pb-6 bg-white rounded-b-2xl">
+                            <h3
+                                class="text-xl font-bold text-gray-900 mb-1 group-hover:text-blue-600 transition-colors">
+                                {{ item.nama_ketua }}</h3>
+                            <p class="text-xs font-bold text-gray-400 uppercase tracking-widest mb-4">Ketua RT {{
+                                item.no_rt }}</p>
+
+                            <div class="flex items-center justify-between pt-4 border-t border-gray-50">
+                                <div class="text-xs text-gray-400 font-medium">
+                                    <i class="fas fa-map-marker-alt mr-1"></i> Ujung Sabbang
+                                </div>
+                                <a v-if="item.no_hp" :href="'https://wa.me/' + formatPhone(item.no_hp)" target="_blank"
+                                    class="inline-flex items-center gap-2 px-4 py-2 bg-green-50 text-green-600 rounded-lg text-xs font-bold hover:bg-green-100 transition-colors">
+                                    <i class="fab fa-whatsapp text-sm"></i> Hubungi
+                                </a>
+                                <span v-else class="text-xs text-slate-300 italic">No Kontak</span>
                             </div>
                         </div>
                     </div>
                 </div>
+
+                <!-- Empty State -->
+                <div v-else class="text-center py-20 bg-slate-50 rounded-3xl border border-dashed border-slate-200">
+                    <div
+                        class="w-20 h-20 mx-auto bg-slate-100 rounded-full flex items-center justify-center text-slate-400 mb-4">
+                        <i class="fas fa-users-slash text-3xl"></i>
+                    </div>
+                    <h3 class="text-lg font-bold text-slate-700">Belum ada data RT</h3>
+                    <p class="text-slate-500 text-sm">Data pengurus Rukun Tetangga belum tersedia.</p>
+                </div>
+
             </div>
         </div>
     </MainLayout>
