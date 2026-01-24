@@ -114,7 +114,9 @@ Route::get('/informasi/potensi', function () {
 })->name('informasi.potensi');
 
 Route::get('/informasi/program', function () {
-    return inertia('Informasi/Program');
+    return inertia('Informasi/Program', [
+        'programs' => \App\Models\Program::latest()->get()
+    ]);
 })->name('informasi.program');
 
 // Layanan Route
@@ -190,8 +192,8 @@ Route::prefix('admin')->middleware(['auth'])->group(function () {
         'update' => 'admin.galeri.update',
         'destroy' => 'admin.galeri.destroy',
     ]);
-    // Anggaran
 
+    // Anggaran
     Route::resource('anggaran', \App\Http\Controllers\Admin\AnggaranController::class)->names([
         'index' => 'admin.anggaran.index',
         'store' => 'admin.anggaran.store',
@@ -209,6 +211,7 @@ Route::prefix('admin')->middleware(['auth'])->group(function () {
         'destroy' => 'admin.download.destroy',
     ]);
 
+    // Pengaduan
     Route::resource('pengaduan', \App\Http\Controllers\Admin\PengaduanController::class)->names([
         'index' => 'admin.pengaduan.index',
         'update' => 'admin.pengaduan.update',
@@ -231,6 +234,57 @@ Route::prefix('admin')->middleware(['auth'])->group(function () {
         'store' => 'admin.potensi.store',
         'update' => 'admin.potensi.update',
         'destroy' => 'admin.potensi.destroy',
+    ])->except(['create', 'edit', 'show']);
+
+    // Program Kerja
+    Route::resource('program', \App\Http\Controllers\Admin\ProgramController::class)->names([
+        'index' => 'admin.program.index',
+        'store' => 'admin.program.store',
+        'update' => 'admin.program.update',
+        'destroy' => 'admin.program.destroy',
+    ])->except(['create', 'edit', 'show']);
+
+    // Lembaga Desa Routes
+    Route::resource('rukun-warga', \App\Http\Controllers\Admin\RukunWargaController::class)->names([
+        'index' => 'admin.rukun-warga.index',
+        'store' => 'admin.rukun-warga.store',
+        'update' => 'admin.rukun-warga.update',
+        'destroy' => 'admin.rukun-warga.destroy',
+    ])->except(['create', 'edit', 'show']);
+
+    Route::resource('rukun-tetangga', \App\Http\Controllers\Admin\RukunTetanggaController::class)->names([
+        'index' => 'admin.rukun-tetangga.index',
+        'store' => 'admin.rukun-tetangga.store',
+        'update' => 'admin.rukun-tetangga.update',
+        'destroy' => 'admin.rukun-tetangga.destroy',
+    ])->except(['create', 'edit', 'show']);
+
+    Route::resource('pkk', \App\Http\Controllers\Admin\PkkController::class)->names([
+        'index' => 'admin.pkk.index',
+        'store' => 'admin.pkk.store',
+        'update' => 'admin.pkk.update',
+        'destroy' => 'admin.pkk.destroy',
+    ])->except(['create', 'edit', 'show']);
+
+    Route::resource('karang-taruna', \App\Http\Controllers\Admin\KarangTarunaController::class)->names([
+        'index' => 'admin.karang-taruna.index',
+        'store' => 'admin.karang-taruna.store',
+        'update' => 'admin.karang-taruna.update',
+        'destroy' => 'admin.karang-taruna.destroy',
+    ])->except(['create', 'edit', 'show']);
+
+    Route::resource('lpmk', \App\Http\Controllers\Admin\LpmkController::class)->names([
+        'index' => 'admin.lpmk.index',
+        'store' => 'admin.lpmk.store',
+        'update' => 'admin.lpmk.update',
+        'destroy' => 'admin.lpmk.destroy',
+    ])->except(['create', 'edit', 'show']);
+
+    Route::resource('majelis-taklim', \App\Http\Controllers\Admin\MajelisTaklimController::class)->names([
+        'index' => 'admin.majelis-taklim.index',
+        'store' => 'admin.majelis-taklim.store',
+        'update' => 'admin.majelis-taklim.update',
+        'destroy' => 'admin.majelis-taklim.destroy',
     ])->except(['create', 'edit', 'show']);
 
     // Statistik Penduduk (Kependudukan)

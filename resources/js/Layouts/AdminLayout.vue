@@ -31,7 +31,10 @@ onMounted(() => {
     menus.forEach(menu => {
         if (menu.sub) {
             const hasActiveChild = menu.sub.some(s =>
-                s.route !== '#' && (route().current(s.route) || (s.route.endsWith('.index') && route().current(s.route.replace('.index', '.*'))))
+                s.route !== '#' && (
+                    route().current(s.route, s.params) ||
+                    (s.route.endsWith('.index') && route().current(s.route.replace('.index', '.*'), s.params))
+                )
             );
             if (hasActiveChild) {
                 activeDropdown.value = menu.name;
@@ -73,8 +76,20 @@ const menus = [
             { name: 'Berita & Informasi', route: 'admin.berita.index' },
             { name: 'APBDes / Anggaran', route: 'admin.anggaran.index' },
             { name: 'Pusat Download', route: 'admin.download.index' },
-            { name: 'Program Kerja', route: '#' },
+            { name: 'Program Kerja', route: 'admin.program.index' },
             { name: 'Potensi Wilayah', route: 'admin.potensi.index' },
+        ]
+    },
+    {
+        name: 'Lembaga',
+        icon: 'fa-users-cog',
+        sub: [
+            { name: 'Rukun Warga (RW)', route: 'admin.rukun-warga.index' },
+            { name: 'Rukun Tetangga (RT)', route: 'admin.rukun-tetangga.index' },
+            { name: 'LPMK', route: 'admin.lpmk.index' },
+            { name: 'Karang Taruna', route: 'admin.karang-taruna.index' },
+            { name: 'PKK', route: 'admin.pkk.index' },
+            { name: 'Majelis Taklim', route: 'admin.majelis-taklim.index' },
         ]
     },
     { name: 'Statistik Penduduk', icon: 'fa-users', route: 'admin.kependudukan.index' },
@@ -128,10 +143,10 @@ const menus = [
                     <div v-else>
                         <button @click="toggleDropdown(menu.name)"
                             :class="['w-full flex items-center justify-between gap-4 px-4 py-3 rounded-xl transition-all group font-bold text-sm hover:bg-slate-800/50',
-                                (activeDropdown === menu.name || menu.sub.some(s => s.route !== '#' && (route().current(s.route) || (s.route.endsWith('.index') && route().current(s.route.replace('.index', '.*')))))) ? 'text-blue-400 bg-slate-800/30' : 'text-slate-400 hover:text-blue-400']">
+                                (activeDropdown === menu.name || (menu.sub && menu.sub.some(s => s.route !== '#' && route().current(s.route, s.params)))) ? 'text-blue-400 bg-slate-800/30' : 'text-slate-400 hover:text-blue-400']">
                             <div class="flex items-center gap-4">
                                 <i
-                                    :class="['fas w-6 text-center text-lg', menu.icon, (activeDropdown === menu.name || menu.sub.some(s => s.route !== '#' && (route().current(s.route) || (s.route.endsWith('.index') && route().current(s.route.replace('.index', '.*')))))) ? 'text-blue-400' : 'text-slate-500 group-hover:text-blue-400']"></i>
+                                    :class="['fas w-6 text-center text-lg', menu.icon, (activeDropdown === menu.name || (menu.sub && menu.sub.some(s => s.route !== '#' && route().current(s.route, s.params)))) ? 'text-blue-400' : 'text-slate-500 group-hover:text-blue-400']"></i>
                                 <span v-if="isSidebarOpen">{{ menu.name }}</span>
                             </div>
                             <i v-if="isSidebarOpen"
@@ -146,9 +161,9 @@ const menus = [
                             <div v-if="isSidebarOpen && activeDropdown === menu.name"
                                 class="mt-1 ml-10 space-y-1 border-l border-slate-700 pl-4 py-2 origin-top">
                                 <Link v-for="sub in menu.sub" :key="sub.name"
-                                    :href="sub.route === '#' ? '#' : route(sub.route)"
+                                    :href="sub.route === '#' ? '#' : route(sub.route, sub.params || {})"
                                     :class="['block py-2 text-xs font-bold transition-colors',
-                                        (sub.route !== '#' && (route().current(sub.route) || (sub.route.endsWith('.index') && route().current(sub.route.replace('.index', '.*'))))) ? 'text-blue-400' : 'text-slate-500 hover:text-blue-400']">
+                                        (sub.route !== '#' && route().current(sub.route, sub.params)) ? 'text-blue-400' : 'text-slate-500 hover:text-blue-400']">
                                     {{ sub.name }}
                                 </Link>
                             </div>
@@ -163,7 +178,8 @@ const menus = [
         <!-- Main Content -->
         <main class="flex-grow flex flex-col min-w-0 h-screen overflow-hidden">
             <!-- Header -->
-            <header class="bg-white h-20 shadow-sm flex items-center justify-between px-4 md:px-8 relative z-20">
+            <header
+                class="bg-white h-20 min-h-[5rem] shadow-sm flex items-center justify-between px-4 md:px-8 relative z-20 shrink-0">
                 <button @click="toggleSidebar"
                     class="w-10 h-10 bg-gray-50 rounded-lg flex items-center justify-center hover:bg-gray-100 text-gray-400 transition-colors">
                     <i :class="['fas', isSidebarOpen ? 'fa-indent' : 'fa-outdent']"></i>
@@ -171,16 +187,16 @@ const menus = [
 
                 <!-- User Profile & Dropdown -->
                 <div id="user-menu-container" class="relative">
-                    <button @click="toggleUserMenu" class="flex items-center gap-3 group">
-                        <div class="hidden md:flex flex-col items-end leading-none text-right">
+                    <button @click="toggleUserMenu" class="flex items-center gap-4 group">
+                        <div class="hidden md:flex flex-col items-end text-right">
                             <span
                                 class="font-black text-gray-900 text-sm group-hover:text-blue-600 transition-colors">{{
                                     $page.props.auth.user.name }}</span>
-                            <span class="text-[10px] font-bold text-blue-500 uppercase tracking-widest mt-1">Ujung
+                            <span class="text-[10px] font-bold text-blue-500 uppercase tracking-widest mt-0.5">Ujung
                                 Sabbang</span>
                         </div>
                         <div
-                            class="w-10 h-10 rounded-xl bg-gradient-to-tr from-blue-600 to-indigo-600 border-2 border-white shadow-lg overflow-hidden flex items-center justify-center transition-transform hover:scale-105 active:scale-95 text-white">
+                            class="w-10 h-10 rounded-xl bg-gradient-to-tr from-blue-600 to-indigo-600 border-2 border-white shadow-lg overflow-hidden flex items-center justify-center transition-transform hover:scale-105 active:scale-95 text-white shrink-0">
                             <i class="fas fa-user-shield text-lg"></i>
                         </div>
                     </button>

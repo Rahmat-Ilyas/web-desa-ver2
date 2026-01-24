@@ -12,10 +12,14 @@ return new class extends Migration {
     {
         Schema::create('programs', function (Blueprint $table) {
             $table->id();
-            $table->string('nama');
+            $table->string('judul');
+            $table->string('kategori')->default('Pembangunan Fisik');
             $table->text('deskripsi');
-            $table->string('image')->nullable();
-            $table->string('status')->default('aktif');
+            $table->string('icon')->default('fa-tasks');
+            $table->string('color')->default('bg-blue-50 text-blue-600');
+            $table->string('status')->default('Rencana'); // Rencana, Berjalan, Selesai
+            $table->integer('progress')->default(0);
+            $table->string('waktu_pelaksanaan')->nullable();
             $table->timestamps();
         });
     }

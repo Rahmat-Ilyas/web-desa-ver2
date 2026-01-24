@@ -216,15 +216,15 @@ onUnmounted(() => {
                                             </span>
                                         </template>
                                         <template #content>
-                                            <DropdownLink :href="route('lembaga.rt')">
-                                                <i
-                                                    class="fas fa-users w-5 text-gray-400 group-hover:text-blue-500 transition-colors"></i>
-                                                Rukun Tetangga (RT)
-                                            </DropdownLink>
                                             <DropdownLink :href="route('lembaga.rw')">
                                                 <i
                                                     class="fas fa-users-cog w-5 text-gray-400 group-hover:text-blue-500 transition-colors"></i>
                                                 Rukun Warga (RW)
+                                            </DropdownLink>
+                                            <DropdownLink :href="route('lembaga.rt')">
+                                                <i
+                                                    class="fas fa-users w-5 text-gray-400 group-hover:text-blue-500 transition-colors"></i>
+                                                Rukun Tetangga (RT)
                                             </DropdownLink>
                                             <DropdownLink :href="route('lembaga.pkk')">
                                                 <i
@@ -472,14 +472,13 @@ onUnmounted(() => {
                                     :class="['fa-solid fa-chevron-down text-xs transition-transform duration-300', activeMobileSection === 'lembaga' ? 'rotate-180' : '']"></i>
                             </button>
                             <div v-show="activeMobileSection === 'lembaga'" class="pl-12 pr-4 space-y-1 transition-all">
-                                <Link :href="route('lembaga.rt')"
-                                    class="block py-2 text-sm font-medium text-slate-500 hover:text-blue-600">Rukun
-                                    Tetangga
-                                    (RT)</Link>
                                 <Link :href="route('lembaga.rw')"
                                     class="block py-2 text-sm font-medium text-slate-500 hover:text-blue-600">Rukun
                                     Warga (RW)
                                 </Link>
+                                <Link :href="route('lembaga.rt')"
+                                    class="block py-2 text-sm font-medium text-slate-500 hover:text-blue-600">Rukun
+                                    Tetangga (RT)</Link>
                                 <Link :href="route('lembaga.pkk')"
                                     class="block py-2 text-sm font-medium text-slate-500 hover:text-blue-600">PKK</Link>
                                 <Link :href="route('lembaga.karang-taruna')"
