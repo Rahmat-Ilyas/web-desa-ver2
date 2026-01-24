@@ -1,12 +1,28 @@
 <script setup>
-import { ref } from 'vue';
-import { Link, Head } from '@inertiajs/vue3';
+import { ref, onMounted } from 'vue';
+import { Link, Head, usePage } from '@inertiajs/vue3';
 
 const isSidebarOpen = ref(true);
 const activeDropdown = ref(null);
 
+// Auto-open dropdown if child route is active
+onMounted(() => {
+    menus.forEach(menu => {
+        if (menu.sub) {
+            const hasActiveChild = menu.sub.some(s => 
+                s.route !== '#' && (route().current(s.route) || (s.route.endsWith('.index') && route().current(s.route.replace('.index', '.*'))))
+            );
+            if (hasActiveChild) {
+                activeDropdown.value = menu.name;
+            }
+        }
+    });
+});
+
 const toggleSidebar = () => isSidebarOpen.value = !isSidebarOpen.value;
 const toggleDropdown = (name) => {
+    // If clicking the active dropdown, close it (set to null)
+    // Otherwise, set the new name as the ONLY active dropdown (automatically closing others)
     activeDropdown.value = activeDropdown.value === name ? null : name;
 };
 
@@ -28,6 +44,8 @@ const menus = [
         icon: 'fa-newspaper',
         sub: [
             { name: 'Berita & Informasi', route: 'admin.berita.index' },
+            { name: 'APBDes / Anggaran', route: 'admin.anggaran.index' },
+            { name: 'Pusat Download', route: 'admin.download.index' },
             { name: 'Program Kerja', route: '#' },
             { name: 'Potensi Wilayah', route: '#' },
         ]
@@ -59,6 +77,7 @@ const menus = [
                 <div v-for="menu in menus" :key="menu.name">
                     <!-- Simple Menu -->
                     <Link v-if="!menu.sub" :href="menu.route ? (menu.route === '#' ? '#' : route(menu.route)) : '#'"
+                        @click="activeDropdown = null"
                         :class="['flex items-center gap-4 px-4 py-3 rounded-xl transition-all group hover:bg-slate-800/50',
                             (menu.route && (route().current(menu.route) || (menu.route.endsWith('.index') && route().current(menu.route.replace('.index', '.*'))))) ? 'text-blue-400' : 'text-slate-400 hover:text-blue-400']">
                         <i
@@ -70,24 +89,29 @@ const menus = [
                     <div v-else>
                         <button @click="toggleDropdown(menu.name)"
                             :class="['w-full flex items-center justify-between gap-4 px-4 py-3 rounded-xl transition-all group font-bold text-sm hover:bg-slate-800/50',
-                                menu.sub.some(s => s.route !== '#' && (route().current(s.route) || (s.route.endsWith('.index') && route().current(s.route.replace('.index', '.*'))))) ? 'text-blue-400' : 'text-slate-400 hover:text-blue-400']">
+                                (activeDropdown === menu.name || menu.sub.some(s => s.route !== '#' && (route().current(s.route) || (s.route.endsWith('.index') && route().current(s.route.replace('.index', '.*')))))) ? 'text-blue-400 bg-slate-800/30' : 'text-slate-400 hover:text-blue-400']">
                             <div class="flex items-center gap-4">
                                 <i
-                                    :class="['fas w-6 text-center text-lg', menu.icon, menu.sub.some(s => s.route !== '#' && (route().current(s.route) || (s.route.endsWith('.index') && route().current(s.route.replace('.index', '.*'))))) ? 'text-blue-400' : 'text-slate-500 group-hover:text-blue-400']"></i>
+                                    :class="['fas w-6 text-center text-lg', menu.icon, (activeDropdown === menu.name || menu.sub.some(s => s.route !== '#' && (route().current(s.route) || (s.route.endsWith('.index') && route().current(s.route.replace('.index', '.*')))))) ? 'text-blue-400' : 'text-slate-500 group-hover:text-blue-400']"></i>
                                 <span v-if="isSidebarOpen">{{ menu.name }}</span>
                             </div>
                             <i v-if="isSidebarOpen"
-                                :class="['fas fa-chevron-right text-[10px] transition-transform', (activeDropdown === menu.name || menu.sub.some(s => s.route !== '#' && (route().current(s.route) || (s.route.endsWith('.index') && route().current(s.route.replace('.index', '.*')))))) ? 'rotate-90' : '']"></i>
+                                :class="['fas fa-chevron-right text-[10px] transition-transform', (activeDropdown === menu.name) ? 'rotate-90' : '']"></i>
                         </button>
-                        <div v-if="isSidebarOpen && (activeDropdown === menu.name || menu.sub.some(s => s.route !== '#' && (route().current(s.route) || (s.route.endsWith('.index') && route().current(s.route.replace('.index', '.*'))))))"
-                            class="mt-1 ml-10 space-y-1 border-l border-slate-700 pl-4 py-2">
-                            <Link v-for="sub in menu.sub" :key="sub.name"
-                                :href="sub.route === '#' ? '#' : route(sub.route)"
-                                :class="['block py-2 text-xs font-bold transition-colors',
-                                    (sub.route !== '#' && (route().current(sub.route) || (sub.route.endsWith('.index') && route().current(sub.route.replace('.index', '.*'))))) ? 'text-blue-400' : 'text-slate-500 hover:text-blue-400']">
-                                {{ sub.name }}
-                            </Link>
-                        </div>
+                        <transition enter-active-class="transition duration-100 ease-out"
+                            enter-from-class="transform scale-y-0 opacity-0" enter-to-class="transform scale-y-100 opacity-100"
+                            leave-active-class="transition duration-100 ease-in"
+                            leave-from-class="transform scale-y-100 opacity-100" leave-to-class="transform scale-y-0 opacity-0">
+                            <div v-if="isSidebarOpen && activeDropdown === menu.name"
+                                class="mt-1 ml-10 space-y-1 border-l border-slate-700 pl-4 py-2 origin-top">
+                                <Link v-for="sub in menu.sub" :key="sub.name"
+                                    :href="sub.route === '#' ? '#' : route(sub.route)"
+                                    :class="['block py-2 text-xs font-bold transition-colors',
+                                        (sub.route !== '#' && (route().current(sub.route) || (sub.route.endsWith('.index') && route().current(sub.route.replace('.index', '.*'))))) ? 'text-blue-400' : 'text-slate-500 hover:text-blue-400']">
+                                    {{ sub.name }}
+                                </Link>
+                            </div>
+                        </transition>
                     </div>
                 </div>
             </nav>

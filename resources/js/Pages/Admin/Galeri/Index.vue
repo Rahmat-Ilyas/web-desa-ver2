@@ -118,7 +118,7 @@ const handleImageError = (e) => {
                 </div>
 
                 <div class="flex flex-col md:flex-row items-center justify-between gap-4">
-                    <div class="w-full md:w-auto"></div> <!-- Future Search/Filter -->
+                    <div class="w-full md:w-auto"></div> <!-- Spacer -->
                     <button @click="openModal()"
                         class="w-full md:w-auto px-8 py-4 rounded-2xl bg-blue-600 text-white font-black text-sm hover:bg-blue-700 transition-all flex items-center justify-center gap-2 shadow-xl shadow-blue-600/20 whitespace-nowrap">
                         <i class="fas fa-plus"></i> TAMBAH FOTO
@@ -183,22 +183,24 @@ const handleImageError = (e) => {
                                 <td class="px-8 py-6">
                                     <span
                                         class="px-3 py-1 bg-slate-100 text-slate-600 text-[10px] font-black rounded-lg uppercase tracking-tight">{{
-                                        item.kategori }}</span>
+                                            item.kategori }}</span>
                                 </td>
                                 <td class="px-8 py-6 text-[10px] font-bold text-slate-500">
                                     {{ new Date(item.tanggal).toLocaleDateString('id-ID', {
                                         day: 'numeric', month:
-                                    'long', year: 'numeric' }) }}
+                                            'long', year: 'numeric'
+                                    }) }}
                                 </td>
                                 <td class="px-8 py-6">
-                                    <div class="flex items-center justify-end gap-2 text-right">
+                                    <div
+                                        class="flex items-center justify-end gap-2 opacity-0 group-hover:opacity-100 transition-all translate-x-2 group-hover:translate-x-0">
                                         <button @click="openModal(item)"
-                                            class="w-10 h-10 rounded-xl bg-slate-50 text-slate-400 hover:text-amber-600 hover:bg-amber-50 flex items-center justify-center transition-all"
+                                            class="w-10 h-10 rounded-xl bg-blue-50 text-blue-600 hover:bg-blue-600 hover:text-white transition-all flex items-center justify-center shadow-sm hover:shadow-md hover:shadow-blue-200"
                                             title="Edit">
                                             <i class="fas fa-edit text-xs"></i>
                                         </button>
                                         <button @click="deleteGaleri(item.id)"
-                                            class="w-10 h-10 rounded-xl bg-slate-50 text-slate-400 hover:text-rose-600 hover:bg-rose-50 flex items-center justify-center transition-all"
+                                            class="w-10 h-10 rounded-xl bg-rose-50 text-rose-600 hover:bg-rose-600 hover:text-white transition-all flex items-center justify-center shadow-sm hover:shadow-md hover:shadow-rose-200"
                                             title="Hapus">
                                             <i class="fas fa-trash-alt text-xs"></i>
                                         </button>
@@ -234,86 +236,92 @@ const handleImageError = (e) => {
                     </div>
                 </div>
             </div>
-        </div>
 
-        <!-- Modal -->
-        <div v-if="showModal" class="fixed inset-0 z-[60] flex items-center justify-center p-4">
-            <div class="absolute inset-0 bg-slate-900/40 backdrop-blur-sm transition-opacity" @click="closeModal"></div>
-            <div class="relative bg-white rounded-3xl w-full max-w-lg shadow-2xl overflow-hidden animate-fade-in-up">
-                <div class="p-8 border-b border-slate-50 flex items-center justify-between">
-                    <h3 class="font-black text-slate-900 text-lg">{{ isEditing ? 'Edit Foto' : 'Tambah Foto Baru' }}
-                    </h3>
-                    <button @click="closeModal" class="text-slate-400 hover:text-slate-600"><i
-                            class="fas fa-times"></i></button>
+
+            <!-- Modal -->
+            <div v-if="showModal" class="fixed inset-0 z-[60] flex items-center justify-center p-4">
+                <div class="absolute inset-0 bg-slate-900/40 backdrop-blur-sm transition-opacity" @click="closeModal">
                 </div>
-                <div class="p-8">
-                    <form @submit.prevent="submitForm" class="space-y-5">
-                        <!-- Judul -->
-                        <div>
-                            <label class="block text-xs font-bold text-slate-500 uppercase tracking-wider mb-2">Judul
-                                Foto</label>
-                            <input v-model="form.judul" type="text"
-                                class="w-full px-4 py-3 bg-slate-50 border border-slate-200 rounded-xl focus:outline-none focus:ring-2 focus:ring-blue-100 focus:border-blue-500 font-bold text-sm text-slate-700"
-                                placeholder="Contoh: Kegiatan Kerja Bakti..." required>
-                            <div v-if="form.errors.judul" class="text-red-500 text-xs mt-1">{{ form.errors.judul }}
-                            </div>
-                        </div>
-
-                        <!-- Kategori & Tanggal -->
-                        <div class="grid grid-cols-2 gap-4">
+                <div
+                    class="relative bg-white rounded-3xl w-full max-w-lg shadow-2xl overflow-hidden animate-fade-in-up">
+                    <div class="p-8 border-b border-slate-50 flex items-center justify-between">
+                        <h3 class="font-black text-slate-900 text-lg">{{ isEditing ? 'Edit Foto' : 'Tambah Foto Baru' }}
+                        </h3>
+                        <button @click="closeModal" class="text-slate-400 hover:text-slate-600"><i
+                                class="fas fa-times"></i></button>
+                    </div>
+                    <div class="p-8">
+                        <form @submit.prevent="submitForm" class="space-y-5">
+                            <!-- Judul -->
                             <div>
                                 <label
-                                    class="block text-xs font-bold text-slate-500 uppercase tracking-wider mb-2">Kategori</label>
-                                <select v-model="form.kategori"
-                                    class="w-full px-4 py-3 bg-slate-50 border border-slate-200 rounded-xl focus:outline-none focus:ring-2 focus:ring-blue-100 focus:border-blue-500 font-bold text-sm text-slate-700">
-                                    <option v-for="cat in categories" :key="cat" :value="cat">{{ cat }}</option>
-                                </select>
-                            </div>
-                            <div>
-                                <label
-                                    class="block text-xs font-bold text-slate-500 uppercase tracking-wider mb-2">Tanggal</label>
-                                <input v-model="form.tanggal" type="date"
+                                    class="block text-xs font-bold text-slate-500 uppercase tracking-wider mb-2">Judul
+                                    Foto</label>
+                                <input v-model="form.judul" type="text"
                                     class="w-full px-4 py-3 bg-slate-50 border border-slate-200 rounded-xl focus:outline-none focus:ring-2 focus:ring-blue-100 focus:border-blue-500 font-bold text-sm text-slate-700"
-                                    required>
+                                    placeholder="Contoh: Kegiatan Kerja Bakti..." required>
+                                <div v-if="form.errors.judul" class="text-red-500 text-xs mt-1">{{ form.errors.judul }}
+                                </div>
                             </div>
-                        </div>
 
-                        <!-- Image -->
-                        <div>
-                            <label class="block text-xs font-bold text-slate-500 uppercase tracking-wider mb-2">Upload
-                                Foto</label>
-                            <input type="file" @input="form.image = $event.target.files[0]" accept="image/*"
-                                class="w-full px-4 py-3 bg-slate-50 border border-slate-200 rounded-xl focus:outline-none focus:ring-2 focus:ring-blue-100 focus:border-blue-500 font-bold text-sm text-slate-500 file:mr-4 file:py-2 file:px-4 file:rounded-full file:border-0 file:text-xs file:font-semibold file:bg-blue-50 file:text-blue-700 hover:file:bg-blue-100">
-                            <div v-if="form.errors.image" class="text-red-500 text-xs mt-1">{{ form.errors.image }}
+                            <!-- Kategori & Tanggal -->
+                            <div class="grid grid-cols-2 gap-4">
+                                <div>
+                                    <label
+                                        class="block text-xs font-bold text-slate-500 uppercase tracking-wider mb-2">Kategori</label>
+                                    <select v-model="form.kategori"
+                                        class="w-full px-4 py-3 bg-slate-50 border border-slate-200 rounded-xl focus:outline-none focus:ring-2 focus:ring-blue-100 focus:border-blue-500 font-bold text-sm text-slate-700">
+                                        <option v-for="cat in categories" :key="cat" :value="cat">{{ cat }}</option>
+                                    </select>
+                                </div>
+                                <div>
+                                    <label
+                                        class="block text-xs font-bold text-slate-500 uppercase tracking-wider mb-2">Tanggal</label>
+                                    <input v-model="form.tanggal" type="date"
+                                        class="w-full px-4 py-3 bg-slate-50 border border-slate-200 rounded-xl focus:outline-none focus:ring-2 focus:ring-blue-100 focus:border-blue-500 font-bold text-sm text-slate-700"
+                                        required>
+                                </div>
                             </div>
-                            <p v-if="isEditing" class="text-[10px] text-slate-400 mt-2 font-medium italic">* Biarkan
-                                kosong jika
-                                tidak ingin mengubah foto</p>
-                        </div>
 
-                        <!-- Deskripsi -->
-                        <div>
-                            <label
-                                class="block text-xs font-bold text-slate-500 uppercase tracking-wider mb-2">Deskripsi
-                                (Opsional)</label>
-                            <textarea v-model="form.deskripsi" rows="3"
-                                class="w-full px-4 py-3 bg-slate-50 border border-slate-200 rounded-xl focus:outline-none focus:ring-2 focus:ring-blue-100 focus:border-blue-500 font-bold text-sm text-slate-700"
-                                placeholder="Tambahkan keterangan singkat..."></textarea>
-                        </div>
+                            <!-- Image -->
+                            <div>
+                                <label
+                                    class="block text-xs font-bold text-slate-500 uppercase tracking-wider mb-2">Upload
+                                    Foto</label>
+                                <input type="file" @input="form.image = $event.target.files[0]" accept="image/*"
+                                    class="w-full px-4 py-3 bg-slate-50 border border-slate-200 rounded-xl focus:outline-none focus:ring-2 focus:ring-blue-100 focus:border-blue-500 font-bold text-sm text-slate-500 file:mr-4 file:py-2 file:px-4 file:rounded-full file:border-0 file:text-xs file:font-semibold file:bg-blue-50 file:text-blue-700 hover:file:bg-blue-100">
+                                <div v-if="form.errors.image" class="text-red-500 text-xs mt-1">{{ form.errors.image }}
+                                </div>
+                                <p v-if="isEditing" class="text-[10px] text-slate-400 mt-2 font-medium italic">* Biarkan
+                                    kosong jika
+                                    tidak ingin mengubah foto</p>
+                            </div>
 
-                        <div class="pt-4 flex items-center justify-end gap-3">
-                            <button type="button" @click="closeModal"
-                                class="px-6 py-3 rounded-xl bg-slate-100 text-slate-600 font-bold text-xs uppercase tracking-widest hover:bg-slate-200 transition-colors">Batal</button>
-                            <button type="submit" :disabled="form.processing"
-                                class="px-6 py-3 rounded-xl bg-blue-600 text-white font-bold text-xs uppercase tracking-widest hover:bg-blue-700 transition-colors disabled:opacity-50 flex items-center gap-2">
-                                <i v-if="form.processing" class="fas fa-spinner fa-spin"></i>
-                                {{ isEditing ? 'Simpan Perubahan' : 'Upload Foto' }}
-                            </button>
-                        </div>
-                    </form>
+                            <!-- Deskripsi -->
+                            <div>
+                                <label
+                                    class="block text-xs font-bold text-slate-500 uppercase tracking-wider mb-2">Deskripsi
+                                    (Opsional)</label>
+                                <textarea v-model="form.deskripsi" rows="3"
+                                    class="w-full px-4 py-3 bg-slate-50 border border-slate-200 rounded-xl focus:outline-none focus:ring-2 focus:ring-blue-100 focus:border-blue-500 font-bold text-sm text-slate-700"
+                                    placeholder="Tambahkan keterangan singkat..."></textarea>
+                            </div>
+
+                            <div class="pt-4 flex items-center justify-end gap-3">
+                                <button type="button" @click="closeModal"
+                                    class="px-6 py-3 rounded-xl bg-slate-100 text-slate-600 font-bold text-xs uppercase tracking-widest hover:bg-slate-200 transition-colors">Batal</button>
+                                <button type="submit" :disabled="form.processing"
+                                    class="px-6 py-3 rounded-xl bg-blue-600 text-white font-bold text-xs uppercase tracking-widest hover:bg-blue-700 transition-colors disabled:opacity-50 flex items-center gap-2">
+                                    <i v-if="form.processing" class="fas fa-spinner fa-spin"></i>
+                                    {{ isEditing ? 'Simpan Perubahan' : 'Upload Foto' }}
+                                </button>
+                            </div>
+                        </form>
+                    </div>
                 </div>
             </div>
         </div>
+
     </AdminLayout>
 </template>
 

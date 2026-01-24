@@ -183,19 +183,20 @@ const formatDate = (dateString) => {
                                     </div>
                                 </td>
                                 <td class="px-8 py-6">
-                                    <div class="flex items-center justify-end gap-2 text-right">
+                                    <div
+                                        class="flex items-center justify-end gap-2 opacity-0 group-hover:opacity-100 transition-all translate-x-2 group-hover:translate-x-0">
                                         <a :href="route('informasi.berita.show', berita.slug)" target="_blank"
-                                            class="w-10 h-10 rounded-xl bg-slate-50 text-slate-400 hover:text-blue-600 hover:bg-blue-50 flex items-center justify-center transition-all"
+                                            class="w-10 h-10 rounded-xl bg-slate-50 text-slate-400 hover:text-blue-600 hover:bg-blue-50 flex items-center justify-center transition-all shadow-sm hover:shadow-md"
                                             title="Lihat di Web">
                                             <i class="fas fa-external-link-alt text-xs"></i>
                                         </a>
                                         <Link :href="route('admin.berita.edit', berita.id)"
-                                            class="w-10 h-10 rounded-xl bg-slate-50 text-slate-400 hover:text-amber-600 hover:bg-amber-50 flex items-center justify-center transition-all"
+                                            class="w-10 h-10 rounded-xl bg-blue-50 text-blue-600 hover:bg-blue-600 hover:text-white transition-all flex items-center justify-center shadow-sm hover:shadow-md hover:shadow-blue-200"
                                             title="Edit Berita">
                                             <i class="fas fa-edit text-xs"></i>
                                         </Link>
                                         <button @click="deleteBerita(berita.id)"
-                                            class="w-10 h-10 rounded-xl bg-slate-50 text-slate-400 hover:text-rose-600 hover:bg-rose-50 flex items-center justify-center transition-all"
+                                            class="w-10 h-10 rounded-xl bg-rose-50 text-rose-600 hover:bg-rose-600 hover:text-white transition-all flex items-center justify-center shadow-sm hover:shadow-md hover:shadow-rose-200"
                                             title="Hapus Berita">
                                             <i class="fas fa-trash-alt text-xs"></i>
                                         </button>

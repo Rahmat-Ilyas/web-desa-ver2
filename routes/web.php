@@ -50,7 +50,26 @@ Route::get('/lembaga/majelis-taklim', function () {
 Route::get('/pemerintahan/aparatur', [HomeController::class, 'aparatur'])->name('pemerintahan.aparatur');
 
 Route::get('/pemerintahan/anggaran', function () {
-    return inertia('Pemerintahan/Anggaran');
+    $tahun = request('tahun', date('Y'));
+    $anggaran = \App\Models\Anggaran::where('tahun', $tahun)->get();
+
+    // Get available years for filter
+    $years = \App\Models\Anggaran::select('tahun')->distinct()->orderBy('tahun', 'asc')->pluck('tahun')->toArray();
+    
+    // Add current year if not present
+    if (!in_array(date('Y'), $years)) {
+        $years[] = date('Y');
+    }
+    
+    // Ensure unique and sorted ascending
+    $years = array_unique($years);
+    sort($years);
+
+    return inertia('Pemerintahan/Anggaran', [
+        'anggaran' => $anggaran,
+        'tahun' => $tahun,
+        'years' => array_values($years)
+    ]);
 })->name('pemerintahan.anggaran');
 
 // Data Routes
@@ -78,7 +97,10 @@ Route::get('/data/pendidikan', function () {
 Route::get('/galeri', [HomeController::class, 'galeri'])->name('galeri');
 
 Route::get('/download', function () {
-    return inertia('Download/Index');
+    $downloads = \App\Models\Download::orderBy('created_at', 'desc')->get();
+    return inertia('Download/Index', [
+        'downloads' => $downloads
+    ]);
 })->name('download');
 
 // Informasi Routes
@@ -164,5 +186,23 @@ Route::prefix('admin')->middleware(['auth'])->group(function () {
         'edit' => 'admin.galeri.edit',
         'update' => 'admin.galeri.update',
         'destroy' => 'admin.galeri.destroy',
+    ]);
+    // Anggaran
+
+    Route::resource('anggaran', \App\Http\Controllers\Admin\AnggaranController::class)->names([
+        'index' => 'admin.anggaran.index',
+        'store' => 'admin.anggaran.store',
+        'update' => 'admin.anggaran.update',
+        'destroy' => 'admin.anggaran.destroy',
+    ])->except(['create', 'edit', 'show']);
+
+    // Download
+    Route::resource('download', \App\Http\Controllers\Admin\DownloadController::class)->names([
+        'index' => 'admin.download.index',
+        'create' => 'admin.download.create',
+        'store' => 'admin.download.store',
+        'edit' => 'admin.download.edit',
+        'update' => 'admin.download.update',
+        'destroy' => 'admin.download.destroy',
     ]);
 });

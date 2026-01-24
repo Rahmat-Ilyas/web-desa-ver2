@@ -1,7 +1,7 @@
 <script setup>
-import { Head } from '@inertiajs/vue3';
+import { Head, router } from '@inertiajs/vue3';
 import MainLayout from '@/Layouts/MainLayout.vue';
-import { ref } from 'vue';
+import { ref, computed } from 'vue';
 import {
     Chart as ChartJS,
     Title,
@@ -12,11 +12,19 @@ import {
     LinearScale,
     BarElement
 } from 'chart.js';
-import { Doughnut, Bar } from 'vue-chartjs';
+import { Doughnut } from 'vue-chartjs';
 
 ChartJS.register(Title, Tooltip, Legend, ArcElement, CategoryScale, LinearScale, BarElement);
 
-const tahun = new Date().getFullYear();
+const props = defineProps({
+    anggaran: Array,
+    tahun: [String, Number],
+    years: Array
+});
+
+const changeYear = (event) => {
+    router.get(route('pemerintahan.anggaran'), { tahun: event.target.value }, { preserveState: true, preserveScroll: true });
+};
 
 const formatRupiah = (number) => {
     return new Intl.NumberFormat('id-ID', {
@@ -55,35 +63,47 @@ const formatCompactRupiah = (number) => {
     return 'Rp ' + result + suffix;
 };
 
-const totalPendapatan = 1250000000;
-const totalBelanja = 1180500000;
-const silpa = totalPendapatan - totalBelanja;
+const totalPendapatan = computed(() => {
+    return props.anggaran.filter(a => a.kategori === 'pendapatan').reduce((sum, item) => sum + Number(item.jumlah), 0);
+});
 
-const pendapatanData = {
-    labels: ['Dana Desa (DD)', 'Alokasi Dana Desa (ADD)', 'Pendapatan Asli Desa (PAD)', 'Bagi Hasil Pajak'],
+const totalBelanja = computed(() => {
+    return props.anggaran.filter(a => a.kategori === 'belanja').reduce((sum, item) => sum + Number(item.jumlah), 0);
+});
+
+const silpa = computed(() => totalPendapatan.value - totalBelanja.value);
+
+const pendapatanItems = computed(() => props.anggaran.filter(a => a.kategori === 'pendapatan'));
+const belanjaItems = computed(() => props.anggaran.filter(a => a.kategori === 'belanja'));
+
+const pendapatanColors = ['#059669', '#10B981', '#34D399', '#6EE7B7', '#A7F3D0', '#D1FAE5'];
+const belanjaColors = ['#EF4444', '#F59E0B', '#3B82F6', '#8B5CF6', '#EC4899', '#6366F1'];
+
+const pendapatanData = computed(() => ({
+    labels: pendapatanItems.value.map(item => item.nama),
     datasets: [
         {
             label: 'Rupiah',
-            backgroundColor: ['#059669', '#10B981', '#34D399', '#6EE7B7'],
+            backgroundColor: pendapatanColors.slice(0, pendapatanItems.value.length).concat(Array(Math.max(0, pendapatanItems.value.length - pendapatanColors.length)).fill('#cbd5e1')),
             hoverOffset: 15,
             borderWidth: 0,
-            data: [800000000, 350000000, 50000000, 50000000]
+            data: pendapatanItems.value.map(item => Number(item.jumlah))
         }
     ]
-};
+}));
 
-const belanjaData = {
-    labels: ['Penyelenggaraan Pemdes', 'Pembangunan Desa', 'Pembinaan Kemasyarakatan', 'Pemberdayaan Masyarakat'],
+const belanjaData = computed(() => ({
+    labels: belanjaItems.value.map(item => item.nama),
     datasets: [
         {
-            label: 'Persentase (%)',
-            backgroundColor: ['#EF4444', '#F59E0B', '#3B82F6', '#8B5CF6'],
+            label: 'Rupiah', // Changed from Persentase to Rupiah for consistency
+            backgroundColor: belanjaColors.slice(0, belanjaItems.value.length).concat(Array(Math.max(0, belanjaItems.value.length - belanjaColors.length)).fill('#cbd5e1')),
             hoverOffset: 15,
             borderWidth: 0,
-            data: [35, 45, 15, 5]
+            data: belanjaItems.value.map(item => Number(item.jumlah))
         }
     ]
-};
+}));
 
 const chartOptions = {
     responsive: true,
@@ -91,7 +111,7 @@ const chartOptions = {
     cutout: '80%',
     plugins: {
         legend: {
-            display: false, // Kita akan buat legend kustom agar lebih rapi
+            display: false,
         },
         tooltip: {
             backgroundColor: '#1f2937',
@@ -102,11 +122,8 @@ const chartOptions = {
                 label: function (context) {
                     let label = context.label || '';
                     if (label) label += ': ';
-                    if (context.dataset.label === 'Rupiah') {
-                        label += formatRupiah(context.raw) + ' (' + formatCompactRupiah(context.raw) + ')';
-                    } else {
-                        label += context.raw + '%';
-                    }
+                    // Always format as Rupiah now
+                    label += formatRupiah(context.raw) + ' (' + formatCompactRupiah(context.raw) + ')';
                     return label;
                 }
             }
@@ -123,7 +140,7 @@ const activeCategory = ref('pendapatan');
 
     <MainLayout>
         <!-- Premium Hero Section -->
-        <div class="relative bg-[#064e3b] pt-24 pb-32 overflow-hidden">
+        <div class="relative bg-[#064e3b] py-16 overflow-hidden">
             <div class="absolute inset-0">
                 <div class="absolute inset-0 bg-gradient-to-br from-green-900/50 via-transparent to-blue-900/30"></div>
                 <!-- Animated Background Elements -->
@@ -138,21 +155,29 @@ const activeCategory = ref('pendapatan');
             <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
                 <div class="flex flex-col items-center text-center">
                     <div
-                        class="inline-flex items-center px-4 py-1.5 rounded-full bg-green-500/20 border border-green-400/30 text-green-300 text-sm font-medium mb-6 backdrop-blur-md">
-                        <span class="relative flex h-2 w-2 mr-2">
-                            <span
-                                class="animate-ping absolute inline-flex h-full w-full rounded-full bg-green-400 opacity-75"></span>
-                            <span class="relative inline-flex rounded-full h-2 w-2 bg-green-500"></span>
-                        </span>
-                        Transparansi Publik
+                        class="w-16 h-16 mx-auto bg-white/10 backdrop-blur-md rounded-2xl flex items-center justify-center mb-6 shadow-2xl border border-white/10">
+                        <i class="fas fa-coins text-3xl text-white"></i>
                     </div>
                     <h1 class="text-4xl md:text-6xl font-black text-white mb-6 tracking-tight">
                         Anggaran Pendapatan <br /> & Belanja <span class="text-green-400">Desa {{ tahun }}</span>
                     </h1>
-                    <p class="text-green-100/80 text-lg md:text-xl max-w-2xl font-light leading-relaxed">
+                    <p class="text-green-100/80 text-lg md:text-xl max-w-2xl font-light leading-relaxed mb-8">
                         Mewujudkan tata kelola pemerintahan yang bersih dan transparan melalui keterbukaan informasi
                         publik bagi seluruh warga.
                     </p>
+
+                    <!-- Year Filter -->
+                    <div class="relative inline-block">
+                        <select :value="tahun" @change="changeYear"
+                            class="appearance-none bg-white/10 backdrop-blur-md border border-white/20 text-white font-bold py-3 pl-6 pr-9 rounded-xl focus:outline-none focus:ring-2 focus:ring-green-400/50 cursor-pointer hover:bg-white/20 transition-colors">
+                            <option v-for="y in years" :key="y" :value="y" class="text-slate-900 bg-white">{{ y }}
+                            </option>
+                        </select>
+                        <div
+                            class="absolute inset-y-0 right-0 flex items-center px-4 pointer-events-none text-green-300">
+                            <i class="fas fa-chevron-down text-xs"></i>
+                        </div>
+                    </div>
                 </div>
             </div>
         </div>
@@ -262,9 +287,11 @@ const activeCategory = ref('pendapatan');
                                 <!-- Center Text Overlay -->
                                 <div
                                     class="absolute inset-0 flex flex-col items-center justify-center pointer-events-none">
-                                    <span class="text-slate-400 text-[10px] md:text-sm font-bold uppercase tracking-widest mb-1">Total</span>
+                                    <span
+                                        class="text-slate-400 text-[10px] md:text-sm font-bold uppercase tracking-widest mb-1">Total</span>
                                     <span class="text-xl md:text-3xl font-black text-slate-900 leading-none">
-                                        {{ activeCategory === 'pendapatan' ? formatCompactRupiah(totalPendapatan) : '100%'
+                                        {{ activeCategory === 'pendapatan' ? formatCompactRupiah(totalPendapatan) :
+                                            '100%'
                                         }}
                                     </span>
                                 </div>
@@ -273,14 +300,18 @@ const activeCategory = ref('pendapatan');
                             <!-- Custom Legend (Neater) -->
                             <div class="mt-8 flex flex-wrap justify-center gap-x-6 gap-y-3 px-4">
                                 <template v-if="activeCategory === 'pendapatan'">
-                                    <div v-for="(label, index) in pendapatanData.labels" :key="index" class="flex items-center gap-2">
-                                        <div :style="{ backgroundColor: pendapatanData.datasets[0].backgroundColor[index] }" class="w-3 h-3 rounded-full"></div>
+                                    <div v-for="(label, index) in pendapatanData.labels" :key="index"
+                                        class="flex items-center gap-2">
+                                        <div :style="{ backgroundColor: pendapatanData.datasets[0].backgroundColor[index] }"
+                                            class="w-3 h-3 rounded-full"></div>
                                         <span class="text-xs font-semibold text-slate-600">{{ label }}</span>
                                     </div>
                                 </template>
                                 <template v-else>
-                                    <div v-for="(label, index) in belanjaData.labels" :key="index" class="flex items-center gap-2">
-                                        <div :style="{ backgroundColor: belanjaData.datasets[0].backgroundColor[index] }" class="w-3 h-3 rounded-full"></div>
+                                    <div v-for="(label, index) in belanjaData.labels" :key="index"
+                                        class="flex items-center gap-2">
+                                        <div :style="{ backgroundColor: belanjaData.datasets[0].backgroundColor[index] }"
+                                            class="w-3 h-3 rounded-full"></div>
                                         <span class="text-xs font-semibold text-slate-600">{{ label }}</span>
                                     </div>
                                 </template>
@@ -322,12 +353,12 @@ const activeCategory = ref('pendapatan');
                                             </div>
                                             <span
                                                 class="font-black text-slate-900 group-hover:text-red-600 transition-colors">{{
-                                                    belanjaData.datasets[0].data[index] }}%</span>
+                                                    formatRupiah(belanjaData.datasets[0].data[index]) }}</span>
                                         </div>
                                         <div class="w-full bg-slate-200 rounded-full h-2 overflow-hidden">
                                             <div class="h-full rounded-full transition-all duration-1000" :style="{
                                                 backgroundColor: belanjaData.datasets[0].backgroundColor[index],
-                                                width: belanjaData.datasets[0].data[index] + '%'
+                                                width: (belanjaData.datasets[0].data[index] / totalBelanja * 100) + '%'
                                             }"></div>
                                         </div>
                                     </div>

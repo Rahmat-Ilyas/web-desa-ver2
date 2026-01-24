@@ -17,7 +17,7 @@ const getPhotoUrl = (path) => {
 
     <MainLayout>
         <!-- Hero Section with Modern Mesh Gradient -->
-        <div class="relative bg-slate-900 py-24 overflow-hidden">
+        <div class="relative bg-slate-900 py-16 overflow-hidden">
             <!-- Animated Background Elements -->
             <div
                 class="absolute inset-0 opacity-20 bg-[radial-gradient(#3b82f6_1px,transparent_1px)] [background-size:24px_24px]">
