@@ -148,7 +148,7 @@ const getPhotoUrl = (path) => {
             <div class="grid grid-cols-1 lg:grid-cols-12 gap-10 items-start">
                 <!-- Left Column: Profile & Tasks (Wider) -->
                 <div class="lg:col-span-6 space-y-10">
-                    <div class="bg-white rounded-[2.5rem] shadow-sm border border-slate-100 p-8 md:p-10">
+                    <div class="bg-white rounded-[2.5rem] shadow-sm border border-slate-100 p-5 md:p-10">
                         <div class="flex items-center gap-4 mb-8">
                             <div
                                 class="w-12 h-12 rounded-2xl bg-teal-50 text-teal-600 flex items-center justify-center text-xl shadow-sm">
@@ -223,8 +223,9 @@ const getPhotoUrl = (path) => {
 
                 <!-- Right Column: Members Table (Narrower) -->
                 <div class="lg:col-span-6 space-y-10">
-                    <div class="bg-white rounded-[2.5rem] shadow-sm border border-slate-100 p-8 md:p-10 overflow-hidden">
-                        <div class="border-b border-slate-50 flex items-center justify-between gap-4">
+                    <div
+                        class="bg-white rounded-[2.5rem] shadow-sm border border-slate-100 p-4 md:p-10 overflow-hidden">
+                        <div class="border-b border-slate-50 flex items-center justify-between gap-4 pb-6">
                             <div class="flex items-center gap-4">
                                 <div
                                     class="w-12 h-12 rounded-2xl bg-blue-50 text-blue-600 flex items-center justify-center text-xl shadow-sm flex-shrink-0">
@@ -243,55 +244,56 @@ const getPhotoUrl = (path) => {
                                 <i class="fas fa-plus text-[10px]"></i> TAMBAH
                             </button>
                         </div>
-                        <div class="overflow-x-auto">
+                        <div class="overflow-x-auto mt-4">
                             <table class="w-full text-left border-collapse">
                                 <thead>
                                     <tr class="bg-slate-50/50">
                                         <th
-                                            class="px-6 py-5 text-[10px] font-black text-slate-400 uppercase tracking-widest text-center">
+                                            class="px-4 py-5 text-[10px] font-black text-slate-400 uppercase tracking-widest text-center w-12">
                                             #</th>
                                         <th
-                                            class="px-6 py-5 text-[10px] font-black text-slate-400 uppercase tracking-widest">
+                                            class="px-4 py-5 text-[10px] font-black text-slate-400 uppercase tracking-widest">
                                             Pengurus</th>
                                         <th
-                                            class="px-6 py-5 text-[10px] font-black text-slate-400 uppercase tracking-widest text-right">
+                                            class="px-4 py-5 text-[10px] font-black text-slate-400 uppercase tracking-widest text-right">
                                             Aksi</th>
                                     </tr>
                                 </thead>
                                 <tbody class="divide-y divide-slate-50">
                                     <tr v-for="member in members" :key="member.id"
                                         class="hover:bg-slate-50/50 transition-colors group">
-                                        <td class="px-6 py-5 text-center">
+                                        <td class="px-4 py-5 text-center">
                                             <span
                                                 class="font-black text-slate-300 group-hover:text-blue-600 transition-colors text-sm">#{{
-                                                member.urutan }}</span>
+                                                    member.urutan }}</span>
                                         </td>
-                                        <td class="px-6 py-5">
-                                            <div class="flex items-center gap-4">
+                                        <td class="px-4 py-5">
+                                            <div class="flex items-center gap-3">
                                                 <div
                                                     class="w-10 h-12 rounded-xl bg-slate-100 overflow-hidden shadow-sm flex-shrink-0">
                                                     <img :src="getPhotoUrl(member.foto)"
                                                         class="w-full h-full object-cover">
                                                 </div>
                                                 <div class="overflow-hidden">
-                                                    <p class="font-black text-slate-900 text-sm truncate">{{ member.nama
+                                                    <p
+                                                        class="font-black text-slate-900 text-sm truncate max-w-[120px] sm:max-w-none">
+                                                        {{ member.nama
                                                         }}</p>
                                                     <p
-                                                        class="text-xs font-bold text-slate-400 uppercase tracking-widest truncate mt-0.5">
+                                                        class="text-[10px] font-bold text-slate-400 uppercase tracking-widest truncate mt-0.5">
                                                         {{ member.jabatan }}</p>
                                                 </div>
                                             </div>
                                         </td>
-                                        <td class="px-6 py-5 text-right">
-                                            <div
-                                                class="flex items-center justify-end gap-2 opacity-0 group-hover:opacity-100 transition-all translate-x-2 group-hover:translate-x-0">
+                                        <td class="px-4 py-5 text-right whitespace-nowrap">
+                                            <div class="flex items-center justify-end gap-1.5 transition-all">
                                                 <button @click="openEditModal(member)"
-                                                    class="w-9 h-9 rounded-xl bg-blue-50 text-blue-600 hover:bg-blue-600 hover:text-white transition-all flex items-center justify-center">
-                                                    <i class="fas fa-edit text-xs"></i>
+                                                    class="w-8 h-8 rounded-xl bg-blue-50 text-blue-600 hover:bg-blue-600 hover:text-white transition-all flex items-center justify-center">
+                                                    <i class="fas fa-edit text-[10px]"></i>
                                                 </button>
                                                 <button @click="deleteMember(member)"
-                                                    class="w-9 h-9 rounded-xl bg-rose-50 text-rose-600 hover:bg-rose-600 hover:text-white transition-all flex items-center justify-center">
-                                                    <i class="fas fa-trash text-xs"></i>
+                                                    class="w-8 h-8 rounded-xl bg-rose-50 text-rose-600 hover:bg-rose-600 hover:text-white transition-all flex items-center justify-center">
+                                                    <i class="fas fa-trash text-[10px]"></i>
                                                 </button>
                                             </div>
                                         </td>
@@ -393,7 +395,7 @@ const getPhotoUrl = (path) => {
                     </div>
                 </div>
             </transition>
-            
+
             <!-- Delete Confirmation Modal -->
             <transition enter-active-class="duration-300 ease-out" enter-from-class="opacity-0"
                 enter-to-class="opacity-100" leave-active-class="duration-200 ease-in" leave-from-class="opacity-100"
@@ -402,12 +404,14 @@ const getPhotoUrl = (path) => {
                     <div class="fixed inset-0 bg-slate-900/60 backdrop-blur-sm" @click="showDeleteModal = false"></div>
                     <div class="flex min-h-full items-center justify-center p-4">
                         <div class="relative bg-white rounded-[2.5rem] shadow-2xl w-full max-w-md p-8 text-center">
-                            <div class="w-20 h-20 bg-rose-50 text-rose-500 rounded-full flex items-center justify-center mx-auto mb-6 text-3xl">
+                            <div
+                                class="w-20 h-20 bg-rose-50 text-rose-500 rounded-full flex items-center justify-center mx-auto mb-6 text-3xl">
                                 <i class="fas fa-exclamation-triangle"></i>
                             </div>
                             <h2 class="text-2xl font-black text-slate-900 mb-2">Hapus Pengurus?</h2>
                             <p class="text-slate-500 font-bold text-sm mb-8 leading-relaxed">
-                                Apakah Anda yakin ingin menghapus <span class="text-slate-900 font-black">{{ itemToDelete?.nama }}</span>? Tindakan ini tidak dapat dibatalkan.
+                                Apakah Anda yakin ingin menghapus <span class="text-slate-900 font-black">{{
+                                    itemToDelete?.nama }}</span>? Tindakan ini tidak dapat dibatalkan.
                             </p>
                             <div class="flex gap-4">
                                 <button @click="showDeleteModal = false"
