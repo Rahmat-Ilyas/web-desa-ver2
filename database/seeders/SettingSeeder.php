@@ -49,10 +49,10 @@ class SettingSeeder extends Seeder
             ]),
             'profil_majelis_taklim' => 'Majelis Taklim adalah lembaga pendidikan non-formal yang memiliki fungsi sebagai pembinaan umat, khususnya dalam bidang agama Islam.',
             'kegiatan_majelis_taklim' => json_encode([
-                "Pengajian rutin mingguan.",
-                "Peringatan Hari Besar Islam (PHBI).",
-                "Santunan anak yatim dan dhuafa.",
-                "Pelatihan pemulasaraan jenazah."
+                ["name" => "Pengajian rutin mingguan.", "icon" => "fa-quran"],
+                ["name" => "Peringatan Hari Besar Islam (PHBI).", "icon" => "fa-mosque"],
+                ["name" => "Santunan anak yatim dan dhuafa.", "icon" => "fa-hand-holding-heart"],
+                ["name" => "Pelatihan pemulasaraan jenazah.", "icon" => "fa-pray"]
             ]),
         ];
 
