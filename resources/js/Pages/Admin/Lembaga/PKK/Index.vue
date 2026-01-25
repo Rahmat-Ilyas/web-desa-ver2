@@ -241,7 +241,7 @@ const pokjaOptions = [
                                             <i class="fas fa-plus"></i> Tambah
                                         </button>
                                     </div>
-                                    <div class="space-y-3 max-h-[600px] overflow-y-auto pr-2 custom-scrollbar">
+                                    <div class="space-y-3 max-h-[600px] overflow-y-auto pr-2 pb-2 custom-scrollbar">
                                         <transition-group enter-active-class="transition duration-300 ease-out"
                                             enter-from-class="opacity-0 -translate-y-2"
                                             enter-to-class="opacity-100 translate-y-0"

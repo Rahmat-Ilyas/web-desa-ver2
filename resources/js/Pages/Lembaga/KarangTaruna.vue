@@ -49,10 +49,10 @@ const formatPhone = (number) => {
             </div>
             <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10 text-center">
                 <div
-                    class="inline-flex items-center justify-center w-20 h-20 rounded-3xl bg-white/20 backdrop-blur-md border border-white/30 mb-8 text-white shadow-2xl rotate-3 group-hover:rotate-0 transition-transform">
+                    class="inline-flex items-center justify-center w-16 h-16 rounded-3xl bg-white/20 backdrop-blur-md border border-white/30 mb-8 text-white shadow-2xl rotate-3 group-hover:rotate-0 transition-transform">
                     <i class="fas fa-fist-raised text-4xl"></i>
                 </div>
-                <h1 class="text-4xl md:text-6xl font-black text-white tracking-tighter mb-4 uppercase">Karang Taruna</h1>
+                <h1 class="text-4xl md:text-6xl font-black text-white tracking-tighter mb-4">Karang Taruna</h1>
                 <p class="text-orange-50 text-xl max-w-2xl mx-auto font-medium">Wadah pengembangan bakat dan kreativitas generasi muda Kelurahan Ujung Sabbang.</p>
             </div>
             <!-- Decorative circle -->
@@ -108,7 +108,7 @@ const formatPhone = (number) => {
                                 </div>
                                 <span class="text-orange-600 font-extrabold text-[10px] uppercase tracking-[0.4em]">Tentang Karang Taruna</span>
                             </div>
-                            <h2 class="text-3xl md:text-4xl font-black text-slate-900 leading-[1.1] tracking-tighter mb-8 uppercase">
+                            <h2 class="text-3xl md:text-5xl font-black text-slate-900 leading-[1.1] tracking-tighter mb-8 uppercase">
                                 Pemuda Bergerak, Membangun Masa Depan <span class="text-orange-600">Kelurahan.</span>
                             </h2>
                             <div class="relative">

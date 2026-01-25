@@ -68,13 +68,13 @@ const currentPrograms = computed(() => {
     <MainLayout>
         <!-- Hero Section -->
         <div class="bg-rose-600 py-16 relative overflow-hidden">
-            <div class="absolute inset-0 opacity-80 bg-[url('https://www.transparenttextures.com/patterns/cubes.png')]">
+            <div class="absolute inset-0 opacity-100 bg-[url('https://www.transparenttextures.com/patterns/cubes.png')]">
             </div>
             <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10 text-center">
                 <div
-                    class="inline-flex items-center justify-center w-24 h-24 rounded-3xl bg-white/20 backdrop-blur-md border border-white/30 mb-8 text-white shadow-2xl rotate-3 relative group">
+                    class="inline-flex items-center justify-center w-16 h-16 rounded-3xl bg-white/20 backdrop-blur-md border border-white/30 mb-8 text-white shadow-2xl rotate-3 relative group">
                     <div class="absolute inset-0 bg-white/20 rounded-3xl animate-ping opacity-20"></div>
-                    <i class="fas fa-hand-holding-heart text-5xl relative z-10"></i>
+                    <i class="fas fa-hand-holding-heart text-4xl"></i>
                 </div>
                 <h1 class="text-4xl md:text-6xl font-black text-white tracking-tighter mb-4 uppercase">PKK</h1>
                 <p class="text-rose-50 text-xl max-w-2xl mx-auto font-medium">Pemberdayaan Kesejahteraan Keluarga

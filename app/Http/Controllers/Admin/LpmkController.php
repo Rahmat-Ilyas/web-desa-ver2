@@ -82,6 +82,8 @@ class LpmkController extends Controller
                 Storage::disk('public')->delete($lpmk->foto);
             }
             $data['foto'] = $request->file('foto')->store('lpmk', 'public');
+        } else {
+            unset($data['foto']);
         }
 
         $lpmk->update($data);

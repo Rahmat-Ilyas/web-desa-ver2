@@ -150,11 +150,12 @@ const bidangOptions = [
             <div class="flex flex-col md:flex-row md:items-center justify-between gap-6 mb-10">
                 <div>
                     <span
-                        class="inline-flex items-center gap-2 px-3 py-1 rounded-lg bg-orange-50 text-orange-600 text-[10px] font-black uppercase tracking-widest mb-3 border border-orange-100 shadow-sm">
-                        <i class="fas fa-fist-raised"></i> Karang Taruna
+                        class="inline-flex items-center gap-2 px-3 py-1 rounded-lg bg-blue-50 text-blue-600 text-[10px] font-black uppercase tracking-widest mb-3 border border-blue-100 shadow-sm">
+                        <i class="fas fa-sitemap"></i> Lembaga Kelurahan
                     </span>
                     <h1 class="text-4xl font-black text-slate-900 tracking-tight leading-none mb-2">{{ title }}</h1>
-                    <p class="text-slate-500 font-bold text-sm">Kelola wadah kreativitas dan organisasi pemuda Kelurahan.</p>
+                    <p class="text-slate-500 font-bold text-sm">Kelola wadah kreativitas dan organisasi pemuda
+                        Kelurahan.</p>
                 </div>
             </div>
 
@@ -164,13 +165,15 @@ const bidangOptions = [
                     <div class="bg-white rounded-[2.5rem] shadow-sm border border-slate-100 p-5 md:p-10">
                         <div class="flex items-center gap-4 mb-8">
                             <div
-                                class="w-12 h-12 rounded-2xl bg-orange-50 text-orange-600 flex items-center justify-center text-xl shadow-sm">
+                                class="w-12 h-12 rounded-2xl bg-teal-50 text-teal-600 flex items-center justify-center text-xl shadow-sm">
                                 <i class="fas fa-edit"></i>
                             </div>
                             <div>
-                                <h2 class="text-xl font-black text-slate-900 leading-none mb-1">Profil Karang Taruna</h2>
+                                <h2 class="text-xl font-black text-slate-900 leading-none mb-1">Profil & Fokus Karang
+                                    Taruna
+                                </h2>
                                 <p class="text-[10px] font-bold text-slate-400 uppercase tracking-widest leading-none">
-                                    Visi & Misi Kepemudaan</p>
+                                    Deskripsi & Fokus Kegiatan</p>
                             </div>
                         </div>
 
@@ -179,9 +182,10 @@ const bidangOptions = [
                                 <!-- Deskripsi Section -->
                                 <div>
                                     <label
-                                        class="block text-[10px] font-black text-slate-400 uppercase tracking-widest mb-3 ml-3 text-left">Narasi Profil</label>
+                                        class="block text-[10px] font-black text-slate-400 uppercase tracking-widest mb-3 ml-3 text-left">Deskripsi
+                                        Profil</label>
                                     <textarea v-model="profileForm.profil_karang_taruna" rows="12"
-                                        class="w-full px-6 py-5 bg-slate-50 border-2 border-transparent focus:border-orange-500 focus:bg-white rounded-[2rem] font-bold transition-all outline-none resize-none text-slate-700 leading-relaxed text-sm shadow-inner"
+                                        class="w-full px-6 py-5 bg-slate-50 border-2 border-transparent focus:border-teal-500 focus:bg-white rounded-[2rem] font-bold transition-all outline-none resize-none text-slate-700 leading-relaxed text-sm shadow-inner"
                                         placeholder="Masukkan profil Karang Taruna..."></textarea>
                                 </div>
 
@@ -189,13 +193,14 @@ const bidangOptions = [
                                 <div class="pt-8 border-t border-slate-50">
                                     <div class="flex items-center justify-between mb-4 ml-3">
                                         <label
-                                            class="block text-[10px] font-black text-slate-400 uppercase tracking-widest">Fokus Kegiatan</label>
+                                            class="block text-[10px] font-black text-slate-400 uppercase tracking-widest">Fokus
+                                            Kegiatan Karang Taruna</label>
                                         <button type="button" @click="addTask"
                                             class="text-[10px] font-black text-emerald-600 uppercase tracking-widest hover:text-emerald-700 transition-all flex items-center gap-1.5">
                                             <i class="fas fa-plus"></i> Tambah
                                         </button>
                                     </div>
-                                    <div class="space-y-3 max-h-[400px] overflow-y-auto pr-2 custom-scrollbar">
+                                    <div class="space-y-3 max-h-[400px] overflow-y-auto pr-2 pb-10 custom-scrollbar">
                                         <transition-group enter-active-class="transition duration-300 ease-out"
                                             enter-from-class="opacity-0 -translate-y-2"
                                             enter-to-class="opacity-100 translate-y-0"
@@ -224,39 +229,42 @@ const bidangOptions = [
                             </div>
 
                             <button type="submit" :disabled="profileForm.processing"
-                                class="w-full py-4 bg-orange-600 text-white rounded-[1.5rem] font-black text-[10px] uppercase tracking-[0.2em] hover:bg-orange-700 hover:shadow-2xl hover:shadow-orange-600/40 transition-all disabled:opacity-50 flex items-center justify-center gap-2">
+                                class="w-full py-4 bg-teal-600 text-white rounded-[1.5rem] font-black text-[10px] uppercase tracking-[0.2em] hover:bg-teal-700 hover:shadow-2xl hover:shadow-teal-600/40 transition-all disabled:opacity-50 flex items-center justify-center gap-2">
                                 <i class="fas fa-save"></i>
-                                SIMPAN KONFIGURASI
+                                SIMPAN PROFIL & FOKUS
                             </button>
                         </form>
                     </div>
                 </div>
 
                 <!-- Right Column: Members Table -->
-                <div class="lg:col-span-6 space-y-10">
-                    <div class="bg-white rounded-[2.5rem] shadow-sm border border-slate-100 p-4 md:p-10 overflow-hidden">
-                        <div class="border-b border-slate-50 flex items-center justify-between gap-4 pb-6">
+                <div class="lg:col-span-6 flex flex-col h-[850px]">
+                    <div
+                        class="bg-white rounded-[2.5rem] shadow-sm border border-slate-100 p-4 md:p-10 flex flex-col h-full overflow-hidden">
+                        <div class="border-b border-slate-50 flex items-center justify-between gap-4 pb-6 shrink-0">
                             <div class="flex items-center gap-4">
                                 <div
-                                    class="w-12 h-12 rounded-2xl bg-indigo-50 text-indigo-600 flex items-center justify-center text-xl shadow-sm flex-shrink-0">
-                                    <i class="fas fa-users-viewfinder"></i>
+                                    class="w-12 h-12 rounded-2xl bg-blue-50 text-blue-600 flex items-center justify-center text-xl shadow-sm flex-shrink-0">
+                                    <i class="fas fa-users-cog"></i>
                                 </div>
                                 <div>
                                     <h3 class="text-lg font-black text-slate-900 tracking-tight leading-none mb-1">
-                                        Struktur Kepengurusan</h3>
+                                        Daftar Pengurus</h3>
                                     <p
                                         class="text-[10px] font-bold text-slate-400 uppercase tracking-widest leading-none">
-                                        Per Bidang & Seksi</p>
+                                        Susunan & Struktur</p>
                                 </div>
                             </div>
                             <button @click="openCreateModal"
-                                class="px-5 py-2.5 bg-orange-600 text-white text-[10px] font-black rounded-xl hover:bg-orange-700 transition-all shadow-lg shadow-orange-600/20 active:scale-95 flex items-center gap-2 uppercase tracking-widest">
+                                class="px-5 py-2.5 bg-blue-600 text-white text-[10px] font-black rounded-xl hover:bg-blue-700 transition-all shadow-lg shadow-blue-600/20 active:scale-95 flex items-center gap-2 uppercase tracking-widest">
                                 <i class="fas fa-plus text-[10px]"></i> TAMBAH
                             </button>
                         </div>
-                        <div class="overflow-x-auto mt-4">
-                            <table class="w-full text-left border-collapse">
-                                <thead>
+
+                        <!-- Table Container with Internal Scroll -->
+                        <div class="overflow-y-auto mt-4 pr-2 custom-scrollbar flex-grow min-h-0">
+                            <table class="w-full text-left border-separate border-spacing-0">
+                                <thead class="sticky top-0 z-10 bg-white">
                                     <tr class="bg-slate-50/50">
                                         <th
                                             class="px-4 py-5 text-[10px] font-black text-slate-400 uppercase tracking-widest">
@@ -280,7 +288,9 @@ const bidangOptions = [
                                                         class="w-full h-full object-cover">
                                                 </div>
                                                 <div class="overflow-hidden text-left">
-                                                    <p class="font-black text-slate-900 text-sm truncate max-w-[150px] sm:max-w-none">{{ member.nama
+                                                    <p
+                                                        class="font-black text-slate-900 text-sm truncate max-w-[150px] sm:max-w-none">
+                                                        {{ member.nama
                                                         }}</p>
                                                     <p
                                                         class="text-[10px] font-bold text-slate-400 uppercase tracking-widest truncate mt-0.5">
@@ -289,33 +299,32 @@ const bidangOptions = [
                                             </div>
                                         </td>
                                         <td class="px-4 py-5 text-center">
-                                            <span 
+                                            <span
                                                 class="px-2 py-1 rounded-lg text-[9px] font-black uppercase tracking-widest whitespace-nowrap inline-block"
                                                 :class="{
-                                                    'bg-indigo-50 text-indigo-600': member.bidang === 'Pengurus Harian' || member.bidang === 'MPKT',
-                                                    'bg-orange-50 text-orange-600': member.bidang && member.bidang.includes('Seksi'),
-                                                }"
-                                            >
+                                                    'bg-blue-50 text-blue-600': member.bidang === 'Pengurus Harian' || member.bidang === 'MPKT',
+                                                    'bg-emerald-50 text-emerald-600': member.bidang && member.bidang.includes('Seksi'),
+                                                }">
                                                 {{ member.bidang || 'Lainnya' }}
                                             </span>
                                         </td>
                                         <td class="px-4 py-5 text-right whitespace-nowrap">
-                                            <div
-                                                class="flex items-center justify-end gap-1.5 transition-all">
+                                            <div class="flex items-center justify-end gap-1.5 transition-all">
                                                 <button @click="openEditModal(member)"
                                                     class="w-8 h-8 rounded-xl bg-blue-50 text-blue-600 hover:bg-blue-600 hover:text-white transition-all flex items-center justify-center">
                                                     <i class="fas fa-edit text-[10px]"></i>
                                                 </button>
                                                 <button @click="deleteMember(member)"
                                                     class="w-8 h-8 rounded-xl bg-rose-50 text-rose-600 hover:bg-rose-600 hover:text-white transition-all flex items-center justify-center">
-                                                    <i class="fas fa-trash text-[10px]"></i>
+                                                    <i class="fas fa-trash text-xs"></i>
                                                 </button>
                                             </div>
                                         </td>
                                     </tr>
                                     <tr v-if="members.length === 0">
                                         <td colspan="3" class="px-8 py-20 text-center text-slate-400">
-                                            <p class="font-bold text-[10px] uppercase tracking-widest">Belum ada data pengurus</p>
+                                            <p class="font-bold text-[10px] uppercase tracking-widest">Belum ada data
+                                                pengurus</p>
                                         </td>
                                     </tr>
                                 </tbody>
@@ -347,16 +356,17 @@ const bidangOptions = [
                                 <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
                                     <div>
                                         <label
-                                            class="block text-[10px] font-black text-slate-400 uppercase tracking-widest mb-2 ml-3">Nama Lengkap</label>
+                                            class="block text-[10px] font-black text-slate-400 uppercase tracking-widest mb-2 ml-3">Nama
+                                            Lengkap</label>
                                         <input v-model="form.nama" type="text"
-                                            class="w-full px-6 py-4 bg-slate-50 border-2 border-transparent focus:border-orange-500 focus:bg-white rounded-2xl font-bold transition-all outline-none"
+                                            class="w-full px-6 py-4 bg-slate-50 border-2 border-transparent focus:border-blue-500 focus:bg-white rounded-2xl font-bold transition-all outline-none"
                                             placeholder="Nama lengkap..." required>
                                     </div>
                                     <div>
                                         <label
                                             class="block text-[10px] font-black text-slate-400 uppercase tracking-widest mb-2 ml-3">Urutan</label>
                                         <input v-model="form.urutan" type="number"
-                                            class="w-full px-6 py-4 bg-slate-50 border-2 border-transparent focus:border-orange-500 focus:bg-white rounded-2xl font-bold transition-all outline-none"
+                                            class="w-full px-6 py-4 bg-slate-50 border-2 border-transparent focus:border-blue-500 focus:bg-white rounded-2xl font-bold transition-all outline-none"
                                             placeholder="0" required>
                                     </div>
                                 </div>
@@ -366,24 +376,27 @@ const bidangOptions = [
                                         <label
                                             class="block text-[10px] font-black text-slate-400 uppercase tracking-widest mb-2 ml-3">Jabatan</label>
                                         <input v-model="form.jabatan" type="text"
-                                            class="w-full px-6 py-4 bg-slate-50 border-2 border-transparent focus:border-orange-500 focus:bg-white rounded-2xl font-bold transition-all outline-none"
+                                            class="w-full px-6 py-4 bg-slate-50 border-2 border-transparent focus:border-blue-500 focus:bg-white rounded-2xl font-bold transition-all outline-none"
                                             placeholder="Contoh: Ketua" required>
                                     </div>
                                     <div>
                                         <label
-                                            class="block text-[10px] font-black text-slate-400 uppercase tracking-widest mb-2 ml-3">Seksi / Bidang</label>
+                                            class="block text-[10px] font-black text-slate-400 uppercase tracking-widest mb-2 ml-3">Seksi
+                                            / Bidang</label>
                                         <select v-model="form.bidang"
-                                            class="w-full px-6 py-4 bg-slate-50 border-2 border-transparent focus:border-orange-500 focus:bg-white rounded-2xl font-bold transition-all outline-none appearance-none">
-                                            <option v-for="opt in bidangOptions" :key="opt" :value="opt">{{ opt }}</option>
+                                            class="w-full px-6 py-4 bg-slate-50 border-2 border-transparent focus:border-blue-500 focus:bg-white rounded-2xl font-bold transition-all outline-none appearance-none">
+                                            <option v-for="opt in bidangOptions" :key="opt" :value="opt">{{ opt }}
+                                            </option>
                                         </select>
                                     </div>
                                 </div>
 
                                 <div>
                                     <label
-                                        class="block text-[10px] font-black text-slate-400 uppercase tracking-widest mb-2 ml-3">No. WhatsApp</label>
+                                        class="block text-[10px] font-black text-slate-400 uppercase tracking-widest mb-2 ml-3">No.
+                                        WhatsApp</label>
                                     <input v-model="form.no_hp" type="text"
-                                        class="w-full px-6 py-4 bg-slate-50 border-2 border-transparent focus:border-orange-500 focus:bg-white rounded-2xl font-bold transition-all outline-none"
+                                        class="w-full px-6 py-4 bg-slate-50 border-2 border-transparent focus:border-blue-500 focus:bg-white rounded-2xl font-bold transition-all outline-none"
                                         placeholder="08xxxxxxxxxx">
                                 </div>
 
@@ -394,10 +407,10 @@ const bidangOptions = [
                                         <input type="file" @input="form.foto = $event.target.files[0]"
                                             class="absolute inset-0 w-full h-full opacity-0 cursor-pointer z-10">
                                         <div
-                                            class="px-6 py-4 bg-slate-50 border-2 border-dashed border-slate-200 rounded-2xl flex items-center justify-center gap-3 transition-all group-hover:border-orange-500 group-hover:bg-orange-50">
-                                            <i class="fas fa-camera text-slate-400 group-hover:text-orange-500"></i>
+                                            class="px-6 py-4 bg-slate-50 border-2 border-dashed border-slate-200 rounded-2xl flex items-center justify-center gap-3 transition-all group-hover:border-blue-500 group-hover:bg-blue-50">
+                                            <i class="fas fa-camera text-slate-400 group-hover:text-blue-500"></i>
                                             <span
-                                                class="text-xs font-bold text-slate-500 group-hover:text-orange-600 line-clamp-1">
+                                                class="text-xs font-bold text-slate-500 group-hover:text-blue-600 line-clamp-1">
                                                 {{ form.foto ? form.foto.name : 'Pilih Foto (Maks 1MB)' }}
                                             </span>
                                         </div>
@@ -406,8 +419,8 @@ const bidangOptions = [
 
                                 <div class="pt-4">
                                     <button type="submit" :disabled="form.processing"
-                                        class="w-full py-5 bg-orange-600 text-white rounded-2xl font-black text-sm hover:bg-orange-700 shadow-xl shadow-orange-600/20 transition-all disabled:opacity-50 uppercase tracking-widest">
-                                        {{ editingItem ? 'Simpan Perubahan' : 'Tambah Pengurus' }}
+                                        class="w-full py-5 bg-blue-600 text-white rounded-2xl font-black text-sm hover:bg-blue-700 shadow-xl shadow-blue-600/20 transition-all disabled:opacity-50">
+                                        {{ editingItem ? 'SIMPAN PERUBAHAN' : 'TAMBAH PENGURUS' }}
                                     </button>
                                 </div>
                             </form>
@@ -423,13 +436,16 @@ const bidangOptions = [
                 <div v-if="showDeleteModal" class="fixed inset-0 z-[110] overflow-y-auto" role="dialog">
                     <div class="fixed inset-0 bg-slate-900/60 backdrop-blur-sm" @click="showDeleteModal = false"></div>
                     <div class="flex min-h-full items-center justify-center p-4">
-                        <div class="relative bg-white rounded-[2.5rem] shadow-2xl w-full max-w-md p-8 text-center text-slate-700">
-                            <div class="w-20 h-20 bg-rose-50 text-rose-500 rounded-full flex items-center justify-center mx-auto mb-6 text-3xl">
+                        <div
+                            class="relative bg-white rounded-[2.5rem] shadow-2xl w-full max-w-md p-8 text-center text-slate-700">
+                            <div
+                                class="w-20 h-20 bg-rose-50 text-rose-500 rounded-full flex items-center justify-center mx-auto mb-6 text-3xl">
                                 <i class="fas fa-exclamation-triangle"></i>
                             </div>
                             <h2 class="text-2xl font-black text-slate-900 mb-2">Hapus Pengurus?</h2>
                             <p class="text-slate-500 font-bold text-sm mb-8 leading-relaxed">
-                                Apakah Anda yakin ingin menghapus <span class="text-slate-900 font-black">{{ itemToDelete?.nama }}</span>?
+                                Apakah Anda yakin ingin menghapus <span class="text-slate-900 font-black">{{
+                                    itemToDelete?.nama }}</span>?
                             </p>
                             <div class="flex gap-4">
                                 <button @click="showDeleteModal = false"

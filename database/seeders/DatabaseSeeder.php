@@ -2,7 +2,6 @@
 
 namespace Database\Seeders;
 
-use App\Models\User;
 use Illuminate\Database\Console\Seeds\WithoutModelEvents;
 use Illuminate\Database\Seeder;
 
@@ -20,6 +19,19 @@ class DatabaseSeeder extends Seeder
             StructureSeeder::class,
             SettingSeeder::class,
             HistoricalTimelineSeeder::class,
+            BeritaSeeder::class,
+            PotensiSeeder::class,
+            ProgramSeeder::class,
+            GaleriSeeder::class,
+            AnggaranSeeder::class,
+            DownloadSeeder::class,
+            LayananSeeder::class,
+            RukunWargaSeeder::class,
+            RukunTetanggaSeeder::class,
+            LpmkSeeder::class,
+            PkkSeeder::class,
+            KarangTarunaSeeder::class,
+            MajelisTaklimSeeder::class,
         ]);
     }
 }

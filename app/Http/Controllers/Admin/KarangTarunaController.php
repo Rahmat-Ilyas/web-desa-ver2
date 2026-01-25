@@ -84,6 +84,8 @@ class KarangTarunaController extends Controller
                 Storage::disk('public')->delete($karang_taruna->foto);
             }
             $data['foto'] = $request->file('foto')->store('karang-taruna', 'public');
+        } else {
+            unset($data['foto']);
         }
 
         $karang_taruna->update($data);

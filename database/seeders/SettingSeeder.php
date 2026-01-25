@@ -25,7 +25,35 @@ class SettingSeeder extends Seeder
                     'title' => 'Lingkungan Kondusif',
                     'description' => 'Menjaga keamanan, ketertiban, dan kebersihan lingkungan bersama seluruh elemen masyarakat Kelurahan Ujung Sabbang.'
                 ]
-            ])
+            ]),
+            'profil_pkk' => 'Pemberdayaan Kesejahteraan Keluarga (PKK) adalah organisasi kemasyarakatan yang memberdayakan wanita untuk turut berpartisipasi dalam pembangunan Indonesia.',
+            'program_pkk' => json_encode([
+                "Meningkatkan kesadaran berbangsa dan bernegara.",
+                "Menyelenggarakan kursus-kursus keterampilan.",
+                "Mengembangkan koperasi dan ekonomi produktif.",
+                "Meningkatkan derajat kesehatan keluarga."
+            ]),
+            'profil_karang_taruna' => 'Karang Taruna adalah organisasi kepemudaan di Indonesia yang merupakan wadah pengembangan generasi muda yang tumbuh di atas dasar kesadaran dan tanggung jawab sosial.',
+            'tugas_karang_taruna' => json_encode([
+                "Membangun jiwa kewirausahaan pemuda.",
+                "Mengadakan kegiatan olahraga dan seni budaya.",
+                "Berpartisipasi dalam bakti sosial dan pemberdayaan masyarakat.",
+                "Menjadi benteng pertahanan dari pengaruh negatif di lingkungan masyarakat."
+            ]),
+            'profil_lpmk' => 'Lembaga Pemberdayaan Masyarakat Kelurahan (LPMK) adalah lembaga mitra kelurahan dalam rangka meningkatkan prakarsa dan partisipasi masyarakat.',
+            'tugas_lpmk' => json_encode([
+                "Menyusun rencana pembangunan yang partisipatif.",
+                "Menggerakkan swadaya gotong royong masyarakat.",
+                "Melaksanakan dan mengendalikan pembangunan.",
+                "Melakukan koordinasi dengan berbagai instansi terkait."
+            ]),
+            'profil_majelis_taklim' => 'Majelis Taklim adalah lembaga pendidikan non-formal yang memiliki fungsi sebagai pembinaan umat, khususnya dalam bidang agama Islam.',
+            'kegiatan_majelis_taklim' => json_encode([
+                "Pengajian rutin mingguan.",
+                "Peringatan Hari Besar Islam (PHBI).",
+                "Santunan anak yatim dan dhuafa.",
+                "Pelatihan pemulasaraan jenazah."
+            ]),
         ];
 
         foreach ($settings as $key => $value) {

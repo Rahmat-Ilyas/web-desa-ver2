@@ -77,7 +77,17 @@ Route::get('/lembaga/lpmk', function () {
 })->name('lembaga.lpmk');
 
 Route::get('/lembaga/majelis-taklim', function () {
-    return inertia('Lembaga/MajelisTaklim');
+    $activities = \App\Models\Setting::where('key', 'kegiatan_majelis_taklim')->first()?->value;
+    $activitiesArray = json_decode($activities, true);
+    if (!is_array($activitiesArray)) {
+        $activitiesArray = $activities ? explode("\n", $activities) : [];
+    }
+
+    return inertia('Lembaga/MajelisTaklim', [
+        'members' => \App\Models\MajelisTaklim::orderBy('urutan', 'asc')->get(),
+        'profile' => \App\Models\Setting::where('key', 'profil_majelis_taklim')->first()?->value,
+        'activities' => $activitiesArray
+    ]);
 })->name('lembaga.majelis-taklim');
 
 // Pemerintahan Routes
@@ -327,6 +337,7 @@ Route::prefix('admin')->middleware(['auth'])->group(function () {
         'destroy' => 'admin.lpmk.destroy',
     ])->except(['create', 'edit', 'show']);
 
+    Route::put('majelis-taklim/profile', [\App\Http\Controllers\Admin\MajelisTaklimController::class, 'updateProfile'])->name('admin.majelis-taklim.profile.update');
     Route::resource('majelis-taklim', \App\Http\Controllers\Admin\MajelisTaklimController::class)->names([
         'index' => 'admin.majelis-taklim.index',
         'store' => 'admin.majelis-taklim.store',
