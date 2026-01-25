@@ -1,5 +1,5 @@
 <script setup>
-import { Head } from '@inertiajs/vue3';
+import { Head, usePage } from '@inertiajs/vue3';
 import MainLayout from '@/Layouts/MainLayout.vue';
 
 const props = defineProps({
@@ -20,6 +20,10 @@ const closeModal = () => {
     isModalOpen.value = false;
     document.body.style.overflow = 'auto';
 };
+
+const page = usePage();
+const whatsappNumber = page.props.settings?.info_umum?.whatsapp || '';
+const whatsappLink = whatsappNumber ? `https://wa.me/${whatsappNumber}` : '#';
 </script>
 
 <template>
@@ -86,7 +90,7 @@ const closeModal = () => {
                         </div>
                     </div>
                     <div class="flex gap-4">
-                        <a href="#"
+                        <a :href="whatsappLink" target="_blank"
                             class="px-8 py-4 bg-green-600 text-white font-bold rounded-2xl hover:bg-green-700 transition-colors shadow-lg shadow-green-600/20">
                             <i class="fab fa-whatsapp mr-2 text-xl"></i>
                             Chat WhatsApp

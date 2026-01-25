@@ -154,8 +154,59 @@ const formatPhone = (number) => {
                         </div>
                     </div>
                 </div>
-
             </div>
         </div>
+
+        <!-- LPMK Strategic Value Section -->
+        <section class="py-24 bg-teal-900 relative overflow-hidden">
+            <!-- Grid Pattern Overlay -->
+            <div class="absolute inset-0 opacity-[0.05] bg-[url('https://www.transparenttextures.com/patterns/graph-paper.png')]"></div>
+            
+            <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
+                <div class="text-center mb-16">
+                    <h2 class="text-4xl md:text-5xl font-black text-white tracking-tighter uppercase italic">
+                        Transformasi Melalui <span class="text-teal-400">Kolaborasi.</span>
+                    </h2>
+                </div>
+
+                <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8">
+                    <!-- Value Card 1 -->
+                    <div class="bg-white/5 backdrop-blur-sm border border-white/10 p-10 rounded-[2.5rem] hover:bg-teal-800/50 transition-all duration-500 group">
+                        <div class="w-14 h-14 bg-teal-500/20 text-teal-400 rounded-2xl flex items-center justify-center text-2xl mb-8 group-hover:scale-110 transition-transform">
+                            <i class="fas fa-pencil-ruler"></i>
+                        </div>
+                        <h3 class="text-white font-black text-lg mb-4 uppercase tracking-tight">Perencanaan</h3>
+                        <p class="text-teal-100/60 text-sm font-medium leading-relaxed">Menyusun program pembangunan yang tepat sasaran demi kemajuan warga.</p>
+                    </div>
+
+                    <!-- Value Card 2 -->
+                    <div class="bg-white/5 backdrop-blur-sm border border-white/10 p-10 rounded-[2.5rem] hover:bg-teal-800/50 transition-all duration-500 group lg:translate-y-8">
+                        <div class="w-14 h-14 bg-teal-500/20 text-teal-400 rounded-2xl flex items-center justify-center text-2xl mb-8 group-hover:scale-110 transition-transform">
+                            <i class="fas fa-users-cog"></i>
+                        </div>
+                        <h3 class="text-white font-black text-lg mb-4 uppercase tracking-tight">Pengorganisasian</h3>
+                        <p class="text-teal-100/60 text-sm font-medium leading-relaxed">Menggerakkan seluruh potensi masyarakat dalam pembangunan fisik & sosial.</p>
+                    </div>
+
+                    <!-- Value Card 3 -->
+                    <div class="bg-white/5 backdrop-blur-sm border border-white/10 p-10 rounded-[2.5rem] hover:bg-teal-800/50 transition-all duration-500 group">
+                        <div class="w-14 h-14 bg-teal-500/20 text-teal-400 rounded-2xl flex items-center justify-center text-2xl mb-8 group-hover:scale-110 transition-transform">
+                            <i class="fas fa-tasks"></i>
+                        </div>
+                        <h3 class="text-white font-black text-lg mb-4 uppercase tracking-tight">Pelaksanaan</h3>
+                        <p class="text-teal-100/60 text-sm font-medium leading-relaxed">Merealisasikan program kerja dengan transparansi dan tanggung jawab penuh.</p>
+                    </div>
+
+                    <!-- Value Card 4 -->
+                    <div class="bg-white/5 backdrop-blur-sm border border-white/10 p-10 rounded-[2.5rem] hover:bg-teal-800/50 transition-all duration-500 group lg:translate-y-8">
+                        <div class="w-14 h-14 bg-teal-500/20 text-teal-400 rounded-2xl flex items-center justify-center text-2xl mb-8 group-hover:scale-110 transition-transform">
+                            <i class="fas fa-chart-line"></i>
+                        </div>
+                        <h3 class="text-white font-black text-lg mb-4 uppercase tracking-tight">Pengawasan</h3>
+                        <p class="text-teal-100/60 text-sm font-medium leading-relaxed">Memastikan setiap hasil pembangunan memberikan manfaat jangka panjang.</p>
+                    </div>
+                </div>
+            </div>
+        </section>
     </MainLayout>
 </template>

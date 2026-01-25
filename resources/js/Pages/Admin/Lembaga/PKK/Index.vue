@@ -25,25 +25,61 @@ watch(() => page.props.flash?.success, (msg) => {
     if (msg) showNotification(msg);
 });
 
+const AVAILABLE_ICONS = [
+    'fa-dove', 'fa-users', 'fa-utensils', 'fa-tshirt', 'fa-home',
+    'fa-graduation-cap', 'fa-heartbeat', 'fa-handshake', 'fa-leaf',
+    'fa-briefcase-medical', 'fa-book', 'fa-child', 'fa-female',
+    'fa-hospital', 'fa-seedling', 'fa-shopping-basket', 'fa-smile',
+    'fa-star', 'fa-sun', 'fa-water', 'fa-heart', 'fa-lightbulb'
+];
+
+// Normalize programs to objects
+const normalizePrograms = (programs) => {
+    if (!programs || programs.length === 0) return [
+        { name: "Penghayatan dan Pengamalan Pancasila", icon: "fa-dove" },
+        { name: "Gotong Royong", icon: "fa-users" },
+        { name: "Pangan", icon: "fa-utensils" },
+        { name: "Sandang", icon: "fa-tshirt" },
+        { name: "Perumahan dan Tata Laksana Rumah Tangga", icon: "fa-home" },
+        { name: "Pendidikan dan Keterampilan", icon: "fa-graduation-cap" },
+        { name: "Kesehatan", icon: "fa-heartbeat" },
+        { name: "Pengembangan Kehidupan Berkoperasi", icon: "fa-handshake" },
+        { name: "Kelestarian Lingkungan Hidup", icon: "fa-leaf" },
+        { name: "Perencanaan Sehat", icon: "fa-briefcase-medical" }
+    ];
+
+    return programs.map((p, i) => {
+        if (typeof p === 'string') {
+            return { name: p, icon: AVAILABLE_ICONS[i] || 'fa-star' };
+        }
+        return { ...p };
+    });
+};
+
 // Profile & Programs Section
 const profileForm = useForm({
     profil_pkk: props.profile || '',
-    program_pkk: props.programs && props.programs.length > 0 ? props.programs : [
-        "Penghayatan dan Pengamalan Pancasila",
-        "Gotong Royong",
-        "Pangan",
-        "Sandang",
-        "Perumahan dan Tata Laksana Rumah Tangga",
-        "Pendidikan dan Keterampilan",
-        "Kesehatan",
-        "Pengembangan Kehidupan Berkoperasi",
-        "Kelestarian Lingkungan Hidup",
-        "Perencanaan Sehat"
-    ],
+    program_pkk: normalizePrograms(props.programs),
 });
 
 const addProgram = () => {
-    profileForm.program_pkk.push("");
+    profileForm.program_pkk.push({ name: "", icon: "fa-star" });
+};
+
+const showIconModal = ref(false);
+const activeProgramIndex = ref(null);
+
+const openIconModal = (index) => {
+    activeProgramIndex.value = index;
+    showIconModal.value = true;
+};
+
+const selectIcon = (icon) => {
+    if (activeProgramIndex.value !== null) {
+        profileForm.program_pkk[activeProgramIndex.value].icon = icon;
+    }
+    showIconModal.value = false;
+    activeProgramIndex.value = null;
 };
 
 const removeProgram = (index) => {
@@ -189,7 +225,7 @@ const pokjaOptions = [
                                     <label
                                         class="block text-[10px] font-black text-slate-400 uppercase tracking-widest mb-3 ml-3 text-left">Deskripsi
                                         Profil</label>
-                                    <textarea v-model="profileForm.profil_pkk" rows="15"
+                                    <textarea v-model="profileForm.profil_pkk" rows="10"
                                         class="w-full px-6 py-5 bg-slate-50 border-2 border-transparent focus:border-teal-500 focus:bg-white rounded-[2rem] font-bold transition-all outline-none resize-none text-slate-700 leading-relaxed text-sm shadow-inner"
                                         placeholder="Masukkan deskripsi profil PKK..."></textarea>
                                 </div>
@@ -213,9 +249,9 @@ const pokjaOptions = [
                                             leave-from-class="opacity-100 scale-100"
                                             leave-to-class="opacity-0 scale-95">
                                             <div v-for="(program, index) in profileForm.program_pkk" :key="index"
-                                                class="flex gap-2 items-start group">
+                                                class="flex gap-2 items-center group">
                                                 <div class="flex-grow relative">
-                                                    <input v-model="profileForm.program_pkk[index]" type="text"
+                                                    <input v-model="profileForm.program_pkk[index].name" type="text"
                                                         class="w-full pl-10 pr-4 py-3 bg-slate-50 border-2 border-transparent focus:border-emerald-500 focus:bg-white rounded-[1.25rem] font-bold text-xs transition-all outline-none text-slate-700 shadow-sm"
                                                         placeholder="Tuliskan program...">
                                                     <div
@@ -223,6 +259,11 @@ const pokjaOptions = [
                                                         {{ index + 1 }}
                                                     </div>
                                                 </div>
+                                                <button type="button" @click="openIconModal(index)"
+                                                    class="w-10 h-10 flex-shrink-0 bg-white border border-slate-100 text-slate-400 hover:bg-emerald-50 hover:text-emerald-600 hover:border-emerald-100 rounded-xl transition-all flex items-center justify-center relative overflow-hidden group/icon-btn">
+                                                    <i :class="['fas', profileForm.program_pkk[index].icon || 'fa-star', 'text-[12px]']"></i>
+                                                    <div class="absolute inset-0 bg-emerald-600 opacity-0 group-hover/icon-btn:opacity-10 transition-opacity"></div>
+                                                </button>
                                                 <button type="button" @click="removeProgram(index)"
                                                     class="w-10 h-10 flex-shrink-0 bg-white border border-slate-100 text-slate-300 hover:bg-rose-50 hover:text-rose-500 hover:border-rose-100 rounded-xl transition-all flex items-center justify-center">
                                                     <i class="fas fa-trash-alt text-[10px]"></i>
@@ -243,9 +284,9 @@ const pokjaOptions = [
                 </div>
 
                 <!-- Right Column: Members Table -->
-                <div class="lg:col-span-6 space-y-10">
+                <div class="lg:col-span-6 h-[850px] flex flex-col">
                     <div
-                        class="bg-white rounded-[2.5rem] shadow-sm border border-slate-100 p-4 md:p-10 overflow-hidden">
+                        class="bg-white rounded-[2.5rem] shadow-sm border border-slate-100 p-4 md:p-10 overflow-hidden flex flex-col h-full">
                         <div class="border-b border-slate-50 flex items-center justify-between gap-4 pb-6">
                             <div class="flex items-center gap-4">
                                 <div
@@ -265,9 +306,9 @@ const pokjaOptions = [
                                 <i class="fas fa-plus text-[10px]"></i> TAMBAH
                             </button>
                         </div>
-                        <div class="overflow-x-auto mt-4">
-                            <table class="w-full text-left border-collapse">
-                                <thead>
+                        <div class="overflow-y-auto mt-4 pr-2 custom-scrollbar flex-grow min-h-0">
+                            <table class="w-full text-left border-separate border-spacing-0">
+                                <thead class="sticky top-0 z-10 bg-white">
                                     <tr class="bg-slate-50/50">
                                         <th
                                             class="px-4 py-5 text-[10px] font-black text-slate-400 uppercase tracking-widest">
@@ -460,6 +501,34 @@ const pokjaOptions = [
                                 <button @click="confirmDelete"
                                     class="flex-1 py-4 bg-rose-600 text-white rounded-2xl font-black text-xs uppercase tracking-widest hover:bg-rose-700 shadow-xl shadow-rose-600/20 transition-all">
                                     Ya, Hapus
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </transition>
+
+            <!-- Icon Picker Modal -->
+            <transition enter-active-class="duration-300 ease-out" enter-from-class="opacity-0"
+                enter-to-class="opacity-100" leave-active-class="duration-200 ease-in" leave-from-class="opacity-100"
+                leave-to-class="opacity-0">
+                <div v-if="showIconModal" class="fixed inset-0 z-[120] overflow-y-auto" role="dialog">
+                    <div class="fixed inset-0 bg-slate-900/60 backdrop-blur-sm" @click="showIconModal = false"></div>
+                    <div class="flex min-h-full items-center justify-center p-4">
+                        <div class="relative bg-white rounded-[2.5rem] shadow-2xl w-full max-w-lg p-8">
+                            <div class="flex justify-between items-center mb-6">
+                                <h2 class="text-xl font-black text-slate-900 tracking-tight">Pilih Ikon Program</h2>
+                                <button @click="showIconModal = false" class="text-slate-400 hover:text-rose-500 transition-colors">
+                                    <i class="fas fa-times"></i>
+                                </button>
+                            </div>
+                            <div class="grid grid-cols-4 sm:grid-cols-6 gap-4">
+                                <button v-for="icon in AVAILABLE_ICONS" :key="icon" @click="selectIcon(icon)"
+                                    class="w-full aspect-square rounded-2xl flex items-center justify-center text-xl transition-all border-2"
+                                    :class="profileForm.program_pkk[activeProgramIndex]?.icon === icon
+                                        ? 'bg-emerald-50 border-emerald-500 text-emerald-600'
+                                        : 'bg-slate-50 border-transparent text-slate-400 hover:bg-emerald-50 hover:text-emerald-500'">
+                                    <i :class="['fas', icon]"></i>
                                 </button>
                             </div>
                         </div>

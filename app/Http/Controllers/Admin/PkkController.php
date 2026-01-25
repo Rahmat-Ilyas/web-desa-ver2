@@ -32,7 +32,6 @@ class PkkController extends Controller
         $request->validate([
             'profil_pkk' => 'required|string',
             'program_pkk' => 'required|array',
-            'program_pkk.*' => 'required|string'
         ]);
 
         Setting::updateOrCreate(

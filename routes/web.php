@@ -49,7 +49,17 @@ Route::get('/lembaga/pkk', function () {
 })->name('lembaga.pkk');
 
 Route::get('/lembaga/karang-taruna', function () {
-    return inertia('Lembaga/KarangTaruna');
+    $tasks = \App\Models\Setting::where('key', 'tugas_karang_taruna')->first()?->value;
+    $tasksArray = json_decode($tasks, true);
+    if (!is_array($tasksArray)) {
+        $tasksArray = $tasks ? explode("\n", $tasks) : [];
+    }
+
+    return inertia('Lembaga/KarangTaruna', [
+        'members' => \App\Models\KarangTaruna::orderBy('urutan', 'asc')->get(),
+        'profile' => \App\Models\Setting::where('key', 'profil_karang_taruna')->first()?->value,
+        'tasks' => $tasksArray
+    ]);
 })->name('lembaga.karang-taruna');
 
 Route::get('/lembaga/lpmk', function () {
@@ -301,6 +311,7 @@ Route::prefix('admin')->middleware(['auth'])->group(function () {
         'destroy' => 'admin.pkk.destroy',
     ])->except(['create', 'edit', 'show']);
 
+    Route::put('karang-taruna/profile', [\App\Http\Controllers\Admin\KarangTarunaController::class, 'updateProfile'])->name('admin.karang-taruna.profile.update');
     Route::resource('karang-taruna', \App\Http\Controllers\Admin\KarangTarunaController::class)->names([
         'index' => 'admin.karang-taruna.index',
         'store' => 'admin.karang-taruna.store',

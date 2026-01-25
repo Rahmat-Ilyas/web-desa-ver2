@@ -138,7 +138,7 @@ onUnmounted(() => {
                         </div>
 
                         <!-- Navigation Links -->
-                        <div class="hidden space-x-6 sm:-my-px sm:ml-10 xl:flex items-center">
+                        <div class="hidden space-x-2 sm:space-x-4 xl:space-x-6 sm:-my-px sm:ml-10 lg:flex items-center">
                             <NavLink :href="route('landing')" :active="route().current('landing')">
                                 HOME
                             </NavLink>
@@ -247,12 +247,12 @@ onUnmounted(() => {
                                             </DropdownLink>
                                             <DropdownLink :href="route('lembaga.pkk')">
                                                 <i
-                                                    class="fas fa-female w-5 text-gray-400 group-hover:text-blue-500 transition-colors"></i>
+                                                    class="fas fa-hand-holding-heart w-5 text-gray-400 group-hover:text-blue-500 transition-colors"></i>
                                                 PKK
                                             </DropdownLink>
                                             <DropdownLink :href="route('lembaga.karang-taruna')">
                                                 <i
-                                                    class="fas fa-child w-5 text-gray-400 group-hover:text-blue-500 transition-colors"></i>
+                                                    class="fas fa-fist-raised w-5 text-gray-400 group-hover:text-blue-500 transition-colors"></i>
                                                 Karang Taruna
                                             </DropdownLink>
                                             <DropdownLink :href="route('lembaga.majelis-taklim')">
@@ -383,7 +383,7 @@ onUnmounted(() => {
 
 
                     <!-- Modern Hamburger -->
-                    <div class="-mr-2 flex items-center xl:hidden">
+                    <div class="-mr-2 flex items-center lg:hidden">
                         <button @click="showingNavigationDropdown = true"
                             class="inline-flex items-center justify-center p-2.5 rounded-xl bg-white border border-gray-100 text-slate-500 hover:text-blue-600 hover:bg-slate-50 shadow-sm transition-all active:scale-90 focus:outline-none">
                             <i class="fa-solid fa-bars-staggered text-xl"></i>
@@ -494,10 +494,12 @@ onUnmounted(() => {
                                     class="block py-2 text-sm font-medium text-slate-500 hover:text-blue-600">Rukun
                                     Tetangga (RT)</Link>
                                 <Link :href="route('lembaga.pkk')"
-                                    class="block py-2 text-sm font-medium text-slate-500 hover:text-blue-600">PKK</Link>
+                                    class="block py-2 text-sm font-medium text-slate-500 hover:text-blue-600">
+                                    PKK
+                                </Link>
                                 <Link :href="route('lembaga.karang-taruna')"
-                                    class="block py-2 text-sm font-medium text-slate-500 hover:text-blue-600">Karang
-                                    Taruna
+                                    class="block py-2 text-sm font-medium text-slate-500 hover:text-blue-600">
+                                    Karang Taruna
                                 </Link>
                                 <Link :href="route('lembaga.lpmk')"
                                     class="block py-2 text-sm font-medium text-slate-500 hover:text-blue-600">LPMK
