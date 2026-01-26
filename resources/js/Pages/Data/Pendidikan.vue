@@ -1,6 +1,7 @@
 <script setup>
 import { Head } from '@inertiajs/vue3';
 import MainLayout from '@/Layouts/MainLayout.vue';
+import { computed } from 'vue';
 
 const props = defineProps({
     settings: Object,
@@ -22,8 +23,38 @@ const educationLevels = (props.settings?.statistik_pendidikan || defaultLevels).
     const val = parseInt(item.value.toString().replace(/\D/g, '')) || 0;
     return {
         ...item,
+        numericValue: val,
         percentage: ((val / totalPenduduk) * 100).toFixed(1)
     };
+});
+
+const calculateStats = computed(() => {
+    let totalValue = 0;
+    let literateValue = 0;
+    let totalYears = 0;
+
+    educationLevels.forEach(level => {
+        const val = level.numericValue;
+        totalValue += val;
+
+        // Years mapping
+        let years = 0;
+        if (level.label.includes('SD')) years = 6;
+        else if (level.label.includes('SMP')) years = 9;
+        else if (level.label.includes('SMA')) years = 12;
+        else if (level.label.includes('S1') || level.label.includes('Diploma')) years = 16;
+        else if (level.label.includes('S2') || level.label.includes('S3') || level.label.includes('Pasca')) years = 19;
+
+        totalYears += (val * years);
+        if (!level.label.includes('Tidak') && !level.label.includes('Belum')) {
+            literateValue += val;
+        }
+    });
+
+    const literacyRate = totalValue > 0 ? ((literateValue / totalValue) * 100).toFixed(1) : 0;
+    const avgYears = totalValue > 0 ? (totalYears / totalValue).toFixed(1) : 0;
+
+    return { literacyRate, avgYears };
 });
 </script>
 
@@ -79,12 +110,12 @@ const educationLevels = (props.settings?.statistik_pendidikan || defaultLevels).
                             <div class="bg-white p-4 rounded-2xl shadow-sm border border-violet-50">
                                 <div class="text-xs font-bold text-violet-400 uppercase tracking-widest mb-1">Melek
                                     Huruf</div>
-                                <div class="text-2xl font-black text-gray-900 text-right">99.2%</div>
+                                <div class="text-2xl font-black text-gray-900 text-right">{{ calculateStats.literacyRate }}%</div>
                             </div>
                             <div class="bg-white p-4 rounded-2xl shadow-sm border border-violet-50">
                                 <div class="text-xs font-bold text-violet-400 uppercase tracking-widest mb-1">Rata-rata
                                     Lama Sekolah</div>
-                                <div class="text-2xl font-black text-gray-900 text-right">10.5 <span
+                                <div class="text-2xl font-black text-gray-900 text-right">{{ calculateStats.avgYears }} <span
                                         class="text-xs">THN</span></div>
                             </div>
                         </div>

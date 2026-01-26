@@ -94,7 +94,8 @@ onUnmounted(() => {
                     </a>
                     <a v-if="$page.props.settings?.sosial_media?.twitter"
                         :href="$page.props.settings.sosial_media.twitter" target="_blank"
-                        class="flex items-center gap-1.5 hover:text-slate-200 transition-colors group" title="Twitter / X">
+                        class="flex items-center gap-1.5 hover:text-slate-200 transition-colors group"
+                        title="Twitter / X">
                         <i class="fab fa-x-twitter text-sm group-hover:text-slate-400"></i>
                         <span class="hidden md:inline">Twitter</span>
                     </a>
@@ -104,7 +105,7 @@ onUnmounted(() => {
                         <i class="fab fa-youtube text-sm group-hover:text-red-500"></i>
                         <span class="hidden md:inline">YouTube</span>
                     </a>
-                    <a v-if="$page.props.settings?.info_umum?.whatsapp" 
+                    <a v-if="$page.props.settings?.info_umum?.whatsapp"
                         :href="'https://wa.me/' + $page.props.settings.info_umum.whatsapp" target="_blank"
                         class="flex items-center gap-1.5 hover:text-green-200 transition-colors group" title="WhatsApp">
                         <i class="fab fa-whatsapp text-sm group-hover:text-green-500"></i>
@@ -308,11 +309,6 @@ onUnmounted(() => {
                                                     class="fas fa-user-clock w-5 text-gray-400 group-hover:text-blue-500 transition-colors"></i>
                                                 Berdasarkan Umur
                                             </DropdownLink>
-                                            <DropdownLink :href="route('data.pemilih')">
-                                                <i
-                                                    class="fas fa-vote-yea w-5 text-gray-400 group-hover:text-blue-500 transition-colors"></i>
-                                                Pemilih Tetap
-                                            </DropdownLink>
                                             <DropdownLink :href="route('data.agama')">
                                                 <i
                                                     class="fas fa-praying-hands w-5 text-gray-400 group-hover:text-blue-500 transition-colors"></i>
@@ -322,6 +318,11 @@ onUnmounted(() => {
                                                 <i
                                                     class="fas fa-graduation-cap w-5 text-gray-400 group-hover:text-blue-500 transition-colors"></i>
                                                 Statistik Pendidikan
+                                            </DropdownLink>
+                                            <DropdownLink :href="route('data.pemilih')">
+                                                <i
+                                                    class="fas fa-vote-yea w-5 text-gray-400 group-hover:text-blue-500 transition-colors"></i>
+                                                Pemilih Tetap
                                             </DropdownLink>
                                         </template>
                                     </Dropdown>
@@ -493,6 +494,9 @@ onUnmounted(() => {
                                 <Link :href="route('lembaga.rt')"
                                     class="block py-2 text-sm font-medium text-slate-500 hover:text-blue-600">Rukun
                                     Tetangga (RT)</Link>
+                                <Link :href="route('lembaga.lpmk')"
+                                    class="block py-2 text-sm font-medium text-slate-500 hover:text-blue-600">LPMK
+                                </Link>
                                 <Link :href="route('lembaga.pkk')"
                                     class="block py-2 text-sm font-medium text-slate-500 hover:text-blue-600">
                                     PKK
@@ -500,9 +504,6 @@ onUnmounted(() => {
                                 <Link :href="route('lembaga.karang-taruna')"
                                     class="block py-2 text-sm font-medium text-slate-500 hover:text-blue-600">
                                     Karang Taruna
-                                </Link>
-                                <Link :href="route('lembaga.lpmk')"
-                                    class="block py-2 text-sm font-medium text-slate-500 hover:text-blue-600">LPMK
                                 </Link>
                                 <Link :href="route('lembaga.majelis-taklim')"
                                     class="block py-2 text-sm font-medium text-slate-500 hover:text-blue-600">Majelis
@@ -545,10 +546,6 @@ onUnmounted(() => {
                                     class="block py-2 text-sm font-medium text-slate-500 hover:text-blue-600">
                                     Berdasarkan Umur
                                 </Link>
-                                <Link :href="route('data.pemilih')"
-                                    class="block py-2 text-sm font-medium text-slate-500 hover:text-blue-600">Pemilih
-                                    Tetap
-                                </Link>
                                 <Link :href="route('data.agama')"
                                     class="block py-2 text-sm font-medium text-slate-500 hover:text-blue-600">Statistik
                                     Agama
@@ -556,6 +553,10 @@ onUnmounted(() => {
                                 <Link :href="route('data.pendidikan')"
                                     class="block py-2 text-sm font-medium text-slate-500 hover:text-blue-600">Statistik
                                     Pendidikan</Link>
+                                <Link :href="route('data.pemilih')"
+                                    class="block py-2 text-sm font-medium text-slate-500 hover:text-blue-600">Pemilih
+                                    Tetap
+                                </Link>
                             </div>
                         </div>
 
@@ -623,23 +624,28 @@ onUnmounted(() => {
                 <!-- Sidebar Footer -->
                 <div class="p-6 bg-slate-50 border-t border-gray-100">
                     <div class="flex items-center justify-center gap-3 mb-6">
-                        <a v-if="$page.props.settings?.sosial_media?.facebook" :href="$page.props.settings.sosial_media.facebook" target="_blank"
+                        <a v-if="$page.props.settings?.sosial_media?.facebook"
+                            :href="$page.props.settings.sosial_media.facebook" target="_blank"
                             class="w-10 h-10 rounded-2xl bg-white border border-gray-200 flex items-center justify-center text-slate-400 hover:text-[#1877F2] shadow-sm transition-all">
                             <i class="fab fa-facebook-f"></i>
                         </a>
-                        <a v-if="$page.props.settings?.sosial_media?.instagram" :href="$page.props.settings.sosial_media.instagram" target="_blank"
+                        <a v-if="$page.props.settings?.sosial_media?.instagram"
+                            :href="$page.props.settings.sosial_media.instagram" target="_blank"
                             class="w-10 h-10 rounded-2xl bg-white border border-gray-200 flex items-center justify-center text-slate-400 hover:text-[#E4405F] shadow-sm transition-all">
                             <i class="fab fa-instagram"></i>
                         </a>
-                        <a v-if="$page.props.settings?.sosial_media?.twitter" :href="$page.props.settings.sosial_media.twitter" target="_blank"
+                        <a v-if="$page.props.settings?.sosial_media?.twitter"
+                            :href="$page.props.settings.sosial_media.twitter" target="_blank"
                             class="w-10 h-10 rounded-2xl bg-white border border-gray-200 flex items-center justify-center text-slate-400 hover:text-black shadow-sm transition-all">
                             <i class="fab fa-x-twitter"></i>
                         </a>
-                        <a v-if="$page.props.settings?.sosial_media?.youtube" :href="$page.props.settings.sosial_media.youtube" target="_blank"
+                        <a v-if="$page.props.settings?.sosial_media?.youtube"
+                            :href="$page.props.settings.sosial_media.youtube" target="_blank"
                             class="w-10 h-10 rounded-2xl bg-white border border-gray-200 flex items-center justify-center text-slate-400 hover:text-[#FF0000] shadow-sm transition-all">
                             <i class="fab fa-youtube"></i>
                         </a>
-                        <a v-if="$page.props.settings?.info_umum?.whatsapp" :href="'https://wa.me/' + $page.props.settings.info_umum.whatsapp" target="_blank"
+                        <a v-if="$page.props.settings?.info_umum?.whatsapp"
+                            :href="'https://wa.me/' + $page.props.settings.info_umum.whatsapp" target="_blank"
                             class="w-10 h-10 rounded-2xl bg-white border border-gray-200 flex items-center justify-center text-slate-400 hover:text-[#25D366] shadow-sm transition-all">
                             <i class="fab fa-whatsapp"></i>
                         </a>
@@ -741,19 +747,29 @@ onUnmounted(() => {
                         <h3 class="text-lg font-semibold mb-4 border-b border-gray-600 pb-2 inline-block">Ikuti Kami
                         </h3>
                         <div class="flex space-x-4">
-                            <a v-if="$page.props.settings?.sosial_media?.facebook" :href="$page.props.settings.sosial_media.facebook" target="_blank" class="text-gray-400 hover:text-[#1877F2] transition-colors" title="Facebook">
+                            <a v-if="$page.props.settings?.sosial_media?.facebook"
+                                :href="$page.props.settings.sosial_media.facebook" target="_blank"
+                                class="text-gray-400 hover:text-[#1877F2] transition-colors" title="Facebook">
                                 <i class="fab fa-facebook text-xl"></i>
                             </a>
-                            <a v-if="$page.props.settings?.sosial_media?.instagram" :href="$page.props.settings.sosial_media.instagram" target="_blank" class="text-gray-400 hover:text-[#E4405F] transition-colors" title="Instagram">
+                            <a v-if="$page.props.settings?.sosial_media?.instagram"
+                                :href="$page.props.settings.sosial_media.instagram" target="_blank"
+                                class="text-gray-400 hover:text-[#E4405F] transition-colors" title="Instagram">
                                 <i class="fab fa-instagram text-xl"></i>
                             </a>
-                            <a v-if="$page.props.settings?.sosial_media?.twitter" :href="$page.props.settings.sosial_media.twitter" target="_blank" class="text-gray-400 hover:text-white transition-colors" title="Twitter / X">
+                            <a v-if="$page.props.settings?.sosial_media?.twitter"
+                                :href="$page.props.settings.sosial_media.twitter" target="_blank"
+                                class="text-gray-400 hover:text-white transition-colors" title="Twitter / X">
                                 <i class="fab fa-x-twitter text-xl"></i>
                             </a>
-                            <a v-if="$page.props.settings?.sosial_media?.youtube" :href="$page.props.settings.sosial_media.youtube" target="_blank" class="text-gray-400 hover:text-[#FF0000] transition-colors" title="YouTube">
+                            <a v-if="$page.props.settings?.sosial_media?.youtube"
+                                :href="$page.props.settings.sosial_media.youtube" target="_blank"
+                                class="text-gray-400 hover:text-[#FF0000] transition-colors" title="YouTube">
                                 <i class="fab fa-youtube text-xl"></i>
                             </a>
-                            <a v-if="$page.props.settings?.info_umum?.whatsapp" :href="'https://wa.me/' + $page.props.settings.info_umum.whatsapp" target="_blank" class="text-gray-400 hover:text-[#25D366] transition-colors" title="WhatsApp">
+                            <a v-if="$page.props.settings?.info_umum?.whatsapp"
+                                :href="'https://wa.me/' + $page.props.settings.info_umum.whatsapp" target="_blank"
+                                class="text-gray-400 hover:text-[#25D366] transition-colors" title="WhatsApp">
                                 <i class="fab fa-whatsapp text-xl"></i>
                             </a>
                         </div>
