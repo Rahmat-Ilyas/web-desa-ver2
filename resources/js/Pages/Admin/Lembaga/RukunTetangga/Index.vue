@@ -130,7 +130,8 @@ const formatWa = (number) => {
                 <div>
                     <span
                         class="inline-flex items-center gap-2 px-3 py-1 rounded-lg bg-blue-50 text-blue-600 text-[10px] font-black uppercase tracking-widest mb-3 border border-blue-100 shadow-sm">
-                        <i class="fas fa-sitemap"></i> Lembaga Kelurahan
+                        <i class="fas fa-sitemap"></i> Lembaga {{ $page.props.settings?.sebutan_wilayah || 'Kelurahan'
+                        }}
                     </span>
                     <h1 class="text-3xl font-black text-slate-900 tracking-tight leading-none mb-2">Rukun Tetangga (RT)
                     </h1>

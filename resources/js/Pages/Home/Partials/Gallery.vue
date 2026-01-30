@@ -32,7 +32,7 @@ const handleImageError = (e) => {
                         <i class="fas fa-camera-retro"></i> Momen Kami
                     </div>
                     <h2 class="text-3xl md:text-4xl font-black text-slate-900 tracking-tight">Dokumentasi Kegiatan</h2>
-                    <p class="mt-4 text-slate-500 font-medium leading-relaxed">Kebersamaan warga dan denyut nadi kegiatan positif di lingkungan Kelurahan Ujung Sabbang.</p>
+                    <p class="mt-4 text-slate-500 font-medium leading-relaxed">Kebersamaan warga dan denyut nadi kegiatan positif di lingkungan {{ $page.props.settings?.sebutan_wilayah || 'Kelurahan' }} {{ $page.props.settings?.nama_wilayah || '[Nama Wilayah]' }}.</p>
                 </div>
                 <Link :href="route('galeri')" class="group inline-flex items-center px-6 py-3 bg-white border border-slate-200 shadow-sm hover:shadow-md rounded-2xl text-sm font-bold text-slate-600 hover:text-blue-600 transition-all">
                     Lihat Galeri Lengkap

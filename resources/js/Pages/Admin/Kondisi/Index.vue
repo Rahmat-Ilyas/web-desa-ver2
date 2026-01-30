@@ -20,7 +20,7 @@ const editorConfig = {
         ],
         shouldNotGroupWhenFull: true
     },
-    placeholder: 'Tuliskan gambaran umum kelurahan di sini...'
+    placeholder: 'Tuliskan gambaran umum wilayah di sini...'
 };
 
 const form = useForm({
@@ -72,7 +72,7 @@ const submit = () => {
     form.post(route('admin.kondisi.store'), {
         preserveScroll: true,
         onSuccess: () => {
-            showNotification('Kondisi Kelurahan berhasil diperbarui');
+            showNotification(`Kondisi ${props.settings?.sebutan_wilayah || 'Wilayah'} berhasil diperbarui`);
         }
     });
 };
@@ -80,7 +80,7 @@ const submit = () => {
 
 <template>
 
-    <Head title="Kelola Kondisi Kelurahan" />
+    <Head :title="`Kelola Kondisi ${$page.props.settings?.sebutan_wilayah || 'Kelurahan'}`" />
 
     <AdminLayout>
         <div class="max-w-[1200px] mx-auto px-4 sm:px-6 text-slate-700">
@@ -91,9 +91,10 @@ const submit = () => {
                         class="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-blue-50 text-blue-600 text-[10px] font-black uppercase tracking-widest mb-3">
                         <i class="fas fa-map-marked-alt"></i> Profil Wilayah
                     </div>
-                    <h1 class="text-4xl font-black text-slate-900 tracking-tight">Kondisi Kelurahan</h1>
+                    <h1 class="text-4xl font-black text-slate-900 tracking-tight">Kondisi {{
+                        $page.props.settings?.sebutan_wilayah || 'Kelurahan' }}</h1>
                     <p class="text-slate-500 font-bold text-sm mt-2">Atur profil geografis, demografis, dan tata guna
-                        lahan kelurahan.</p>
+                        lahan {{ $page.props.settings?.sebutan_wilayah?.toLowerCase() || 'kelurahan' }}.</p>
                 </div>
 
                 <div class="flex items-center gap-3">

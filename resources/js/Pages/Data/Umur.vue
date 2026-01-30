@@ -74,7 +74,9 @@ const dependencyInfo = computed(() => {
             <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10 text-center">
                 <h1 class="text-3xl md:text-5xl font-extrabold text-white tracking-tight mb-4">Demografi Berdasarkan
                     Umur</h1>
-                <p class="text-blue-100 text-lg max-w-2xl mx-auto">Distribusi populasi Kelurahan Ujung Sabbang
+                <p class="text-blue-100 text-lg max-w-2xl mx-auto">Distribusi populasi {{
+                    $page.props.settings?.sebutan_wilayah || 'Kelurahan' }} {{ $page.props.settings?.nama_wilayah ||
+                    '[Nama Wilayah]' }}
                     berdasarkan kelompok usia.</p>
             </div>
         </div>
@@ -87,18 +89,23 @@ const dependencyInfo = computed(() => {
                         <p class="text-gray-500 text-sm">Data dihitung berdasarkan tahun berjalan.</p>
                     </div>
                     <div class="p-8 space-y-6">
-                        <div v-for="group in ageGroups" :key="group.label" 
-                             class="group p-6 rounded-[2rem] hover:bg-white hover:shadow-2xl hover:-translate-y-1 transition-all duration-500 border border-transparent hover:border-gray-100">
+                        <div v-for="group in ageGroups" :key="group.label"
+                            class="group p-6 rounded-[2rem] hover:bg-white hover:shadow-2xl hover:-translate-y-1 transition-all duration-500 border border-transparent hover:border-gray-100">
                             <div class="flex justify-between items-center mb-4">
                                 <div class="flex items-center gap-3">
-                                    <span class="text-xs font-black text-gray-400 uppercase tracking-widest group-hover:text-slate-900 transition-colors">{{ group.label }}</span>
-                                    <span class="px-2 py-0.5 rounded-md bg-slate-100 text-[10px] font-black text-slate-500 group-hover:bg-slate-900 group-hover:text-white transition-all duration-300">
+                                    <span
+                                        class="text-xs font-black text-gray-400 uppercase tracking-widest group-hover:text-slate-900 transition-colors">{{
+                                        group.label }}</span>
+                                    <span
+                                        class="px-2 py-0.5 rounded-md bg-slate-100 text-[10px] font-black text-slate-500 group-hover:bg-slate-900 group-hover:text-white transition-all duration-300">
                                         {{ group.percentage }}%
                                     </span>
                                 </div>
                                 <div class="text-right">
-                                    <span class="text-3xl font-black text-slate-800 block leading-none tracking-tight">{{ group.value }}
-                                         <span class="text-[10px] font-bold text-gray-300">JIWA</span></span>
+                                    <span
+                                        class="text-3xl font-black text-slate-800 block leading-none tracking-tight">{{
+                                        group.value }}
+                                        <span class="text-[10px] font-bold text-gray-300">JIWA</span></span>
                                 </div>
                             </div>
                             <div class="w-full bg-gray-50 rounded-full h-4 overflow-hidden p-1 shadow-inner relative">
@@ -110,17 +117,27 @@ const dependencyInfo = computed(() => {
                 </div>
 
                 <div class="mt-12 grid grid-cols-1 md:grid-cols-2 gap-8">
-                    <div class="bg-blue-50 p-8 rounded-[2.5rem] border border-blue-100 hover:shadow-xl transition-all duration-500 group">
-                        <h4 class="font-black text-blue-900 mb-3 flex items-center group-hover:translate-x-2 transition-transform">
+                    <div
+                        class="bg-blue-50 p-8 rounded-[2.5rem] border border-blue-100 hover:shadow-xl transition-all duration-500 group">
+                        <h4
+                            class="font-black text-blue-900 mb-3 flex items-center group-hover:translate-x-2 transition-transform">
                             <i class="fas fa-briefcase mr-3 text-blue-500"></i> Usia Produktif
                         </h4>
-                        <p class="text-blue-800 text-sm leading-relaxed font-medium">Berdasarkan data terbaru, populasi usia produktif (18-60 thn) mencapai <span class="font-black text-blue-600 underline decoration-blue-200 decoration-4 underline-offset-4">{{ productivePercent }}%</span> dari total seluruh penduduk.</p>
+                        <p class="text-blue-800 text-sm leading-relaxed font-medium">Berdasarkan data terbaru, populasi
+                            usia produktif (18-60 thn) mencapai <span
+                                class="font-black text-blue-600 underline decoration-blue-200 decoration-4 underline-offset-4">{{
+                                productivePercent }}%</span> dari total seluruh penduduk.</p>
                     </div>
-                    <div class="bg-purple-50 p-8 rounded-[2.5rem] border border-purple-100 hover:shadow-xl transition-all duration-500 group">
-                        <h4 class="font-black text-purple-900 mb-3 flex items-center group-hover:translate-x-2 transition-transform">
+                    <div
+                        class="bg-purple-50 p-8 rounded-[2.5rem] border border-purple-100 hover:shadow-xl transition-all duration-500 group">
+                        <h4
+                            class="font-black text-purple-900 mb-3 flex items-center group-hover:translate-x-2 transition-transform">
                             <i class="fas fa-chart-line mr-3 text-purple-500"></i> Rasio Ketergantungan
                         </h4>
-                        <p class="text-purple-800 text-sm leading-relaxed font-medium">Angka beban ketergantungan berada pada level <span class="font-black text-purple-600 underline decoration-purple-200 decoration-4 underline-offset-4">{{ dependencyInfo.text }}</span> ({{ dependencyRatio }}%), {{ dependencyInfo.desc }}</p>
+                        <p class="text-purple-800 text-sm leading-relaxed font-medium">Angka beban ketergantungan berada
+                            pada level <span
+                                class="font-black text-purple-600 underline decoration-purple-200 decoration-4 underline-offset-4">{{
+                                dependencyInfo.text }}</span> ({{ dependencyRatio }}%), {{ dependencyInfo.desc }}</p>
                     </div>
                 </div>
             </div>

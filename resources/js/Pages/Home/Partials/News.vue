@@ -26,7 +26,7 @@ const formatDate = (dateString) => {
         <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
             <div class="flex flex-col md:flex-row justify-between items-end mb-12 gap-4">
                 <div class="max-w-2xl">
-                    <span class="text-blue-600 font-bold tracking-wider uppercase text-xs">Kabar Kelurahan</span>
+                    <span class="text-blue-600 font-bold tracking-wider uppercase text-xs">Kabar {{ $page.props.settings?.sebutan_wilayah || 'Kelurahan' }}</span>
                     <h2 class="text-3xl font-extrabold text-gray-900 mt-2 tracking-tight uppercase">Info & Kegiatan
                         Terbaru</h2>
                     <p class="mt-4 text-gray-500 font-medium">Ikuti perkembangan terbaru dan kegiatan pembangunan di

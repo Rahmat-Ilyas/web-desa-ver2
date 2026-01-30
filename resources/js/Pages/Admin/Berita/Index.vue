@@ -78,7 +78,7 @@ const formatDate = (dateString) => {
                     </div>
                     <h1 class="text-4xl font-black text-slate-900 tracking-tight">Berita & Informasi</h1>
                     <p class="text-slate-500 font-bold text-sm mt-2">Daftar seluruh kabar terbaru dan informasi resmi
-                        kelurahan.</p>
+                        {{ $page.props.settings?.sebutan_wilayah?.toLowerCase() || 'kelurahan' }}.</p>
                 </div>
 
                 <div class="flex flex-col md:flex-row items-center justify-between gap-4">

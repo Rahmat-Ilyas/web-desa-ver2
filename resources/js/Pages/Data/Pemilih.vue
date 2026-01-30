@@ -24,7 +24,7 @@ const handleDownload = () => {
     if (filePath) {
         window.open(filePath, '_blank');
     } else {
-        alert('Maaf, file data DPT belum tersedia untuk saat ini. Silakan hubungi admin kelurahan.');
+        alert(`Maaf, file data DPT belum tersedia untuk saat ini. Silakan hubungi admin ${props.settings?.sebutan_wilayah?.toLowerCase() || 'kelurahan'}.`);
     }
 };
 </script>
@@ -44,7 +44,9 @@ const handleDownload = () => {
                 </div>
                 <h1 class="text-3xl md:text-5xl font-extrabold text-white tracking-tight mb-4">Daftar Pemilih Tetap
                     (DPT)</h1>
-                <p class="text-red-100 text-lg max-w-2xl mx-auto">Data pemilih tetap Kelurahan Ujung Sabbang untuk
+                <p class="text-red-100 text-lg max-w-2xl mx-auto">Data pemilih tetap {{
+                    $page.props.settings?.sebutan_wilayah || 'Kelurahan' }} {{ $page.props.settings?.nama_wilayah ||
+                        '[Nama Wilayah]' }} untuk
                     keperluan Pemilu/Pilkada.</p>
             </div>
         </div>
@@ -113,7 +115,8 @@ const handleDownload = () => {
                                 <i class="fas fa-info-circle mr-2"></i> Informasi Penting
                             </h4>
                             <p class="text-yellow-800 text-sm">Pastikan nama Anda terdaftar dalam DPT. Jika belum
-                                terdaftar, silakan hubungi Kantor Lurah atau petugas PPS setempat dengan membawa KTP-el
+                                terdaftar, silakan hubungi Kantor {{ $page.props.settings?.sebutan_wilayah || 'Lurah' }}
+                                atau petugas PPS setempat dengan membawa KTP-el
                                 dan Kartu Keluarga.</p>
                         </div>
                     </div>

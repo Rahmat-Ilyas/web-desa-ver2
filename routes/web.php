@@ -152,8 +152,12 @@ Route::get('/informasi/berita', [HomeController::class, 'berita'])->name('inform
 Route::get('/informasi/berita/{slug}', [HomeController::class, 'beritaDetail'])->name('informasi.berita.show');
 
 Route::get('/informasi/potensi', function () {
+    $categories = \App\Models\Setting::where('key', 'potensi_categories')->first();
+    $categories = $categories ? json_decode($categories->value, true) : ['Wisata Alam', 'UMKM & Produk', 'Pertanian', 'Seni Budaya', 'Kuliner'];
+
     return inertia('Informasi/Potensi', [
-        'potensis' => \App\Models\Potensi::latest()->get()
+        'potensis' => \App\Models\Potensi::latest()->get(),
+        'categories' => $categories
     ]);
 })->name('informasi.potensi');
 
@@ -283,6 +287,7 @@ Route::prefix('admin')->middleware(['auth'])->group(function () {
 
 
     // Potensi Desa
+    Route::post('/potensi/categories', [\App\Http\Controllers\Admin\SettingController::class, 'updatePotensiCategories'])->name('admin.potensi.categories.update');
     Route::resource('potensi', \App\Http\Controllers\Admin\PotensiController::class)->names([
         'index' => 'admin.potensi.index',
         'store' => 'admin.potensi.store',
@@ -357,7 +362,19 @@ Route::prefix('admin')->middleware(['auth'])->group(function () {
     Route::get('/konfigurasi', function () {
         return inertia('Admin/Konfigurasi/Index', [
             'settings' => \App\Models\Setting::all()->pluck('value', 'key')->map(function ($value, $key) {
-                if (in_array($key, ['statistik_umum', 'statistik_agama', 'statistik_pendidikan', 'statistik_umur', 'statistik_pemilih'])) {
+                if (
+                    in_array($key, [
+                        'statistik_umum',
+                        'statistik_agama',
+                        'statistik_pendidikan',
+                        'statistik_umur',
+                        'statistik_pemilih',
+                        'module_status',
+                        'info_umum',
+                        'sosial_media',
+                        'hero_slider'
+                    ])
+                ) {
                     return json_decode($value, true);
                 }
                 return $value;
@@ -366,4 +383,6 @@ Route::prefix('admin')->middleware(['auth'])->group(function () {
     })->name('admin.konfigurasi');
 
     Route::post('/konfigurasi', [\App\Http\Controllers\Admin\SettingController::class, 'updateKonfigurasi'])->name('admin.konfigurasi.update');
+    Route::post('/konfigurasi/modules', [\App\Http\Controllers\Admin\SettingController::class, 'updateModules'])->name('admin.konfigurasi.modules.update');
+    Route::post('/konfigurasi/appearance', [\App\Http\Controllers\Admin\SettingController::class, 'updateAppearance'])->name('admin.konfigurasi.appearance.update');
 });

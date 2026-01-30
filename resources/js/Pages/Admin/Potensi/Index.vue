@@ -4,7 +4,8 @@ import AdminLayout from '@/Layouts/AdminLayout.vue';
 import { ref, watch } from 'vue';
 
 const props = defineProps({
-    potensis: Array
+    potensis: Array,
+    categories: Array
 });
 
 // Notification State
@@ -30,11 +31,31 @@ const isModalOpen = ref(false);
 const editingItem = ref(null);
 const previewImage = ref(null);
 
-const categories = ['Wisata Alam', 'UMKM & Produk', 'Pertanian', 'Seni Budaya', 'Kuliner'];
+const isCategoryModalOpen = ref(false);
+const categoryForm = useForm({
+    categories: props.categories && props.categories.length > 0 ? [...props.categories] : ['Wisata Alam', 'UMKM & Produk', 'Pertanian', 'Seni Budaya', 'Kuliner']
+});
+
+const addCategory = () => {
+    categoryForm.categories.push('');
+};
+
+const removeCategory = (index) => {
+    categoryForm.categories.splice(index, 1);
+};
+
+const submitCategories = () => {
+    categoryForm.post(route('admin.potensi.categories.update'), {
+        onSuccess: () => {
+            isCategoryModalOpen.value = false;
+            showNotification('Kategori berhasil diperbarui');
+        }
+    });
+};
 
 const form = useForm({
     judul: '',
-    kategori: 'Wisata Alam',
+    kategori: props.categories[0] || '',
     deskripsi: '',
     lokasi: '',
     image: null
@@ -121,7 +142,7 @@ const confirmDelete = () => {
 <template>
     <AdminLayout>
 
-        <Head title="Potensi Desa" />
+        <Head :title="`Potensi ${$page.props.settings?.sebutan_wilayah || 'Desa'}`" />
 
         <div class="max-w-[1200px] mx-auto px-4 sm:px-6">
             <!-- Header Section -->
@@ -131,17 +152,23 @@ const confirmDelete = () => {
                         class="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-emerald-50 text-emerald-600 text-[10px] font-black uppercase tracking-widest mb-3">
                         <i class="fas fa-star"></i> Informasi Publik
                     </div>
-                    <h1 class="text-4xl font-black text-slate-900 tracking-tight">Potensi Desa</h1>
-                    <p class="text-slate-500 font-bold text-sm mt-2">Kelola informasi mengenai potensi unggulan desa.
+                    <h1 class="text-4xl font-black text-slate-900 tracking-tight">Potensi {{ $page.props.settings?.sebutan_wilayah || 'Desa' }}</h1>
+                    <p class="text-slate-500 font-bold text-sm mt-2">Kelola informasi mengenai potensi unggulan {{ $page.props.settings?.sebutan_wilayah?.toLowerCase() || 'desa' }}.
                     </p>
                 </div>
 
                 <div class="flex flex-col md:flex-row items-center justify-between gap-4">
                     <div class="w-full md:w-auto"></div>
-                    <button @click="openCreateModal"
-                        class="w-full md:w-auto px-8 py-4 rounded-2xl bg-blue-600 text-white font-black text-sm hover:bg-blue-700 transition-all flex items-center justify-center gap-2 shadow-xl shadow-blue-600/20 whitespace-nowrap">
-                        <i class="fas fa-plus"></i> TAMBAH POTENSI
-                    </button>
+                    <div class="flex gap-4 w-full md:w-auto">
+                        <button @click="isCategoryModalOpen = true"
+                            class="px-8 py-4 rounded-2xl bg-amber-500 text-white font-black text-sm hover:bg-amber-600 transition-all flex items-center justify-center gap-2 shadow-xl shadow-amber-500/20 whitespace-nowrap uppercase tracking-widest">
+                            <i class="fas fa-tags"></i> Atur Kategori
+                        </button>
+                        <button @click="openCreateModal"
+                            class="flex-grow px-8 py-4 rounded-2xl bg-blue-600 text-white font-black text-sm hover:bg-blue-700 transition-all flex items-center justify-center gap-2 shadow-xl shadow-blue-600/20 whitespace-nowrap uppercase tracking-widest">
+                            <i class="fas fa-plus"></i> Tambah Potensi
+                        </button>
+                    </div>
                 </div>
             </div>
 
@@ -254,7 +281,7 @@ const confirmDelete = () => {
                                         class="block text-[10px] font-black text-slate-400 uppercase tracking-widest mb-2 ml-4">Kategori</label>
                                     <select v-model="form.kategori"
                                         class="w-full bg-slate-50 border-2 border-transparent focus:border-blue-500 focus:bg-white px-6 py-4 rounded-2xl font-bold text-slate-700 transition-all outline-none appearance-none cursor-pointer">
-                                        <option v-for="cat in categories" :key="cat" :value="cat">{{ cat }}</option>
+                                        <option v-for="cat in props.categories" :key="cat" :value="cat">{{ cat }}</option>
                                     </select>
                                 </div>
                             </div>
@@ -337,6 +364,55 @@ const confirmDelete = () => {
                             class="flex-1 bg-rose-600 text-white font-black text-xs uppercase tracking-widest py-4 rounded-2xl hover:bg-rose-500 transition-all shadow-xl shadow-rose-500/30 active:scale-95">
                             Ya, Hapus!
                         </button>
+                    </div>
+                </div>
+            </div>
+        </transition>
+
+        <!-- Category Management Modal -->
+        <transition enter-active-class="transition duration-300 ease-out" enter-from-class="opacity-0 scale-95"
+            enter-to-class="opacity-100 scale-100" leave-active-class="transition duration-200 ease-in"
+            leave-from-class="opacity-100 scale-100" leave-to-class="opacity-0 scale-95">
+            <div v-if="isCategoryModalOpen" class="fixed inset-0 z-[120] overflow-y-auto">
+                <div class="fixed inset-0 bg-slate-900/60 backdrop-blur-sm" @click="isCategoryModalOpen = false"></div>
+                <div class="flex min-h-full items-center justify-center p-4">
+                    <div
+                        class="relative bg-white rounded-[3rem] shadow-2xl w-full max-w-lg p-10 overflow-hidden">
+                        <div class="flex justify-between items-center mb-8">
+                            <h2 class="text-2xl font-black text-slate-900 uppercase tracking-tighter">Kelola Kategori</h2>
+                            <button @click="isCategoryModalOpen = false"
+                                class="p-2 hover:bg-slate-100 rounded-xl transition-colors text-slate-400">
+                                <i class="fas fa-times"></i>
+                            </button>
+                        </div>
+
+                        <form @submit.prevent="submitCategories" class="space-y-4">
+                            <div class="max-h-[400px] overflow-y-auto pr-2 custom-scrollbar space-y-3">
+                                <div v-for="(cat, index) in categoryForm.categories" :key="index" class="flex gap-2">
+                                    <input v-model="categoryForm.categories[index]" type="text"
+                                        class="flex-grow bg-slate-50 border-2 border-transparent focus:border-amber-500 focus:bg-white px-5 py-3 rounded-xl font-bold text-slate-700 outline-none transition-all"
+                                        placeholder="Nama kategori...">
+                                    <button type="button" @click="removeCategory(index)"
+                                        class="w-12 h-12 rounded-xl bg-rose-50 text-rose-500 flex items-center justify-center hover:bg-rose-500 hover:text-white transition-all">
+                                        <i class="fas fa-trash-alt text-xs"></i>
+                                    </button>
+                                </div>
+                            </div>
+
+                            <button type="button" @click="addCategory"
+                                class="w-full py-4 bg-slate-50 text-slate-500 font-black text-[10px] uppercase tracking-widest rounded-xl hover:bg-slate-100 border-2 border-dashed border-slate-200 flex items-center justify-center gap-2 transition-all">
+                                <i class="fas fa-plus"></i> Tambah Kategori
+                            </button>
+
+                            <div class="pt-6 border-t border-slate-100 flex gap-4">
+                                <button type="button" @click="isCategoryModalOpen = false"
+                                    class="flex-1 py-4 bg-slate-100 text-slate-600 font-black text-xs uppercase tracking-widest rounded-2xl hover:bg-slate-200 transition-all">Batal</button>
+                                <button type="submit" :disabled="categoryForm.processing"
+                                    class="flex-[2] py-4 bg-amber-500 text-white font-black text-xs uppercase tracking-widest rounded-2xl hover:bg-amber-600 transition-all shadow-xl shadow-amber-500/20 disabled:opacity-50">
+                                    SIMPAN KATEGORI
+                                </button>
+                            </div>
+                        </form>
                     </div>
                 </div>
             </div>

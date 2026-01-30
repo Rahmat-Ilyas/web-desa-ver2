@@ -68,8 +68,9 @@ const calculateStats = computed(() => {
             </div>
             <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10 text-center">
                 <h1 class="text-3xl md:text-5xl font-extrabold text-white tracking-tight mb-4">Statistik Pendidikan</h1>
-                <p class="text-violet-100 text-lg max-w-2xl mx-auto">Tingkat pendidikan masyarakat Kelurahan Ujung
-                    Sabbang.</p>
+                <p class="text-violet-100 text-lg max-w-2xl mx-auto">Tingkat pendidikan masyarakat {{
+                    $page.props.settings?.sebutan_wilayah || 'Kelurahan' }} {{ $page.props.settings?.nama_wilayah ||
+                    '[Nama Wilayah]' }}.</p>
             </div>
         </div>
 
@@ -78,17 +79,20 @@ const calculateStats = computed(() => {
 
                 <div class="grid grid-cols-1 lg:grid-cols-2 gap-16 items-center">
                     <div class="space-y-6">
-                        <div v-for="level in educationLevels" :key="level.label" 
-                             class="relative p-6 bg-white rounded-[2rem] border border-gray-50 shadow-sm hover:shadow-xl hover:-translate-x-2 transition-all duration-500 group">
+                        <div v-for="level in educationLevels" :key="level.label"
+                            class="relative p-6 bg-white rounded-[2rem] border border-gray-50 shadow-sm hover:shadow-xl hover:-translate-x-2 transition-all duration-500 group">
                             <div class="flex justify-between items-center mb-3">
-                                <span class="text-xs font-black text-gray-400 uppercase tracking-widest">{{ level.label }}</span>
+                                <span class="text-xs font-black text-gray-400 uppercase tracking-widest">{{ level.label
+                                    }}</span>
                                 <span class="text-xl font-black text-slate-900">{{ level.value }} <span
-                                         class="text-[10px] text-gray-300">JIWA</span></span>
+                                        class="text-[10px] text-gray-300">JIWA</span></span>
                             </div>
                             <div class="w-full bg-gray-50 rounded-full h-10 overflow-hidden p-1.5 shadow-inner">
                                 <div :class="[level.color, 'h-full rounded-full flex items-center justify-end px-4 transition-all duration-[1.5s] ease-out group-hover:brightness-110']"
                                     :style="{ width: level.percentage + '%' }">
-                                    <span class="text-[10px] text-white font-black tracking-tighter opacity-0 group-hover:opacity-100 transition-opacity duration-500">{{ level.percentage }}%</span>
+                                    <span
+                                        class="text-[10px] text-white font-black tracking-tighter opacity-0 group-hover:opacity-100 transition-opacity duration-500">{{
+                                        level.percentage }}%</span>
                                 </div>
                             </div>
                         </div>
@@ -103,20 +107,23 @@ const calculateStats = computed(() => {
                         <h3 class="text-3xl font-black text-gray-900 mb-6 leading-tight">Membangun Masa Depan Melalui
                             Pendidikan</h3>
                         <p class="text-gray-600 leading-relaxed mb-8">Data statistik menunjukkan pertumbuhan tingkat
-                            pendidikan yang positif di Kelurahan Ujung Sabbang, mencerminkan tingginya kesadaran warga
+                            pendidikan yang positif di {{ $page.props.settings?.sebutan_wilayah || 'Kelurahan' }} {{
+                                $page.props.settings?.nama_wilayah || '[Nama Wilayah]' }}, mencerminkan tingginya kesadaran
+                            warga
                             akan pentingnya pendidikan bagi kemajuan wilayah.</p>
 
                         <div class="grid grid-cols-2 gap-4">
                             <div class="bg-white p-4 rounded-2xl shadow-sm border border-violet-50">
                                 <div class="text-xs font-bold text-violet-400 uppercase tracking-widest mb-1">Melek
                                     Huruf</div>
-                                <div class="text-2xl font-black text-gray-900 text-right">{{ calculateStats.literacyRate }}%</div>
+                                <div class="text-2xl font-black text-gray-900 text-right">{{ calculateStats.literacyRate
+                                    }}%</div>
                             </div>
                             <div class="bg-white p-4 rounded-2xl shadow-sm border border-violet-50">
                                 <div class="text-xs font-bold text-violet-400 uppercase tracking-widest mb-1">Rata-rata
                                     Lama Sekolah</div>
-                                <div class="text-2xl font-black text-gray-900 text-right">{{ calculateStats.avgYears }} <span
-                                        class="text-xs">THN</span></div>
+                                <div class="text-2xl font-black text-gray-900 text-right">{{ calculateStats.avgYears }}
+                                    <span class="text-xs">THN</span></div>
                             </div>
                         </div>
                     </div>

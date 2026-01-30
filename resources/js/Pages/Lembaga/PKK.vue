@@ -68,7 +68,8 @@ const currentPrograms = computed(() => {
     <MainLayout>
         <!-- Hero Section -->
         <div class="bg-rose-600 py-16 relative overflow-hidden">
-            <div class="absolute inset-0 opacity-100 bg-[url('https://www.transparenttextures.com/patterns/cubes.png')]">
+            <div
+                class="absolute inset-0 opacity-100 bg-[url('https://www.transparenttextures.com/patterns/cubes.png')]">
             </div>
             <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10 text-center">
                 <div
@@ -78,8 +79,8 @@ const currentPrograms = computed(() => {
                 </div>
                 <h1 class="text-4xl md:text-6xl font-black text-white tracking-tighter mb-4 uppercase">PKK</h1>
                 <p class="text-rose-50 text-xl max-w-2xl mx-auto font-medium">Pemberdayaan Kesejahteraan Keluarga
-                    Kelurahan Ujung
-                    Sabbang.</p>
+                    {{ $page.props.settings?.sebutan_wilayah || 'Kelurahan' }} {{ $page.props.settings?.nama_wilayah ||
+                    '[Nama Wilayah]' }}.</p>
             </div>
             <!-- Decorative circle -->
             <div class="absolute -bottom-24 -right-24 w-96 h-96 bg-white/10 rounded-full blur-3xl"></div>
@@ -104,7 +105,7 @@ const currentPrograms = computed(() => {
                             </div>
                             <div
                                 class="relative rounded-[3rem] overflow-hidden shadow-2xl aspect-[4/5] max-w-lg mx-auto lg:mx-0">
-                                <img src="/assets/images/lembaga/pkk_profile.png"
+                                <img :src="$page.props.settings?.cover_pkk || '/assets/images/lembaga/pkk_profile.png'"
                                     class="w-full h-full object-cover transform group-hover:scale-105 transition-transform duration-1000"
                                     alt="Kegiatan PKK">
                                 <div
@@ -145,10 +146,12 @@ const currentPrograms = computed(() => {
                     <div class="flex flex-col">
                         <div class="mb-12">
                             <div class="flex items-center gap-3 mb-6">
-                                <div class="w-10 h-10 rounded-2xl bg-rose-100 text-rose-600 flex items-center justify-center">
+                                <div
+                                    class="w-10 h-10 rounded-2xl bg-rose-100 text-rose-600 flex items-center justify-center">
                                     <i class="fas fa-heart"></i>
                                 </div>
-                                <span class="text-rose-600 font-black text-[10px] uppercase tracking-[0.4em]">Profil Lembaga</span>
+                                <span class="text-rose-600 font-black text-[10px] uppercase tracking-[0.4em]">Profil
+                                    Lembaga</span>
                             </div>
                             <h2
                                 class="text-4xl md:text-5xl font-black text-slate-900 leading-[1.1] tracking-tighter mb-8 uppercase">
@@ -414,14 +417,18 @@ const currentPrograms = computed(() => {
     -ms-overflow-style: none;
     scrollbar-width: none;
 }
+
 .custom-scrollbar::-webkit-scrollbar {
     width: 5px;
 }
+
 .custom-scrollbar::-webkit-scrollbar-track {
     background: transparent;
 }
+
 .custom-scrollbar::-webkit-scrollbar-thumb {
-    background: #f43f5e; /* rose-500 */
+    background: #f43f5e;
+    /* rose-500 */
     border-radius: 10px;
     border: 1px solid transparent;
 }

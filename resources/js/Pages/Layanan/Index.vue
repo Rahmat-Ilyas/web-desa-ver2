@@ -36,12 +36,15 @@ const whatsappLink = whatsappNumber ? `https://wa.me/${whatsappNumber}` : '#';
             <div class="absolute inset-0 opacity-10 bg-[url('https://www.transparenttextures.com/patterns/cubes.png')]">
             </div>
             <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10 text-center">
-                <div class="w-16 h-16 bg-white/20 backdrop-blur rounded-2xl flex items-center justify-center mx-auto mb-6 shadow-xl border border-white/30 rotate-3">
+                <div
+                    class="w-16 h-16 bg-white/20 backdrop-blur rounded-2xl flex items-center justify-center mx-auto mb-6 shadow-xl border border-white/30 rotate-3">
                     <i class="fas fa-concierge-bell text-3xl text-orange-100"></i>
                 </div>
                 <h1 class="text-4xl md:text-5xl font-black text-white tracking-tight mb-4">Pusat Layanan Warga</h1>
-                <p class="text-orange-100 text-lg max-w-2xl mx-auto font-medium">Informasi persyaratan dan prosedur pengurusan
-                    administrasi di Kelurahan Ujung Sabbang secara transparan dan cepat.</p>
+                <p class="text-orange-100 text-lg max-w-2xl mx-auto font-medium">Informasi persyaratan dan prosedur
+                    pengurusan
+                    administrasi di {{ $page.props.settings?.sebutan_wilayah || 'Kelurahan' }} {{
+                        $page.props.settings?.nama_wilayah || '[Nama Wilayah]' }} secara transparan dan cepat.</p>
             </div>
         </div>
 
@@ -68,7 +71,8 @@ const whatsappLink = whatsappNumber ? `https://wa.me/${whatsappNumber}` : '#';
                     </div>
                 </div>
                 <div v-else class="text-center py-20 bg-white rounded-[3rem] border-2 border-dashed border-gray-200">
-                    <div class="w-20 h-20 bg-gray-50 rounded-full flex items-center justify-center mx-auto mb-6 text-gray-300">
+                    <div
+                        class="w-20 h-20 bg-gray-50 rounded-full flex items-center justify-center mx-auto mb-6 text-gray-300">
                         <i class="fas fa-file-invoice text-4xl"></i>
                     </div>
                     <h3 class="text-xl font-bold text-gray-400">Belum ada data layanan tersedia.</h3>

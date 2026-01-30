@@ -4,12 +4,17 @@
 <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="description" content="{{ \App\Models\Setting::where('key', 'web_description')->first()?->value ?? 'Website Resmi Kelurahan' }}">
+    <meta name="keywords" content="{{ \App\Models\Setting::where('key', 'web_keywords')->first()?->value ?? 'kelurahan, desa, pelayanan' }}">
     <meta name="csrf-token" content="{{ csrf_token() }}">
 
-    <title inertia>{{ config('app.name', 'Kel. Ujung Sabbang') }}</title>
+    <title inertia>
+        {{ \App\Models\Setting::where('key', 'web_name')->first()?->value ?? config('app.name', '[Nama Wilayah]') }}
+    </title>
 
     <!-- Favicon -->
-    <link rel="icon" type="image/png" href="{{ asset('assets/images/icons/logo.png') }}">
+    <link rel="icon" type="image/png"
+        href="{{ \App\Models\Setting::where('key', 'logo')->first()?->value ?? asset('assets/images/icons/logo.png') }}">
 
     <!-- Fonts -->
     <link rel="preconnect" href="https://fonts.bunny.net">

@@ -45,11 +45,11 @@ const facebookShareUrl = computed(() => {
 });
 
 const whatsappShareUrl = computed(() => {
-    return `https://api.whatsapp.com/send?text=${encodeURIComponent('Baca Sambutan Lurah Ujung Sabbang: ' + currentUrl.value)}`;
+    return `https://api.whatsapp.com/send?text=${encodeURIComponent('Baca Sambutan ' + (props.settings?.sebutan_kepala || 'Lurah') + ' ' + (props.settings?.nama_wilayah || '[Nama Wilayah]') + ': ' + currentUrl.value)}`;
 });
 
 const twitterShareUrl = computed(() => {
-    return `https://twitter.com/intent/tweet?text=${encodeURIComponent('Baca Sambutan Lurah Ujung Sabbang')}&url=${encodeURIComponent(currentUrl.value)}`;
+    return `https://twitter.com/intent/tweet?text=${encodeURIComponent('Baca Sambutan ' + (props.settings?.sebutan_kepala || 'Lurah') + ' ' + (props.settings?.nama_wilayah || '[Nama Wilayah]'))}&url=${encodeURIComponent(currentUrl.value)}`;
 });
 
 import { computed } from 'vue';
@@ -57,7 +57,7 @@ import { computed } from 'vue';
 
 <template>
 
-    <Head title="Sambutan Lurah" />
+    <Head :title="`Sambutan ${$page.props.settings?.sebutan_kepala || 'Lurah'}`" />
 
     <MainLayout>
         <!-- Hero Title -->
@@ -68,9 +68,11 @@ import { computed } from 'vue';
             <div class="absolute -bottom-24 -left-24 w-96 h-96 bg-indigo-600/20 rounded-full blur-3xl"></div>
 
             <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10 text-center">
-                <h1 class="text-4xl md:text-6xl font-black text-white tracking-tight mb-6">Sambutan Lurah</h1>
+                <h1 class="text-4xl md:text-6xl font-black text-white tracking-tight mb-6">Sambutan {{
+                    $page.props.settings?.sebutan_kepala || 'Lurah' }}</h1>
                 <p class="text-blue-100 text-lg md:text-xl max-w-2xl mx-auto font-medium leading-relaxed">
-                    Pesan, harapan, dan komitmen untuk kemajuan Kel. Ujung Sabbang.
+                    Pesan, harapan, dan komitmen untuk kemajuan {{ $page.props.settings?.sebutan_wilayah || 'Kel.' }} {{
+                        $page.props.settings?.nama_wilayah || '[Nama Wilayah]' }}.
                 </p>
             </div>
         </div>
@@ -90,8 +92,8 @@ import { computed } from 'vue';
 
                                 <div
                                     class="relative rounded-[2.5rem] overflow-hidden shadow-2xl border-8 border-white bg-slate-100">
-                                    <img :src="props.lurah?.photo ? '/storage/' + props.lurah.photo : 'https://placehold.co/600x800?text=Foto+Lurah'"
-                                        :alt="props.lurah?.name || 'Lurah Ujung Sabbang'"
+                                    <img :src="props.lurah?.photo ? '/storage/' + props.lurah.photo : 'https://placehold.co/600x800?text=Foto+' + ($page.props.settings?.sebutan_kepala || 'Lurah')"
+                                        :alt="props.lurah?.name || ($page.props.settings?.sebutan_kepala || 'Lurah') + ' ' + ($page.props.settings?.nama_wilayah || '[Nama Wilayah]')"
                                         class="w-full h-[500px] object-cover object-top transform group-hover:scale-105 transition-all duration-1000">
 
                                     <div
@@ -105,7 +107,8 @@ import { computed } from 'vue';
                                 <h3 class="text-3xl font-black text-slate-900 leading-tight mb-2">{{ props.lurah?.name
                                     || 'Nama Belum Diatur' }}</h3>
                                 <p class="text-blue-600 font-black uppercase text-xs tracking-[0.2em]">{{
-                                    props.lurah?.position || 'Lurah Ujung Sabbang' }}</p>
+                                    props.lurah?.position || ($page.props.settings?.sebutan_kepala || 'Lurah') + ' ' +
+                                    ($page.props.settings?.nama_wilayah || '[Nama Wilayah]') }}</p>
                                 <p v-if="props.lurah?.nip"
                                     class="text-slate-400 font-mono text-[10px] mt-4 tracking-widest uppercase">NIP. {{
                                         props.lurah.nip }}</p>

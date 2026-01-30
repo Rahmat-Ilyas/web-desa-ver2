@@ -35,8 +35,9 @@ const religions = (props.settings?.statistik_agama || defaultReligions).map(item
             </div>
             <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10 text-center">
                 <h1 class="text-3xl md:text-5xl font-extrabold text-white tracking-tight mb-4">Statistik Agama</h1>
-                <p class="text-emerald-100 text-lg max-w-2xl mx-auto">Keberagaman keyakinan penduduk Kelurahan Ujung
-                    Sabbang.</p>
+                <p class="text-emerald-100 text-lg max-w-2xl mx-auto">Keberagaman keyakinan penduduk {{
+                    $page.props.settings?.sebutan_wilayah || 'Kelurahan' }} {{ $page.props.settings?.nama_wilayah ||
+                    '[Nama Wilayah]' }}.</p>
             </div>
         </div>
 
@@ -77,7 +78,8 @@ const religions = (props.settings?.statistik_agama || defaultReligions).map(item
                     <h3 class="text-2xl font-bold text-emerald-900 mb-4">Harmoni dalam Keberagaman</h3>
                     <p class="text-emerald-800 leading-relaxed max-w-2xl mx-auto italic">"Kami berkomitmen menjaga
                         kerukunan antar umat beragama demi menciptakan lingkungan yang damai dan tenteram di seluruh
-                        wilayah Kelurahan Ujung Sabbang."</p>
+                        wilayah {{ $page.props.settings?.sebutan_wilayah || 'Kelurahan' }} {{
+                            $page.props.settings?.nama_wilayah || '[Nama Wilayah]' }}."</p>
                 </div>
 
             </div>

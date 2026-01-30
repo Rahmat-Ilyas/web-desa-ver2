@@ -23,17 +23,24 @@ const props = defineProps({
 
         <!-- Stats Grid -->
         <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6 mb-10">
-            <div v-for="stat in stats" :key="stat.name"
-                class="bg-white p-6 rounded-[2rem] shadow-sm border border-gray-100 flex items-center gap-6 hover:shadow-xl hover:shadow-gray-200/50 transition-all group">
-                <div
-                    :class="[`bg-${stat.color}-100 text-${stat.color}-600`, 'w-16 h-16 rounded-3xl flex items-center justify-center text-2xl group-hover:scale-110 transition-transform']">
-                    <i :class="['fas', stat.icon]"></i>
+            <template v-for="stat in stats" :key="stat.name">
+                <div v-if="
+                    (stat.name === 'Total Berita' && $page.props.settings?.module_status?.modul_berita !== false) ||
+                    (stat.name === 'Galeri Foto' && $page.props.settings?.module_status?.modul_galeri !== false) ||
+                    (stat.name === 'Pengaduan Pending' && $page.props.settings?.module_status?.modul_pengaduan !== false) ||
+                    (stat.name === 'Data Warga' && $page.props.settings?.module_status?.modul_statistik !== false)
+                "
+                    class="bg-white p-6 rounded-[2rem] shadow-sm border border-gray-100 flex items-center gap-6 hover:shadow-xl hover:shadow-gray-200/50 transition-all group">
+                    <div
+                        :class="[`bg-${stat.color}-100 text-${stat.color}-600`, 'w-16 h-16 rounded-3xl flex items-center justify-center text-2xl group-hover:scale-110 transition-transform']">
+                        <i :class="['fas', stat.icon]"></i>
+                    </div>
+                    <div>
+                        <p class="text-[10px] font-bold text-slate-400 uppercase tracking-widest">{{ stat.name }}</p>
+                        <h3 class="text-2xl font-black text-slate-900 leading-tight">{{ stat.value }}</h3>
+                    </div>
                 </div>
-                <div>
-                    <p class="text-[10px] font-bold text-slate-400 uppercase tracking-widest">{{ stat.name }}</p>
-                    <h3 class="text-2xl font-black text-slate-900 leading-tight">{{ stat.value }}</h3>
-                </div>
-            </div>
+            </template>
         </div>
 
         <div class="grid grid-cols-1 lg:grid-cols-3 gap-8">
@@ -70,7 +77,8 @@ const props = defineProps({
                     <p class="text-indigo-200 text-xs font-bold mb-6 relative z-10">Kelola konten yang paling sering
                         diupdate.</p>
                     <div class="grid grid-cols-3 gap-3 relative z-10">
-                        <Link :href="route('admin.berita.create')"
+                        <Link v-if="$page.props.settings?.module_status?.modul_berita !== false"
+                            :href="route('admin.berita.create')"
                             class="bg-white/10 hover:bg-white/20 backdrop-blur-md p-3 rounded-[2rem] transition-all flex flex-col items-center gap-3 active:scale-95 group/btn">
                             <div
                                 class="w-10 h-10 bg-blue-500/20 rounded-xl flex items-center justify-center group-hover/btn:scale-110 transition-transform">
@@ -80,7 +88,8 @@ const props = defineProps({
                                 Berita</span>
                         </Link>
 
-                        <Link :href="route('admin.galeri.index')"
+                        <Link v-if="$page.props.settings?.module_status?.modul_galeri !== false"
+                            :href="route('admin.galeri.index')"
                             class="bg-white/10 hover:bg-white/20 backdrop-blur-md p-3 rounded-[2rem] transition-all flex flex-col items-center gap-3 active:scale-95 group/btn">
                             <div
                                 class="w-10 h-10 bg-emerald-500/20 rounded-xl flex items-center justify-center group-hover/btn:scale-110 transition-transform">
@@ -90,7 +99,8 @@ const props = defineProps({
                                 Foto</span>
                         </Link>
 
-                        <Link :href="route('admin.pengaduan.index')"
+                        <Link v-if="$page.props.settings?.module_status?.modul_pengaduan !== false"
+                            :href="route('admin.pengaduan.index')"
                             class="bg-white/10 hover:bg-white/20 backdrop-blur-md p-3 rounded-[2rem] transition-all flex flex-col items-center gap-3 active:scale-95 group/btn relative">
                             <!-- Notification Bubble -->
                             <div v-if="pendingPengaduanCount > 0"

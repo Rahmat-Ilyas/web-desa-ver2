@@ -53,7 +53,8 @@ const formatPhone = (number) => {
                     <i class="fas fa-fist-raised text-4xl"></i>
                 </div>
                 <h1 class="text-4xl md:text-6xl font-black text-white tracking-tighter mb-4">Karang Taruna</h1>
-                <p class="text-orange-50 text-xl max-w-2xl mx-auto font-medium">Wadah pengembangan bakat dan kreativitas generasi muda Kelurahan Ujung Sabbang.</p>
+                <p class="text-orange-50 text-xl max-w-2xl mx-auto font-medium">Wadah pengembangan bakat dan kreativitas
+                    generasi muda {{ $page.props.settings?.sebutan_wilayah || 'Kelurahan' }} {{ $page.props.settings?.nama_wilayah || '[Nama Wilayah]' }}.</p>
             </div>
             <!-- Decorative circle -->
             <div class="absolute -bottom-24 -right-24 w-96 h-96 bg-white/10 rounded-full blur-3xl"></div>
@@ -63,21 +64,31 @@ const formatPhone = (number) => {
         <!-- Main Content Section -->
         <section id="profil" class="py-24 bg-white relative overflow-hidden">
             <!-- Decorative Background -->
-            <div class="absolute top-0 right-0 w-1/3 h-full bg-slate-50/50 -skew-x-12 transform translate-x-20 z-0"></div>
+            <div class="absolute top-0 right-0 w-1/3 h-full bg-slate-50/50 -skew-x-12 transform translate-x-20 z-0">
+            </div>
 
             <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
                 <div class="grid grid-cols-1 lg:grid-cols-2 gap-20 items-start">
                     <!-- Left Column: Visual & Quote -->
                     <div class="space-y-12">
                         <div class="relative group">
-                            <div class="absolute -inset-4 bg-orange-100/50 rounded-[3.5rem] -rotate-3 group-hover:rotate-0 transition-transform duration-700"></div>
-                            <div class="relative rounded-[3rem] overflow-hidden shadow-2xl aspect-[4/5] sm:aspect-square lg:aspect-[4/5] max-w-lg mx-auto lg:mx-0">
-                                <img src="/assets/images/lembaga/karang_taruna_profile.png" 
-                                    class="w-full h-full object-cover transform group-hover:scale-105 transition-transform duration-1000" alt="Pemuda Ujung Sabbang">
-                                <div class="absolute inset-0 bg-gradient-to-t from-orange-950/80 via-transparent to-transparent"></div>
+                            <div
+                                class="absolute -inset-4 bg-orange-100/50 rounded-[3.5rem] -rotate-3 group-hover:rotate-0 transition-transform duration-700">
+                            </div>
+                            <div
+                                class="relative rounded-[3rem] overflow-hidden shadow-2xl aspect-[4/5] sm:aspect-square lg:aspect-[4/5] max-w-lg mx-auto lg:mx-0">
+                                <img :src="$page.props.settings?.cover_karang_taruna || '/assets/images/lembaga/karang_taruna_profile.png'"
+                                    class="w-full h-full object-cover transform group-hover:scale-105 transition-transform duration-1000"
+                                    :alt="'Pemuda ' + ($page.props.settings?.nama_wilayah || '[Nama Wilayah]')">
+                                <div
+                                    class="absolute inset-0 bg-gradient-to-t from-orange-950/80 via-transparent to-transparent">
+                                </div>
                                 <div class="absolute bottom-12 left-12 right-12 text-white">
-                                    <span class="inline-block px-3 py-1 bg-orange-500 rounded-lg text-[8px] font-black uppercase tracking-[0.3em] mb-4">Motto Kami</span>
-                                    <h3 class="text-3xl font-black leading-tight uppercase tracking-tighter">Bekerja<br>Bersama<br>Bakti Nyata</h3>
+                                    <span
+                                        class="inline-block px-3 py-1 bg-orange-500 rounded-lg text-[8px] font-black uppercase tracking-[0.3em] mb-4">Motto
+                                        Kami</span>
+                                    <h3 class="text-3xl font-black leading-tight uppercase tracking-tighter">
+                                        Bekerja<br>Bersama<br>Bakti Nyata</h3>
                                 </div>
                             </div>
                         </div>
@@ -103,31 +114,38 @@ const formatPhone = (number) => {
                     <div class="flex flex-col h-full pt-4">
                         <div class="mb-8">
                             <div class="flex items-center gap-3 mb-6">
-                                <div class="w-10 h-10 rounded-2xl bg-orange-100 text-orange-600 flex items-center justify-center">
+                                <div
+                                    class="w-10 h-10 rounded-2xl bg-orange-100 text-orange-600 flex items-center justify-center">
                                     <i class="fas fa-info-circle"></i>
                                 </div>
-                                <span class="text-orange-600 font-extrabold text-[10px] uppercase tracking-[0.4em]">Tentang Karang Taruna</span>
+                                <span
+                                    class="text-orange-600 font-extrabold text-[10px] uppercase tracking-[0.4em]">Tentang
+                                    Karang Taruna</span>
                             </div>
-                            <h2 class="text-3xl md:text-5xl font-black text-slate-900 leading-[1.1] tracking-tighter mb-8 uppercase">
-                                Pemuda Bergerak, Membangun Masa Depan <span class="text-orange-600">Kelurahan.</span>
+                            <h2
+                                class="text-3xl md:text-5xl font-black text-slate-900 leading-[1.1] tracking-tighter mb-8 uppercase">
+                                Pemuda Bergerak, Membangun Masa Depan <span class="text-orange-600">{{ $page.props.settings?.sebutan_wilayah || 'Kelurahan' }}.</span>
                             </h2>
                             <div class="relative">
                                 <div class="absolute -left-6 top-0 text-orange-100 text-6xl font-serif">“</div>
-                                <p class="text-slate-600 text-lg md:text-xl leading-relaxed font-medium italic relative z-10 pl-2">
-                                    {{ profile || 'Karang Taruna Ujung Sabbang merupakan wadah pengembangan generasi muda yang tumbuh dari, oleh, dan untuk masyarakat, terutama dalam bidang kesejahteraan sosial dan kewirausahaan.' }}
+                                <p
+                                    class="text-slate-600 text-lg md:text-xl leading-relaxed font-medium italic relative z-10 pl-2">
+                                    {{ profile || `Karang Taruna ${$page.props.settings?.nama_wilayah || '[Nama Wilayah]'} merupakan wadah pengembangan generasi muda yang tumbuh dari, oleh, dan untuk masyarakat, terutama dalam bidang kesejahteraan sosial dan kewirausahaan.` }}
                                 </p>
                             </div>
                         </div>
 
                         <!-- Tasks Section -->
                         <div v-if="tasks && tasks.length > 0" class="flex-grow pt-8 border-t border-slate-100">
-                            <h3 class="text-xs font-black text-slate-400 uppercase tracking-[0.2em] mb-6 flex items-center gap-3">
+                            <h3
+                                class="text-xs font-black text-slate-400 uppercase tracking-[0.2em] mb-6 flex items-center gap-3">
                                 Program Kerja & Prioritas
                             </h3>
                             <div class="grid grid-cols-1 gap-4">
                                 <div v-for="(task, index) in tasks" :key="index"
                                     class="flex items-start gap-5 p-6 bg-white rounded-3xl border border-slate-100 hover:border-orange-200 hover:shadow-2xl hover:shadow-orange-900/5 transition-all group">
-                                    <div class="w-12 h-12 rounded-2xl bg-slate-50 text-slate-300 flex items-center justify-center text-lg font-black group-hover:bg-orange-600 group-hover:text-white transition-all shrink-0">
+                                    <div
+                                        class="w-12 h-12 rounded-2xl bg-slate-50 text-slate-300 flex items-center justify-center text-lg font-black group-hover:bg-orange-600 group-hover:text-white transition-all shrink-0">
                                         {{ String(index + 1).padStart(2, '0') }}
                                     </div>
                                     <div class="pt-1">
@@ -146,7 +164,9 @@ const formatPhone = (number) => {
             <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
                 <div class="mb-16 space-y-8">
                     <div class="text-center">
-                        <span class="text-orange-600 font-black text-[10px] uppercase tracking-[0.3em] mb-3 block">Semangat Kepemudaan</span>
+                        <span
+                            class="text-orange-600 font-black text-[10px] uppercase tracking-[0.3em] mb-3 block">Semangat
+                            Kepemudaan</span>
                         <h2 class="text-4xl md:text-5xl font-black text-slate-900 tracking-tighter">Struktur <span
                                 class="text-transparent bg-clip-text bg-gradient-to-r from-orange-500 to-orange-600">Kepengurusan</span>
                         </h2>
@@ -218,16 +238,21 @@ const formatPhone = (number) => {
         <!-- Youth Value Section -->
         <section class="py-24 bg-orange-600 relative overflow-hidden">
             <!-- Background Decoration -->
-            <div class="absolute inset-0 opacity-10 bg-[url('https://www.transparenttextures.com/patterns/cubes.png')]"></div>
-            <div class="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[800px] h-[800px] bg-white transform rotate-12 opacity-5 rounded-[10rem]"></div>
+            <div class="absolute inset-0 opacity-10 bg-[url('https://www.transparenttextures.com/patterns/cubes.png')]">
+            </div>
+            <div
+                class="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[800px] h-[800px] bg-white transform rotate-12 opacity-5 rounded-[10rem]">
+            </div>
 
             <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10 text-center">
                 <div class="max-w-3xl mx-auto text-white">
                     <h2 class="text-5xl font-black uppercase tracking-tighter mb-6 leading-none italic">
-                        "Muda Berkarya, Berdaya Untuk <span class="text-orange-200 underline decoration-4 underline-offset-8">Indonesia</span>"
+                        "Muda Berkarya, Berdaya Untuk <span
+                            class="text-orange-200 underline decoration-4 underline-offset-8">Indonesia</span>"
                     </h2>
                     <p class="text-orange-100 font-bold text-lg leading-relaxed mb-12">
-                        Kami percaya bahwa kreativitas tanpa batas dan kolaborasi yang kuat adalah kunci utama transformasi positif bagi lingkungan sekitar kita.
+                        Kami percaya bahwa kreativitas tanpa batas dan kolaborasi yang kuat adalah kunci utama
+                        transformasi positif bagi lingkungan sekitar kita.
                     </p>
                     <div class="flex flex-wrap justify-center gap-12">
                         <div class="flex flex-col items-center">
@@ -272,7 +297,8 @@ html {
 }
 
 .custom-scrollbar::-webkit-scrollbar-thumb {
-    background: #ea580c; /* orange-600 */
+    background: #ea580c;
+    /* orange-600 */
     border-radius: 10px;
 }
 </style>

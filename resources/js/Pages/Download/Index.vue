@@ -81,7 +81,8 @@ const getFileIcon = (type) => {
                 </div>
                 <h1 class="text-3xl md:text-5xl font-extrabold text-white tracking-tight mb-4">Pusat Download</h1>
                 <p class="text-gray-300 text-lg max-w-2xl mx-auto">Unduh berbagai formulir layanan, peraturan, dan
-                    laporan Kelurahan Ujung Sabbang.</p>
+                    laporan {{ $page.props.settings?.sebutan_wilayah || 'Kelurahan' }} {{
+                        $page.props.settings?.nama_wilayah || '[Nama Wilayah]' }}.</p>
             </div>
         </div>
 

@@ -36,7 +36,7 @@ const submit = () => {
 <template>
     <AdminLayout>
 
-        <Head title="Kelola Visi Misi" />
+        <Head :title="`Kelola Visi & Misi ${$page.props.settings?.sebutan_wilayah || 'Kelurahan'}`" />
 
         <div class="max-w-[1200px] mx-auto px-4 sm:px-6">
             <!-- Header Section -->
@@ -47,7 +47,7 @@ const submit = () => {
                         <i class="fas fa-edit"></i> Editor Konten
                     </div>
                     <h1 class="text-4xl font-black text-slate-900 tracking-tight">Visi & Misi</h1>
-                    <p class="text-slate-500 font-bold text-sm mt-2">Kelola visi, misi, dan arah kebijakan kelurahan.
+                    <p class="text-slate-500 font-bold text-sm mt-2">Kelola visi, misi, dan arah kebijakan {{ $page.props.settings?.sebutan_wilayah?.toLowerCase() || 'kelurahan' }}.
                     </p>
                 </div>
 
@@ -86,11 +86,11 @@ const submit = () => {
                         <div class="w-10 h-10 bg-blue-50 rounded-xl flex items-center justify-center text-blue-600">
                             <i class="fas fa-eye"></i>
                         </div>
-                        <h3 class="font-black text-slate-800 text-lg uppercase tracking-tight">Visi Kelurahan</h3>
+                        <h3 class="font-black text-slate-800 text-lg uppercase tracking-tight">Visi {{ $page.props.settings?.sebutan_wilayah || 'Kelurahan' }}</h3>
                     </div>
                     <textarea v-model="form.visi" rows="3"
                         class="w-full bg-slate-50 border-none rounded-3xl px-8 py-6 focus:ring-2 focus:ring-blue-500/10 font-bold text-slate-700 italic text-2xl placeholder:text-slate-300 transition-all leading-relaxed text-center"
-                        placeholder="Masukkan visi kelurahan..."></textarea>
+                        :placeholder="`Masukkan visi ${$page.props.settings?.sebutan_wilayah?.toLowerCase() || 'kelurahan'}...`"></textarea>
                     <p v-if="form.errors.visi" class="mt-3 text-rose-500 text-xs font-bold pl-2">{{
                         form.errors.visi }}</p>
                 </div>
@@ -103,7 +103,7 @@ const submit = () => {
                                 class="w-10 h-10 bg-indigo-50 rounded-xl flex items-center justify-center text-indigo-600">
                                 <i class="fas fa-bullseye"></i>
                             </div>
-                            <h3 class="font-black text-slate-800 text-lg uppercase tracking-tight">Misi Kelurahan
+                            <h3 class="font-black text-slate-800 text-lg uppercase tracking-tight">Misi {{ $page.props.settings?.sebutan_wilayah || 'Kelurahan' }}
                             </h3>
                         </div>
                         <button @click="addMisi" type="button"

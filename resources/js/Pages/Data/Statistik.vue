@@ -36,8 +36,9 @@ const prPercent = ((prJiwa / totalJiwa) * 100).toFixed(1);
             </div>
             <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10 text-center">
                 <h1 class="text-3xl md:text-5xl font-extrabold text-white tracking-tight mb-4">Statistik Penduduk</h1>
-                <p class="text-indigo-100 text-lg max-w-2xl mx-auto">Gambaran umum data demografi Kelurahan Ujung
-                    Sabbang secara real-time.</p>
+                <p class="text-indigo-100 text-lg max-w-2xl mx-auto">Gambaran umum data demografi {{
+                    $page.props.settings?.sebutan_wilayah || 'Kelurahan' }} {{ $page.props.settings?.nama_wilayah ||
+                    '[Nama Wilayah]' }} secara real-time.</p>
             </div>
         </div>
 
@@ -53,16 +54,18 @@ const prPercent = ((prJiwa / totalJiwa) * 100).toFixed(1);
                                 <i :class="['fas', stat.icon]"></i>
                             </div>
                             <span class="text-[10px] font-black text-gray-300 uppercase tracking-[0.2em]">{{ stat.unit
-                                }}</span>
+                            }}</span>
                         </div>
-                        <h3 class="text-gray-400 text-xs font-black uppercase tracking-widest mb-2">{{ stat.label }}</h3>
+                        <h3 class="text-gray-400 text-xs font-black uppercase tracking-widest mb-2">{{ stat.label }}
+                        </h3>
                         <div class="text-4xl font-black text-slate-900 tracking-tight">{{ stat.value }}</div>
                     </div>
                 </div>
 
                 <!-- Gender Distribution Chart (Simple Visualization) -->
                 <div class="bg-white rounded-[2.5rem] p-10 md:p-12 border border-gray-50 shadow-xl">
-                    <h3 class="text-xl font-black text-slate-900 mb-10 text-center italic tracking-tight">Komposisi Penduduk Berdasarkan Jenis Kelamin</h3>
+                    <h3 class="text-xl font-black text-slate-900 mb-10 text-center italic tracking-tight">Komposisi
+                        Penduduk Berdasarkan Jenis Kelamin</h3>
                     <div class="relative h-14 w-full bg-pink-400 rounded-full overflow-hidden flex shadow-inner group">
                         <div class="h-full bg-indigo-500 flex items-center justify-center text-white text-[10px] font-black tracking-widest transition-all duration-1000 hover:brightness-110"
                             :style="{ width: lakiPercent + '%' }">
@@ -73,7 +76,8 @@ const prPercent = ((prJiwa / totalJiwa) * 100).toFixed(1);
                             PEREMPUAN ({{ prPercent }}%)
                         </div>
                     </div>
-                    <div class="flex justify-between mt-6 text-[10px] font-black text-slate-400 px-4 uppercase tracking-[0.2em]">
+                    <div
+                        class="flex justify-between mt-6 text-[10px] font-black text-slate-400 px-4 uppercase tracking-[0.2em]">
                         <div class="flex items-center gap-3">
                             <div class="w-3 h-3 bg-indigo-500 rounded-full shadow-sm"></div>
                             {{ lakiJiwaStr }} JIWA

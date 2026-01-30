@@ -56,8 +56,7 @@ const formatPhone = (number) => {
                     <i class="fas fa-handshake text-4xl"></i>
                 </div>
                 <h1 class="text-3xl md:text-5xl font-extrabold text-white tracking-tight mb-4">LPMK</h1>
-                <p class="text-indigo-100 text-lg max-w-2xl mx-auto">Lembaga Pemberdayaan Masyarakat Kelurahan Ujung
-                    Sabbang.</p>
+                <p class="text-indigo-100 text-lg max-w-2xl mx-auto">Lembaga Pemberdayaan Masyarakat {{ $page.props.settings?.sebutan_wilayah || 'Kelurahan' }} {{ $page.props.settings?.nama_wilayah || '[Nama Wilayah]' }}.</p>
             </div>
         </div>
 
@@ -82,15 +81,15 @@ const formatPhone = (number) => {
                                     <p
                                         class="first-letter:text-5xl first-letter:font-black first-letter:text-teal-600 first-letter:mr-3 first-letter:float-left">
                                         <strong class="text-slate-900">LPMK (Lembaga Pemberdayaan Masyarakat
-                                            Kelurahan)</strong> adalah lembaga
+                                            {{ $page.props.settings?.sebutan_wilayah || 'Kelurahan' }})</strong> adalah lembaga
                                         kemasyarakatan yang tumbuh dari, oleh, dan untuk masyarakat, merupakan mitra
-                                        kerja Lurah
+                                        kerja {{ $page.props.settings?.sebutan_kepala || 'Lurah' }}
                                         dalam menampung dan menyalurkan aspirasi masyarakat dibidang pembangunan.
                                     </p>
                                     <p>
                                         LPMK berperan sebagai motor penggerak partisipasi masyarakat dalam merencanakan,
                                         melaksanakan, dan mengontrol hasil-hasil pembangunan yang berada di tingkat
-                                        kelurahan.
+                                        {{ $page.props.settings?.sebutan_wilayah || 'kelurahan' }}.
                                     </p>
                                 </div>
                                 <div class="bg-teal-50 rounded-3xl p-8 border border-teal-100 mt-10">

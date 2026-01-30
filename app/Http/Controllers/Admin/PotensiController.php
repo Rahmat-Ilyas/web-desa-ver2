@@ -13,8 +13,12 @@ class PotensiController extends Controller
 {
     public function index()
     {
+        $categories = \App\Models\Setting::where('key', 'potensi_categories')->first();
+        $categories = $categories ? json_decode($categories->value, true) : ['Wisata Alam', 'UMKM & Produk', 'Pertanian', 'Seni Budaya', 'Kuliner'];
+
         return Inertia::render('Admin/Potensi/Index', [
-            'potensis' => Potensi::latest()->get()
+            'potensis' => Potensi::latest()->get(),
+            'categories' => $categories
         ]);
     }
 

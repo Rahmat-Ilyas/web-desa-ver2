@@ -113,7 +113,7 @@ const getStatusColor = (status) => {
 
 const getWhatsAppLink = (aduan) => {
     const adminPhone = page.props.settings?.info_umum?.whatsapp || '628123456789';
-    const message = `Halo Admin Kelurahan Ujung Sabbang, saya ingin menanyakan progres aduan saya:
+    const message = `Halo Admin ${page.props.settings?.sebutan_wilayah || 'Kelurahan'} ${page.props.settings?.nama_wilayah || '[Nama Wilayah]'}, saya ingin menanyakan progres aduan saya:
     
 Kode Aduan: ${aduan.kode}
 Kategori: ${aduan.kategori}
@@ -356,9 +356,9 @@ const submit = () => {
                                             <div class="flex flex-wrap items-center gap-2 mb-1">
                                                 <span
                                                     class="text-[9px] font-black text-rose-500 bg-rose-50 px-1.5 py-0.5 rounded-md">{{
-                                                    res.kode }}</span>
+                                                        res.kode }}</span>
                                                 <span class="text-[9px] font-bold text-gray-400">{{ res.created_at
-                                                    }}</span>
+                                                }}</span>
                                             </div>
                                             <p class="font-bold text-gray-900 text-[11px] line-clamp-1 italic">"{{
                                                 res.pesan }}"</p>
@@ -385,13 +385,14 @@ const submit = () => {
                             <h4 class="text-2xl font-black mb-4 relative z-10 font-poppins">Layanan Darurat?</h4>
                             <p class="text-gray-400 mb-8 relative z-10 leading-relaxed">Untuk kejadian darurat
                                 (Kebakaran, Kriminalitas, Bencana), silakan hubungi pusat panggilan darurat atau
-                                langsung datangi Kantor Lurah.</p>
+                                langsung datangi Kantor {{ $page.props.settings?.sebutan_wilayah || 'Lurah' }}.</p>
                             <div class="flex gap-4 relative z-10">
                                 <a href="tel:112"
                                     class="p-4 bg-white/20 backdrop-blur-md rounded-2xl hover:bg-white/30 transition-colors">
                                     <i class="fas fa-phone-alt mr-2"></i> <strong>112</strong>
                                 </a>
-                                <a v-if="$page.props.settings?.info_umum?.whatsapp" :href="'https://wa.me/' + $page.props.settings.info_umum.whatsapp" target="_blank"
+                                <a v-if="$page.props.settings?.info_umum?.whatsapp"
+                                    :href="'https://wa.me/' + $page.props.settings.info_umum.whatsapp" target="_blank"
                                     class="p-4 bg-rose-600 rounded-2xl hover:bg-rose-700 transition-all flex items-center justify-center">
                                     <i class="fab fa-whatsapp mr-2"></i> Chat Admin
                                 </a>

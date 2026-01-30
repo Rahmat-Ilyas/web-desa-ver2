@@ -13,7 +13,6 @@ import CallToAction from './Home/Partials/CallToAction.vue';
 import Map from './Home/Partials/Map.vue';
 
 defineProps({
-    villageName: String,
     lurah: Object,
     structures: Array,
     sambutan: Object,
@@ -29,7 +28,7 @@ defineProps({
 
     <MainLayout :latestGaleris="latestGaleris">
         <!-- Hero Section -->
-        <Hero :villageName="villageName" />
+        <Hero />
 
         <!-- Sambutan Lurah -->
         <Sambutan :lurah="lurah" :sambutan="sambutan" />
@@ -38,16 +37,16 @@ defineProps({
         <Features />
 
         <!-- News / Berita -->
-        <News :latestBeritas="latestBeritas" />
+        <News v-if="$page.props.settings?.module_status?.modul_berita !== false" :latestBeritas="latestBeritas" />
 
         <!-- Struktur Pemerintahan -->
         <Structure :structures="structures" />
 
         <!-- Galeri Kegiatan -->
-        <Gallery :latestGaleris="latestGaleris" />
+        <Gallery v-if="$page.props.settings?.module_status?.modul_galeri !== false" :latestGaleris="latestGaleris" />
 
         <!-- CTA Pengaduan -->
-        <CallToAction />
+        <CallToAction v-if="$page.props.settings?.module_status?.modul_pengaduan !== false" />
 
         <!-- Peta Wilayah -->
         <Map />

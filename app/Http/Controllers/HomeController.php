@@ -19,7 +19,6 @@ class HomeController extends Controller
         $structures = \App\Models\Structure::orderBy('level')->orderBy('order')->get();
 
         return Inertia::render('Home', [
-            'villageName' => 'Kelurahan Ujung Sabbang',
             'lurah' => $lurah,
             'structures' => $structures,
             'sambutan' => [

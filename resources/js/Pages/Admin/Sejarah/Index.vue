@@ -122,7 +122,7 @@ const showNotification = (msg) => {
 <template>
     <AdminLayout>
 
-        <Head title="Kelola Sejarah Kelurahan" />
+        <Head :title="`Kelola Sejarah ${$page.props.settings?.sebutan_wilayah || 'Kelurahan'}`" />
 
         <div class="max-w-[1200px] mx-auto px-4 sm:px-6 text-slate-700">
             <!-- Header -->
@@ -132,9 +132,9 @@ const showNotification = (msg) => {
                         class="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-indigo-50 text-indigo-600 text-[10px] font-black uppercase tracking-widest mb-3">
                         <i class="fas fa-history"></i> Profil Wilayah
                     </div>
-                    <h1 class="text-4xl font-black text-slate-900 tracking-tight">Sejarah Kelurahan</h1>
+                    <h1 class="text-4xl font-black text-slate-900 tracking-tight">Sejarah {{ $page.props.settings?.sebutan_wilayah || 'Kelurahan' }}</h1>
                     <p class="text-slate-500 font-bold text-sm mt-2">Kelola narasi sejarah dan timeline perkembangan
-                        kelurahan.</p>
+                        {{ $page.props.settings?.sebutan_wilayah?.toLowerCase() || 'kelurahan' }}.</p>
                 </div>
 
                 <div class="flex items-center gap-3">

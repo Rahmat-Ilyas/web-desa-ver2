@@ -69,7 +69,7 @@ const currentActivities = computed(() => {
                 </div>
                 <h1 class="text-4xl md:text-6xl font-black text-white tracking-tighter mb-4">Majelis Taklim</h1>
                 <p class="text-emerald-100 text-xl max-w-2xl mx-auto font-medium">Pusat pembinaan keagamaan dan
-                    penguatan ukhuwah islamiyah Kelurahan Ujung Sabbang.</p>
+                    penguatan ukhuwah islamiyah {{ $page.props.settings?.sebutan_wilayah || 'Kelurahan' }} {{ $page.props.settings?.nama_wilayah || '[Nama Wilayah]' }}.</p>
             </div>
             <!-- Decorative circle -->
             <div class="absolute -bottom-24 -right-24 w-96 h-96 bg-white/10 rounded-full blur-3xl"></div>
@@ -87,14 +87,14 @@ const currentActivities = computed(() => {
                                 class="absolute -inset-4 border-2 border-dashed border-emerald-200 rounded-[4rem] group-hover:rotate-1 transition-transform">
                             </div>
                             <div class="relative aspect-[4/3] rounded-[3.5rem] overflow-hidden shadow-2xl">
-                                <img src="/assets/images/lembaga/majelis_taklim_profile.png"
+                                <img :src="$page.props.settings?.cover_majelis_taklim || '/assets/images/lembaga/majelis_taklim_profile.png'"
                                     class="w-full h-full object-cover" alt="Kajian">
                                 <div class="absolute inset-0 bg-emerald-900/40 mix-blend-multiply"></div>
                                 <div class="absolute inset-0 p-12 flex flex-col justify-end text-white">
                                     <h4 class="text-3xl font-black uppercase tracking-tighter mb-2 italic">Ukhuwah
                                         Islamiyah</h4>
                                     <p class="text-emerald-50 text-sm font-bold opacity-80">Mempererat tali silaturahmi
-                                        antar umat di Kelurahan Ujung Sabbang.</p>
+                                        antar umat di {{ $page.props.settings?.sebutan_wilayah || 'Kelurahan' }} {{ $page.props.settings?.nama_wilayah || '[Nama Wilayah]' }}.</p>
                                 </div>
                             </div>
                         </div>
@@ -119,7 +119,7 @@ const currentActivities = computed(() => {
                                 <div class="absolute -left-6 top-0 text-emerald-100 text-6xl font-serif">“</div>
                                 <p
                                     class="text-slate-600 text-lg md:text-xl leading-relaxed font-medium italic relative z-10 pl-2">
-                                    {{ profile || `Majelis Taklim Ujung Sabbang hadir sebagai cahaya bagi masyarakat,
+                                    {{ profile || `Majelis Taklim ${$page.props.settings?.nama_wilayah || '[Nama Wilayah]'} hadir sebagai cahaya bagi masyarakat,
                                     menjadi tempat di mana ilmu agama disampaikan secara murni, hati dilembutkan dengan
                                     dzikir, dan kepedulian sosial dipraktikkan secara nyata.` }}
                                 </p>
@@ -273,7 +273,7 @@ const currentActivities = computed(() => {
                 <h2 class="text-4xl md:text-5xl font-black text-slate-900 uppercase tracking-tighter mb-8 italic">
                     "Sebaik-baik manusia adalah yang paling bermanfaat bagi sesama."</h2>
                 <p class="text-slate-500 text-xl font-medium leading-relaxed mb-12">Mari bergabung dan menjadi bagian
-                    dari syiar islam yang rahmatan lil 'alamin di Kelurahan Ujung Sabbang.</p>
+                    dari syiar islam yang rahmatan lil 'alamin di {{ $page.props.settings?.sebutan_wilayah || 'Kelurahan' }} {{ $page.props.settings?.nama_wilayah || '[Nama Wilayah]' }}.</p>
 
                 <div class="flex flex-wrap justify-center gap-12 pt-10 border-t border-slate-100">
                     <div class="text-center">

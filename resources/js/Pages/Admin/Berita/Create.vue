@@ -64,7 +64,8 @@ const editorConfig = {
                     </div>
                     <h1 class="text-4xl font-black text-slate-900 tracking-tight">Tulis Berita Baru</h1>
                     <p class="text-slate-500 font-bold text-sm mt-2">Publikasikan informasi terbaru untuk warga
-                        Kelurahan Ujung Sabbang.</p>
+                        {{ $page.props.settings?.sebutan_wilayah || 'Kelurahan' }} {{
+                            $page.props.settings?.nama_wilayah || '[Nama Wilayah]' }}.</p>
                 </div>
 
                 <div class="flex items-center gap-3">

@@ -31,7 +31,8 @@ const formatPhone = (number) => {
                 </div>
                 <h1 class="text-3xl md:text-5xl font-extrabold text-white tracking-tight mb-4">Rukun Tetangga (RT)</h1>
                 <p class="text-indigo-100 text-lg max-w-2xl mx-auto">Daftar Ketua RT dan Administrasi Wilayah di
-                    Kelurahan Ujung Sabbang.</p>
+                    {{ $page.props.settings?.sebutan_wilayah || 'Kelurahan' }} {{ $page.props.settings?.nama_wilayah ||
+                    '[Nama Wilayah]' }}.</p>
             </div>
         </div>
 
@@ -80,7 +81,8 @@ const formatPhone = (number) => {
 
                             <div class="flex items-center justify-between pt-4 border-t border-gray-50">
                                 <div class="text-xs text-gray-400 font-medium">
-                                    <i class="fas fa-map-marker-alt mr-1"></i> Ujung Sabbang
+                                    <i class="fas fa-map-marker-alt mr-1"></i> {{ $page.props.settings?.nama_wilayah ||
+                                    '[Nama Wilayah]' }}
                                 </div>
                                 <a v-if="item.no_hp" :href="'https://wa.me/' + formatPhone(item.no_hp)" target="_blank"
                                     class="inline-flex items-center gap-2 px-4 py-2 bg-green-50 text-green-600 rounded-lg text-xs font-bold hover:bg-green-100 transition-colors">

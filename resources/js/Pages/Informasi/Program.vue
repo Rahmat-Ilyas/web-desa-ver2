@@ -39,7 +39,7 @@ const getProgressBarColor = (status) => {
 
 <template>
 
-    <Head title="Program Kerja Desa" />
+    <Head :title="`Program Kerja ${$page.props.settings?.sebutan_wilayah || 'Kelurahan'}`" />
 
     <MainLayout>
         <!-- Hero Section -->
@@ -53,7 +53,8 @@ const getProgressBarColor = (status) => {
                 </div>
                 <h1 class="text-4xl md:text-5xl font-black text-white tracking-tight mb-4">Program Kerja</h1>
                 <p class="text-indigo-100 text-lg max-w-2xl mx-auto font-medium">Transparansi kegiatan pembangunan dan
-                    pemberdayaan masyarakat Kelurahan Ujung Sabbang.</p>
+                    pemberdayaan masyarakat {{ $page.props.settings?.sebutan_wilayah || 'Kelurahan' }} {{
+                        $page.props.settings?.nama_wilayah || '[Nama Wilayah]' }}.</p>
             </div>
         </div>
 

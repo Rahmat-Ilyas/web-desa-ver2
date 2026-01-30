@@ -126,14 +126,17 @@ onUnmounted(() => {
                         <div class="shrink-0 flex items-center gap-3">
                             <Link :href="route('landing')" class="group flex items-center gap-3">
                                 <img class="h-12 w-auto transition-transform duration-300 group-hover:scale-105"
-                                    src="/assets/images/icons/logo.png" alt="Logo Kelurahan"
-                                    onerror="this.src='https://upload.wikimedia.org/wikipedia/commons/thumb/a/ac/No_image_available.svg/1024px-No_image_available.svg.png'" />
+                                    :src="$page.props.settings?.logo || '/assets/images/icons/logo.png'"
+                                    :alt="$page.props.settings?.nama_wilayah || 'Logo Kelurahan'"
+                                    onerror="this.src='/assets/images/icons/logo.png'" />
                                 <div class="flex flex-col">
                                     <h1
                                         class="text-[11px] sm:text-sm font-bold text-gray-800 leading-tight uppercase tracking-wide group-hover:text-blue-600 transition-colors">
-                                        KEL. UJUNG SABBANG</h1>
-                                    <p class="text-[9px] sm:text-[10px] text-gray-500 font-medium tracking-wider">KOTA
-                                        PAREPARE</p>
+                                        {{ $page.props.settings?.sebutan_wilayah == 'Kelurahan' ? 'KEL.' : $page.props.settings?.sebutan_wilayah || 'KEL.' }} {{
+                                            $page.props.settings?.nama_wilayah || '[Nama Wilayah]' }}</h1>
+                                    <p
+                                        class="text-[9px] sm:text-[10px] text-gray-500 font-medium tracking-wider uppercase">
+                                        {{ $page.props.settings?.nama_kabupaten || '[Nama Kabupaten]' }}</p>
                                 </div>
                             </Link>
                         </div>
@@ -145,7 +148,13 @@ onUnmounted(() => {
                             </NavLink>
 
                             <!-- Profil Dropdown -->
-                            <div class="hidden sm:flex sm:items-center">
+                            <div v-if="($page.props.settings?.module_status?.modul_profil_sambutan !== false) ||
+                                       ($page.props.settings?.module_status?.modul_profil_visimisi !== false) ||
+                                       ($page.props.settings?.module_status?.modul_profil_sejarah !== false) ||
+                                       ($page.props.settings?.module_status?.modul_profil_kondisi !== false) ||
+                                       ($page.props.settings?.module_status?.modul_profil_lokasi !== false) ||
+                                       ($page.props.settings?.module_status?.modul_profil_peta !== false)"
+                                 class="hidden sm:flex sm:items-center">
                                 <div class="relative">
                                     <Dropdown align="left" width="64" trigger="hover">
                                         <template #trigger>
@@ -170,38 +179,32 @@ onUnmounted(() => {
                                             <div
                                                 class="px-3 py-2 text-xs font-bold text-gray-400 uppercase tracking-wider bg-gray-50/50">
                                                 Tentang Kami</div>
-                                            <DropdownLink :href="route('profil.sambutan')">
-                                                <i
-                                                    class="fas fa-bullhorn w-5 text-gray-400 group-hover:text-blue-500 transition-colors"></i>
-                                                Sambutan Lurah
+                                            <DropdownLink v-if="$page.props.settings?.module_status?.modul_profil_sambutan !== false" :href="route('profil.sambutan')">
+                                                <i class="fas fa-bullhorn w-5 text-gray-400 group-hover:text-blue-500 transition-colors"></i>
+                                                Sambutan {{ $page.props.settings?.sebutan_kepala || 'Lurah' }}
                                             </DropdownLink>
-                                            <DropdownLink :href="route('profil.visimisi')">
-                                                <i
-                                                    class="fas fa-bullseye w-5 text-gray-400 group-hover:text-blue-500 transition-colors"></i>
+                                            <DropdownLink v-if="$page.props.settings?.module_status?.modul_profil_visimisi !== false" :href="route('profil.visimisi')">
+                                                <i class="fas fa-bullseye w-5 text-gray-400 group-hover:text-blue-500 transition-colors"></i>
                                                 Visi & Misi
                                             </DropdownLink>
-                                            <DropdownLink :href="route('profil.sejarah')">
-                                                <i
-                                                    class="fas fa-history w-5 text-gray-400 group-hover:text-blue-500 transition-colors"></i>
+                                            <DropdownLink v-if="$page.props.settings?.module_status?.modul_profil_sejarah !== false" :href="route('profil.sejarah')">
+                                                <i class="fas fa-history w-5 text-gray-400 group-hover:text-blue-500 transition-colors"></i>
                                                 Sejarah Kelurahan
                                             </DropdownLink>
                                             <div class="border-t border-gray-100 my-1"></div>
                                             <div
                                                 class="px-3 py-2 text-xs font-bold text-gray-400 uppercase tracking-wider bg-gray-50/50">
                                                 Geografis</div>
-                                            <DropdownLink :href="route('profil.kondisi')">
-                                                <i
-                                                    class="fas fa-map-marked-alt w-5 text-gray-400 group-hover:text-blue-500 transition-colors"></i>
+                                            <DropdownLink v-if="$page.props.settings?.module_status?.modul_profil_kondisi !== false" :href="route('profil.kondisi')">
+                                                <i class="fas fa-map-marked-alt w-5 text-gray-400 group-hover:text-blue-500 transition-colors"></i>
                                                 Kondisi Kelurahan
                                             </DropdownLink>
-                                            <DropdownLink :href="route('profil.lokasi-kantor')">
-                                                <i
-                                                    class="fas fa-building w-5 text-gray-400 group-hover:text-blue-500 transition-colors"></i>
+                                            <DropdownLink v-if="$page.props.settings?.module_status?.modul_profil_lokasi !== false" :href="route('profil.lokasi-kantor')">
+                                                <i class="fas fa-building w-5 text-gray-400 group-hover:text-blue-500 transition-colors"></i>
                                                 Lokasi Kantor
                                             </DropdownLink>
-                                            <DropdownLink :href="route('profil.peta-lokasi')">
-                                                <i
-                                                    class="fas fa-map w-5 text-gray-400 group-hover:text-blue-500 transition-colors"></i>
+                                            <DropdownLink v-if="$page.props.settings?.module_status?.modul_profil_peta !== false" :href="route('profil.peta-lokasi')">
+                                                <i class="fas fa-map w-5 text-gray-400 group-hover:text-blue-500 transition-colors"></i>
                                                 Peta Lokasi
                                             </DropdownLink>
                                         </template>
@@ -210,7 +213,12 @@ onUnmounted(() => {
                             </div>
 
                             <!-- Lembaga Dropdown -->
-                            <div class="hidden sm:flex sm:items-center">
+                            <div v-if="$page.props.settings?.module_status?.modul_lembaga_rt_rw ||
+                                $page.props.settings?.module_status?.modul_lembaga_pkk ||
+                                $page.props.settings?.module_status?.modul_lembaga_karang_taruna ||
+                                $page.props.settings?.module_status?.modul_lembaga_lpmk ||
+                                $page.props.settings?.module_status?.modul_lembaga_majelis_taklim"
+                                class="hidden sm:flex sm:items-center">
                                 <div class="relative">
                                     <Dropdown align="left" width="56" trigger="hover">
                                         <template #trigger>
@@ -231,32 +239,42 @@ onUnmounted(() => {
                                             </span>
                                         </template>
                                         <template #content>
-                                            <DropdownLink :href="route('lembaga.rw')">
+                                            <DropdownLink
+                                                v-if="$page.props.settings?.module_status?.modul_lembaga_rt_rw"
+                                                :href="route('lembaga.rw')">
                                                 <i
                                                     class="fas fa-users-cog w-5 text-gray-400 group-hover:text-blue-500 transition-colors"></i>
                                                 Rukun Warga (RW)
                                             </DropdownLink>
-                                            <DropdownLink :href="route('lembaga.rt')">
+                                            <DropdownLink
+                                                v-if="$page.props.settings?.module_status?.modul_lembaga_rt_rw"
+                                                :href="route('lembaga.rt')">
                                                 <i
                                                     class="fas fa-users w-5 text-gray-400 group-hover:text-blue-500 transition-colors"></i>
                                                 Rukun Tetangga (RT)
                                             </DropdownLink>
-                                            <DropdownLink :href="route('lembaga.lpmk')">
+                                            <DropdownLink v-if="$page.props.settings?.module_status?.modul_lembaga_lpmk"
+                                                :href="route('lembaga.lpmk')">
                                                 <i
                                                     class="fas fa-hands-helping w-5 text-gray-400 group-hover:text-blue-500 transition-colors"></i>
                                                 LPMK
                                             </DropdownLink>
-                                            <DropdownLink :href="route('lembaga.pkk')">
+                                            <DropdownLink v-if="$page.props.settings?.module_status?.modul_lembaga_pkk"
+                                                :href="route('lembaga.pkk')">
                                                 <i
                                                     class="fas fa-hand-holding-heart w-5 text-gray-400 group-hover:text-blue-500 transition-colors"></i>
                                                 PKK
                                             </DropdownLink>
-                                            <DropdownLink :href="route('lembaga.karang-taruna')">
+                                            <DropdownLink
+                                                v-if="$page.props.settings?.module_status?.modul_lembaga_karang_taruna"
+                                                :href="route('lembaga.karang-taruna')">
                                                 <i
                                                     class="fas fa-fist-raised w-5 text-gray-400 group-hover:text-blue-500 transition-colors"></i>
                                                 Karang Taruna
                                             </DropdownLink>
-                                            <DropdownLink :href="route('lembaga.majelis-taklim')">
+                                            <DropdownLink
+                                                v-if="$page.props.settings?.module_status?.modul_lembaga_majelis_taklim"
+                                                :href="route('lembaga.majelis-taklim')">
                                                 <i
                                                     class="fas fa-quran w-5 text-gray-400 group-hover:text-blue-500 transition-colors"></i>
                                                 Majelis Taklim
@@ -266,19 +284,25 @@ onUnmounted(() => {
                                 </div>
                             </div>
 
-                            <NavLink :href="route('pemerintahan.aparatur')"
+                            <NavLink v-if="$page.props.settings?.module_status?.modul_pemerintahan_aparatur !== false" :href="route('pemerintahan.aparatur')"
                                 :active="route().current('pemerintahan.aparatur')">
                                 APARATUR
                             </NavLink>
 
-                            <NavLink :href="route('pemerintahan.anggaran')"
+                            <NavLink v-if="$page.props.settings?.module_status?.modul_pemerintahan_anggaran !== false" :href="route('pemerintahan.anggaran')"
                                 :active="route().current('pemerintahan.anggaran')">
                                 ANGGARAN
                             </NavLink>
 
 
                             <!-- Data Penduduk Dropdown -->
-                            <div class="hidden sm:flex sm:items-center">
+                            <div v-if="($page.props.settings?.module_status?.modul_data_penduduk !== false) ||
+                                       ($page.props.settings?.module_status?.modul_data_umur !== false) ||
+                                       ($page.props.settings?.module_status?.modul_data_agama !== false) ||
+                                       ($page.props.settings?.module_status?.modul_data_pendidikan !== false) ||
+                                       ($page.props.settings?.module_status?.modul_data_pemilih !== false) ||
+                                       ($page.props.settings?.module_status?.modul_statistik !== false && $page.props.settings?.module_status?.modul_data_penduduk === undefined)" 
+                                class="hidden sm:flex sm:items-center">
                                 <div class="relative">
                                     <Dropdown align="left" width="64" trigger="hover">
                                         <template #trigger>
@@ -299,29 +323,24 @@ onUnmounted(() => {
                                             </span>
                                         </template>
                                         <template #content>
-                                            <DropdownLink :href="route('data.statistik')">
-                                                <i
-                                                    class="fas fa-chart-pie w-5 text-gray-400 group-hover:text-blue-500 transition-colors"></i>
+                                            <DropdownLink v-if="$page.props.settings?.module_status?.modul_data_penduduk !== false" :href="route('data.statistik')">
+                                                <i class="fas fa-chart-pie w-5 text-gray-400 group-hover:text-blue-500 transition-colors"></i>
                                                 Statistik Penduduk
                                             </DropdownLink>
-                                            <DropdownLink :href="route('data.umur')">
-                                                <i
-                                                    class="fas fa-user-clock w-5 text-gray-400 group-hover:text-blue-500 transition-colors"></i>
+                                            <DropdownLink v-if="$page.props.settings?.module_status?.modul_data_umur !== false" :href="route('data.umur')">
+                                                <i class="fas fa-user-clock w-5 text-gray-400 group-hover:text-blue-500 transition-colors"></i>
                                                 Berdasarkan Umur
                                             </DropdownLink>
-                                            <DropdownLink :href="route('data.agama')">
-                                                <i
-                                                    class="fas fa-praying-hands w-5 text-gray-400 group-hover:text-blue-500 transition-colors"></i>
+                                            <DropdownLink v-if="$page.props.settings?.module_status?.modul_data_agama !== false" :href="route('data.agama')">
+                                                <i class="fas fa-praying-hands w-5 text-gray-400 group-hover:text-blue-500 transition-colors"></i>
                                                 Statistik Agama
                                             </DropdownLink>
-                                            <DropdownLink :href="route('data.pendidikan')">
-                                                <i
-                                                    class="fas fa-graduation-cap w-5 text-gray-400 group-hover:text-blue-500 transition-colors"></i>
+                                            <DropdownLink v-if="$page.props.settings?.module_status?.modul_data_pendidikan !== false" :href="route('data.pendidikan')">
+                                                <i class="fas fa-graduation-cap w-5 text-gray-400 group-hover:text-blue-500 transition-colors"></i>
                                                 Statistik Pendidikan
                                             </DropdownLink>
-                                            <DropdownLink :href="route('data.pemilih')">
-                                                <i
-                                                    class="fas fa-vote-yea w-5 text-gray-400 group-hover:text-blue-500 transition-colors"></i>
+                                            <DropdownLink v-if="$page.props.settings?.module_status?.modul_data_pemilih !== false" :href="route('data.pemilih')">
+                                                <i class="fas fa-vote-yea w-5 text-gray-400 group-hover:text-blue-500 transition-colors"></i>
                                                 Pemilih Tetap
                                             </DropdownLink>
                                         </template>
@@ -329,16 +348,21 @@ onUnmounted(() => {
                                 </div>
                             </div>
 
-                            <NavLink :href="route('galeri')" :active="route().current('galeri')">
+                            <NavLink v-if="$page.props.settings?.module_status?.modul_galeri !== false"
+                                :href="route('galeri')" :active="route().current('galeri')">
                                 GALERI
                             </NavLink>
 
-                            <NavLink :href="route('download')" :active="route().current('download')">
+                            <NavLink v-if="$page.props.settings?.module_status?.modul_download !== false"
+                                :href="route('download')" :active="route().current('download')">
                                 DOWNLOAD
                             </NavLink>
 
                             <!-- Informasi Dropdown -->
-                            <div class="hidden sm:flex sm:items-center">
+                            <div v-if="$page.props.settings?.module_status?.modul_berita !== false ||
+                                $page.props.settings?.module_status?.modul_potensi !== false ||
+                                $page.props.settings?.module_status?.modul_program !== false"
+                                class="hidden sm:flex sm:items-center">
                                 <div class="relative">
                                     <Dropdown align="right" width="48" trigger="hover">
                                         <template #trigger>
@@ -359,17 +383,23 @@ onUnmounted(() => {
                                             </span>
                                         </template>
                                         <template #content>
-                                            <DropdownLink :href="route('informasi.berita')">
+                                            <DropdownLink
+                                                v-if="$page.props.settings?.module_status?.modul_berita !== false"
+                                                :href="route('informasi.berita')">
                                                 <i
                                                     class="fas fa-newspaper w-5 text-gray-400 group-hover:text-blue-500 transition-colors"></i>
                                                 Berita
                                             </DropdownLink>
-                                            <DropdownLink :href="route('informasi.potensi')">
+                                            <DropdownLink
+                                                v-if="$page.props.settings?.module_status?.modul_potensi !== false"
+                                                :href="route('informasi.potensi')">
                                                 <i
                                                     class="fas fa-tree w-5 text-gray-400 group-hover:text-blue-500 transition-colors"></i>
                                                 Potensi
                                             </DropdownLink>
-                                            <DropdownLink :href="route('informasi.program')">
+                                            <DropdownLink
+                                                v-if="$page.props.settings?.module_status?.modul_program !== false"
+                                                :href="route('informasi.program')">
                                                 <i
                                                     class="fas fa-tasks w-5 text-gray-400 group-hover:text-blue-500 transition-colors"></i>
                                                 Program
@@ -416,7 +446,7 @@ onUnmounted(() => {
                     <div class="flex items-center gap-3">
                         <img class="h-10 w-auto" src="/assets/images/icons/logo.png" alt="Logo" />
                         <div>
-                            <h2 class="text-sm font-black text-slate-800 leading-tight">UJUNG SABBANG</h2>
+                            <h2 class="text-sm font-black text-slate-800 leading-tight">{{ $page.props.settings?.nama_wilayah || '[Nama Wilayah]' }}</h2>
                             <p class="text-[10px] text-slate-500 font-bold tracking-widest uppercase">Official
                                 Portal</p>
                         </div>
@@ -438,7 +468,13 @@ onUnmounted(() => {
                         </Link>
 
                         <!-- Profil Accordion -->
-                        <div class="space-y-1">
+                        <div v-if="($page.props.settings?.module_status?.modul_profil_sambutan !== false) ||
+                                   ($page.props.settings?.module_status?.modul_profil_visimisi !== false) ||
+                                   ($page.props.settings?.module_status?.modul_profil_sejarah !== false) ||
+                                   ($page.props.settings?.module_status?.modul_profil_kondisi !== false) ||
+                                   ($page.props.settings?.module_status?.modul_profil_lokasi !== false) ||
+                                   ($page.props.settings?.module_status?.modul_profil_peta !== false)"
+                             class="space-y-1">
                             <button @click="toggleMobileSection('profil')"
                                 :class="[route().current('profil.*') ? 'text-blue-600' : 'text-slate-600', 'w-full group flex items-center justify-between px-4 py-3 text-sm font-bold rounded-2xl hover:bg-slate-50 transition-all']">
                                 <div class="flex items-center">
@@ -450,33 +486,37 @@ onUnmounted(() => {
                             </button>
                             <div v-show="activeMobileSection === 'profil'"
                                 class="pl-12 pr-4 space-y-1 overflow-hidden transition-all">
-                                <Link :href="route('profil.sambutan')"
+                                <Link v-if="$page.props.settings?.module_status?.modul_profil_sambutan !== false" :href="route('profil.sambutan')"
                                     class="block py-2 text-sm font-medium text-slate-500 hover:text-blue-600">Sambutan
-                                    Lurah
+                                    {{ $page.props.settings?.sebutan_kepala || 'Lurah' }}
                                 </Link>
-                                <Link :href="route('profil.visimisi')"
+                                <Link v-if="$page.props.settings?.module_status?.modul_profil_visimisi !== false" :href="route('profil.visimisi')"
                                     class="block py-2 text-sm font-medium text-slate-500 hover:text-blue-600">Visi &
                                     Misi</Link>
-                                <Link :href="route('profil.sejarah')"
+                                <Link v-if="$page.props.settings?.module_status?.modul_profil_sejarah !== false" :href="route('profil.sejarah')"
                                     class="block py-2 text-sm font-medium text-slate-500 hover:text-blue-600">Sejarah
                                     Kelurahan
                                 </Link>
-                                <Link :href="route('profil.kondisi')"
+                                <Link v-if="$page.props.settings?.module_status?.modul_profil_kondisi !== false" :href="route('profil.kondisi')"
                                     class="block py-2 text-sm font-medium text-slate-500 hover:text-blue-600">Kondisi
                                     Kelurahan
                                 </Link>
-                                <Link :href="route('profil.lokasi-kantor')"
+                                <Link v-if="$page.props.settings?.module_status?.modul_profil_lokasi !== false" :href="route('profil.lokasi-kantor')"
                                     class="block py-2 text-sm font-medium text-slate-500 hover:text-blue-600">Lokasi
                                     Kantor
                                 </Link>
-                                <Link :href="route('profil.peta-lokasi')"
+                                <Link v-if="$page.props.settings?.module_status?.modul_profil_peta !== false" :href="route('profil.peta-lokasi')"
                                     class="block py-2 text-sm font-medium text-slate-500 hover:text-blue-600">Peta
                                     Lokasi</Link>
                             </div>
                         </div>
 
                         <!-- Lembaga Accordion -->
-                        <div class="space-y-1">
+                        <div v-if="$page.props.settings?.module_status?.modul_lembaga_rt_rw ||
+                            $page.props.settings?.module_status?.modul_lembaga_pkk ||
+                            $page.props.settings?.module_status?.modul_lembaga_karang_taruna ||
+                            $page.props.settings?.module_status?.modul_lembaga_lpmk ||
+                            $page.props.settings?.module_status?.modul_lembaga_majelis_taklim" class="space-y-1">
                             <button @click="toggleMobileSection('lembaga')"
                                 :class="[route().current('lembaga.*') ? 'text-blue-600' : 'text-slate-600', 'w-full group flex items-center justify-between px-4 py-3 text-sm font-bold rounded-2xl hover:bg-slate-50 transition-all']">
                                 <div class="flex items-center">
@@ -487,25 +527,31 @@ onUnmounted(() => {
                                     :class="['fa-solid fa-chevron-down text-xs transition-transform duration-300', activeMobileSection === 'lembaga' ? 'rotate-180' : '']"></i>
                             </button>
                             <div v-show="activeMobileSection === 'lembaga'" class="pl-12 pr-4 space-y-1 transition-all">
-                                <Link :href="route('lembaga.rw')"
+                                <Link v-if="$page.props.settings?.module_status?.modul_lembaga_rt_rw"
+                                    :href="route('lembaga.rw')"
                                     class="block py-2 text-sm font-medium text-slate-500 hover:text-blue-600">Rukun
                                     Warga (RW)
                                 </Link>
-                                <Link :href="route('lembaga.rt')"
+                                <Link v-if="$page.props.settings?.module_status?.modul_lembaga_rt_rw"
+                                    :href="route('lembaga.rt')"
                                     class="block py-2 text-sm font-medium text-slate-500 hover:text-blue-600">Rukun
                                     Tetangga (RT)</Link>
-                                <Link :href="route('lembaga.lpmk')"
+                                <Link v-if="$page.props.settings?.module_status?.modul_lembaga_lpmk"
+                                    :href="route('lembaga.lpmk')"
                                     class="block py-2 text-sm font-medium text-slate-500 hover:text-blue-600">LPMK
                                 </Link>
-                                <Link :href="route('lembaga.pkk')"
+                                <Link v-if="$page.props.settings?.module_status?.modul_lembaga_pkk"
+                                    :href="route('lembaga.pkk')"
                                     class="block py-2 text-sm font-medium text-slate-500 hover:text-blue-600">
                                     PKK
                                 </Link>
-                                <Link :href="route('lembaga.karang-taruna')"
+                                <Link v-if="$page.props.settings?.module_status?.modul_lembaga_karang_taruna"
+                                    :href="route('lembaga.karang-taruna')"
                                     class="block py-2 text-sm font-medium text-slate-500 hover:text-blue-600">
                                     Karang Taruna
                                 </Link>
-                                <Link :href="route('lembaga.majelis-taklim')"
+                                <Link v-if="$page.props.settings?.module_status?.modul_lembaga_majelis_taklim"
+                                    :href="route('lembaga.majelis-taklim')"
                                     class="block py-2 text-sm font-medium text-slate-500 hover:text-blue-600">Majelis
                                     Taklim
                                 </Link>
@@ -513,21 +559,27 @@ onUnmounted(() => {
                         </div>
 
                         <!-- Aparatur -->
-                        <Link :href="route('pemerintahan.aparatur')"
+                        <Link v-if="$page.props.settings?.module_status?.modul_pemerintahan_aparatur !== false" :href="route('pemerintahan.aparatur')"
                             :class="[route().current('pemerintahan.aparatur') ? 'bg-blue-50 text-blue-600' : 'text-slate-600 hover:bg-slate-50', 'group flex items-center px-4 py-3 text-sm font-bold rounded-2xl transition-all']">
                             <i class="fa-solid fa-users-gear fa-fw mr-3 text-lg opacity-70"></i>
                             Aparatur
                         </Link>
 
                         <!-- Anggaran -->
-                        <Link :href="route('pemerintahan.anggaran')"
+                        <Link v-if="$page.props.settings?.module_status?.modul_pemerintahan_anggaran !== false" :href="route('pemerintahan.anggaran')"
                             :class="[route().current('pemerintahan.anggaran') ? 'bg-blue-50 text-blue-600' : 'text-slate-600 hover:bg-slate-50', 'group flex items-center px-4 py-3 text-sm font-bold rounded-2xl transition-all']">
                             <i class="fa-solid fa-chart-line fa-fw mr-3 text-lg opacity-70"></i>
                             Anggaran
                         </Link>
 
                         <!-- Data Accordion -->
-                        <div class="space-y-1">
+                        <div v-if="($page.props.settings?.module_status?.modul_data_penduduk !== false) ||
+                                   ($page.props.settings?.module_status?.modul_data_umur !== false) ||
+                                   ($page.props.settings?.module_status?.modul_data_agama !== false) ||
+                                   ($page.props.settings?.module_status?.modul_data_pendidikan !== false) ||
+                                   ($page.props.settings?.module_status?.modul_data_pemilih !== false) ||
+                                   ($page.props.settings?.module_status?.modul_statistik !== false && $page.props.settings?.module_status?.modul_data_penduduk === undefined)" 
+                            class="space-y-1">
                             <button @click="toggleMobileSection('data')"
                                 :class="[route().current('data.*') ? 'text-blue-600' : 'text-slate-600', 'w-full group flex items-center justify-between px-4 py-3 text-sm font-bold rounded-2xl hover:bg-slate-50 transition-all']">
                                 <div class="flex items-center">
@@ -538,22 +590,22 @@ onUnmounted(() => {
                                     :class="['fa-solid fa-chevron-down text-xs transition-transform duration-300', activeMobileSection === 'data' ? 'rotate-180' : '']"></i>
                             </button>
                             <div v-show="activeMobileSection === 'data'" class="pl-12 pr-4 space-y-1 transition-all">
-                                <Link :href="route('data.statistik')"
+                                <Link v-if="$page.props.settings?.module_status?.modul_data_penduduk !== false" :href="route('data.statistik')"
                                     class="block py-2 text-sm font-medium text-slate-500 hover:text-blue-600">Statistik
                                     Penduduk
                                 </Link>
-                                <Link :href="route('data.umur')"
+                                <Link v-if="$page.props.settings?.module_status?.modul_data_umur !== false" :href="route('data.umur')"
                                     class="block py-2 text-sm font-medium text-slate-500 hover:text-blue-600">
                                     Berdasarkan Umur
                                 </Link>
-                                <Link :href="route('data.agama')"
+                                <Link v-if="$page.props.settings?.module_status?.modul_data_agama !== false" :href="route('data.agama')"
                                     class="block py-2 text-sm font-medium text-slate-500 hover:text-blue-600">Statistik
                                     Agama
                                 </Link>
-                                <Link :href="route('data.pendidikan')"
+                                <Link v-if="$page.props.settings?.module_status?.modul_data_pendidikan !== false" :href="route('data.pendidikan')"
                                     class="block py-2 text-sm font-medium text-slate-500 hover:text-blue-600">Statistik
                                     Pendidikan</Link>
-                                <Link :href="route('data.pemilih')"
+                                <Link v-if="$page.props.settings?.module_status?.modul_data_pemilih !== false" :href="route('data.pemilih')"
                                     class="block py-2 text-sm font-medium text-slate-500 hover:text-blue-600">Pemilih
                                     Tetap
                                 </Link>
@@ -561,21 +613,24 @@ onUnmounted(() => {
                         </div>
 
                         <!-- Galeri -->
-                        <Link :href="route('galeri')"
+                        <Link v-if="$page.props.settings?.module_status?.modul_galeri !== false" :href="route('galeri')"
                             :class="[route().current('galeri') ? 'bg-blue-50 text-blue-600' : 'text-slate-600 hover:bg-slate-50', 'group flex items-center px-4 py-3 text-sm font-bold rounded-2xl transition-all']">
                             <i class="fa-solid fa-camera-retro fa-fw mr-3 text-lg opacity-70"></i>
                             Galeri
                         </Link>
 
                         <!-- Download -->
-                        <Link :href="route('download')"
+                        <Link v-if="$page.props.settings?.module_status?.modul_download !== false"
+                            :href="route('download')"
                             :class="[route().current('download') ? 'bg-blue-50 text-blue-600' : 'text-slate-600 hover:bg-slate-50', 'group flex items-center px-4 py-3 text-sm font-bold rounded-2xl transition-all']">
                             <i class="fa-solid fa-download fa-fw mr-3 text-lg opacity-70"></i>
                             Download
                         </Link>
 
                         <!-- Informasi Accordion -->
-                        <div class="space-y-1">
+                        <div v-if="$page.props.settings?.module_status?.modul_berita !== false ||
+                            $page.props.settings?.module_status?.modul_potensi !== false ||
+                            $page.props.settings?.module_status?.modul_program !== false" class="space-y-1">
                             <button @click="toggleMobileSection('informasi')"
                                 :class="[route().current('informasi.*') ? 'text-blue-600' : 'text-slate-600', 'w-full group flex items-center justify-between px-4 py-3 text-sm font-bold rounded-2xl hover:bg-slate-50 transition-all']">
                                 <div class="flex items-center">
@@ -587,13 +642,16 @@ onUnmounted(() => {
                             </button>
                             <div v-show="activeMobileSection === 'informasi'"
                                 class="pl-12 pr-4 space-y-1 transition-all">
-                                <Link :href="route('informasi.berita')"
+                                <Link v-if="$page.props.settings?.module_status?.modul_berita !== false"
+                                    :href="route('informasi.berita')"
                                     class="block py-2 text-sm font-medium text-slate-500 hover:text-blue-600">Berita
                                 </Link>
-                                <Link :href="route('informasi.potensi')"
+                                <Link v-if="$page.props.settings?.module_status?.modul_potensi !== false"
+                                    :href="route('informasi.potensi')"
                                     class="block py-2 text-sm font-medium text-slate-500 hover:text-blue-600">Potensi
                                 </Link>
-                                <Link :href="route('informasi.program')"
+                                <Link v-if="$page.props.settings?.module_status?.modul_program !== false"
+                                    :href="route('informasi.program')"
                                     class="block py-2 text-sm font-medium text-slate-500 hover:text-blue-600">Program
                                 </Link>
                             </div>
@@ -603,7 +661,8 @@ onUnmounted(() => {
                 </div>
 
                 <!-- Fixed Action: Layanan (Always Visible) -->
-                <div class="px-6 py-4 border-t border-slate-50">
+                <div v-if="$page.props.settings?.module_status?.modul_layanan !== false"
+                    class="px-6 py-4 border-t border-slate-50">
                     <Link :href="route('layanan')"
                         class="flex items-center justify-between p-4 bg-gradient-to-r from-blue-600 to-indigo-700 rounded-2xl shadow-lg shadow-blue-200 group transition-all active:scale-[0.98]">
                         <div class="flex items-center gap-3">
@@ -670,17 +729,22 @@ onUnmounted(() => {
                     <!-- Identity -->
                     <div>
                         <div class="flex items-center gap-3 mb-4">
-                            <img class="h-12 w-auto" src="/assets/images/icons/logo.png" alt="Logo"
-                                onerror="this.src='https://upload.wikimedia.org/wikipedia/commons/thumb/a/ac/No_image_available.svg/1024px-No_image_available.svg.png'" />
+                            <img class="h-12 w-auto"
+                                :src="$page.props.settings?.logo || '/assets/images/icons/logo.png'"
+                                :alt="$page.props.settings?.nama_wilayah"
+                                onerror="this.src='/assets/images/icons/logo.png'" />
                             <div>
-                                <h3 class="text-md font-bold text-white leading-tight">KEL. UJUNG SABBANG</h3>
-                                <p class="text-xs text-gray-400">Kota Parepare</p>
+                                <h3 class="text-md font-bold text-white leading-tight uppercase">
+                                    {{ $page.props.settings?.sebutan_wilayah == 'Kelurahan' ? 'KEL.' : $page.props.settings?.sebutan_wilayah || 'KEL.' }} {{
+                                        $page.props.settings?.nama_wilayah
+                                        || '[Nama Wilayah]' }}
+                                </h3>
+                                <p class="text-xs text-gray-400 uppercase">{{ $page.props.settings?.nama_kabupaten || 'Kota Parepare' }}</p>
                             </div>
                         </div>
                         <p class="text-gray-400 text-sm leading-relaxed">
-                            Kel. Ujung Sabbang adalah kelurahan yang terletak di Kecamatan Ujung, Kota Parepare,
-                            Sulawesi
-                            Selatan, Indonesia.
+                            {{ $page.props.settings?.sebutan_wilayah || 'Kel.' }} {{ $page.props.settings?.nama_wilayah || '[Nama Wilayah]' }} adalah {{ $page.props.settings?.sebutan_wilayah?.toLowerCase() || 'kelurahan' }} yang terletak di Kecamatan {{ $page.props.settings?.nama_kecamatan || '[Nama Kecamatan]' }}, {{ $page.props.settings?.nama_kabupaten || '[Nama Kabupaten]' }},
+                            Sulawesi Selatan, Indonesia.
                         </p>
                     </div>
 
@@ -776,8 +840,10 @@ onUnmounted(() => {
                     </div>
                 </div>
                 <div class="mt-8 border-t border-gray-700 pt-8 text-center text-gray-400 text-sm">
-                    &copy; {{ new Date().getFullYear() }} Kel. Ujung Sabbang, Parepare. Develop by <a
-                        href="https://mainsite.web.id" target="_blank" class="text-white font-semibold">Mainsite
+                    &copy; {{ new Date().getFullYear() }} {{ $page.props.settings?.sebutan_wilayah || 'Kel.' }} {{
+                        $page.props.settings?.nama_wilayah || '[Nama Wilayah]' }}, {{ $page.props.settings?.nama_kabupaten ||
+                    '[Nama Kabupaten]' }}. Develop by <a href="https://mainsite.web.id" target="_blank"
+                        class="text-white font-semibold">Mainsite
                         Studio</a>
                 </div>
             </div>

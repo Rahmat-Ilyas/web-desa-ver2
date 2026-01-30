@@ -364,22 +364,6 @@ const activeCategory = ref('pendapatan');
                                     </div>
                                 </template>
                             </div>
-
-                            <div class="mt-10 p-6 rounded-2xl bg-slate-900 text-white flex items-center gap-6">
-                                <div class="w-12 h-12 rounded-xl bg-white/10 flex items-center justify-center shrink-0">
-                                    <i class="fa-solid fa-info-circle fa-fw text-xl"></i>
-                                </div>
-                                <div>
-                                    <h4 class="font-bold mb-1">Butuh rincian lengkap?</h4>
-                                    <p class="text-slate-400 text-sm">Anda dapat mengunduh dokumen resmi APBDes melalui
-                                        menu Download Dokumentasi.
-                                    </p>
-                                </div>
-                                <a href="/download"
-                                    class="ml-auto bg-green-500 hover:bg-green-400 text-white h-10 px-4 rounded-xl flex items-center justify-center font-bold transition-colors">
-                                    Unduh
-                                </a>
-                            </div>
                         </div>
                     </div>
                 </div>

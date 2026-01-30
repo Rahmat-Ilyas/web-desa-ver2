@@ -44,7 +44,7 @@ const submit = () => {
 <template>
     <AdminLayout>
 
-        <Head title="Kelola Sambutan" />
+        <Head :title="`Kelola Sambutan ${props.settings?.sebutan_kepala || 'Lurah'}`" />
 
         <div class="max-w-[1200px] mx-auto px-4 sm:px-6">
             <!-- Header Section -->
@@ -54,9 +54,10 @@ const submit = () => {
                         class="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-blue-50 text-blue-600 text-[10px] font-black uppercase tracking-widest mb-3">
                         <i class="fas fa-edit"></i> Editor Konten
                     </div>
-                    <h1 class="text-4xl font-black text-slate-900 tracking-tight">Sambutan Lurah</h1>
+                    <h1 class="text-4xl font-black text-slate-900 tracking-tight">Sambutan {{
+                        props.settings?.sebutan_kepala || 'Lurah' }}</h1>
                     <p class="text-slate-500 font-bold text-sm mt-2">Kelola pesan resmi dan komitmen pelayanan
-                        kelurahan.</p>
+                        {{ (props.settings?.sebutan_wilayah || 'Kelurahan').toLowerCase() }}.</p>
                 </div>
 
                 <div class="flex items-center gap-3">
@@ -94,7 +95,7 @@ const submit = () => {
                     <div class="relative">
                         <img :src="props.lurah?.photo ? '/storage/' + props.lurah.photo : 'https://placehold.co/100x100?text=👤'"
                             class="w-20 h-20 rounded-2xl object-cover ring-4 ring-blue-500/20 shadow-2xl"
-                            alt="Foto Lurah">
+                            :alt="'Foto ' + (props.settings?.sebutan_kepala || 'Lurah')">
                         <div
                             class="absolute -bottom-2 -right-2 w-8 h-8 bg-blue-600 rounded-full flex items-center justify-center border-4 border-slate-900 shadow-lg">
                             <i class="fas fa-check text-[10px]"></i>
@@ -103,11 +104,12 @@ const submit = () => {
                     <div>
                         <h4
                             class="text-xs font-black text-blue-400 uppercase tracking-widest mb-1 flex items-center gap-2">
-                            <i class="fas fa-user-circle"></i> Profil Lurah Aktif
+                            <i class="fas fa-user-circle"></i> Profil {{ props.settings?.sebutan_kepala || 'Lurah' }}
+                            Aktif
                         </h4>
                         <p class="font-black text-2xl leading-tight">{{ props.lurah?.name || 'Belum Diatur' }}</p>
                         <p class="text-slate-400 text-sm font-bold mt-1 tracking-wider">{{ props.lurah?.position ||
-                            'Lurah Ujung Sabbang' }}</p>
+                            (props.settings?.sebutan_kepala || 'Lurah') + ' ' + (props.settings?.nama_wilayah || '[Nama Wilayah]') }}</p>
                     </div>
                 </div>
 

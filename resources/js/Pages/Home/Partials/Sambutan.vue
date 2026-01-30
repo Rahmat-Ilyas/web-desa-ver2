@@ -28,8 +28,8 @@ defineProps({
                     <div
                         class="relative overflow-hidden rounded-[2.5rem] bg-slate-200 border-8 border-white shadow-2xl transform transition-all duration-700 group-hover:scale-[1.02] group-hover:-translate-y-2">
                         <img class="w-full h-[600px] object-cover object-top transition-transform duration-1000 group-hover:scale-110"
-                            :src="lurah?.photo ? '/storage/' + lurah.photo : 'https://placehold.co/600x800?text=Foto+Lurah'"
-                            :alt="lurah?.name || 'Foto Lurah'">
+                            :src="lurah?.photo ? '/storage/' + lurah.photo : 'https://placehold.co/600x800?text=Foto+' + ($page.props.settings?.sebutan_kepala || 'Lurah')"
+                            :alt="lurah?.name || 'Foto ' + ($page.props.settings?.sebutan_kepala || 'Lurah')">
 
                         <!-- Shine Overlay Effect -->
                         <div
@@ -40,11 +40,12 @@ defineProps({
                         <div
                             class="absolute bottom-0 left-0 right-0 p-8 bg-gradient-to-t from-slate-900 via-slate-900/80 to-transparent backdrop-blur-subtle">
                             <h4 class="text-2xl font-black text-white leading-tight mb-1">{{ lurah?.name ||
-                                "Nama Lurah Belum Diatur" }}</h4>
+                                "Nama " + ($page.props.settings?.sebutan_kepala || "Lurah") + " Belum Diatur" }}</h4>
                             <div class="flex items-center gap-2">
                                 <span class="w-2 h-2 bg-blue-400 rounded-full animate-pulse"></span>
                                 <p class="text-blue-300 font-bold uppercase text-[10px] tracking-[0.2em]">{{
-                                    lurah?.position || "Lurah Ujung Sabbang" }}</p>
+                                    lurah?.position || ($page.props.settings?.sebutan_kepala || 'Lurah') + ' ' +
+                                    ($page.props.settings?.nama_wilayah || '[Nama Wilayah]') }}</p>
                             </div>
                             <p v-if="lurah?.nip"
                                 class="text-white/40 font-mono text-[9px] mt-3 tracking-widest border-t border-white/10 pt-3">

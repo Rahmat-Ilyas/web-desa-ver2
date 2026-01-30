@@ -10,7 +10,7 @@ const props = defineProps({
 
 <template>
 
-    <Head title="Visi & Misi" />
+    <Head :title="`Visi & Misi ${$page.props.settings?.sebutan_wilayah || 'Kelurahan'}`" />
 
     <MainLayout>
         <!-- Hero Title -->
@@ -23,7 +23,8 @@ const props = defineProps({
             <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10 text-center">
                 <h1 class="text-4xl md:text-6xl font-black text-white tracking-tight mb-6">Visi & Misi</h1>
                 <p class="text-blue-100 text-lg md:text-xl max-w-2xl mx-auto font-medium leading-relaxed">
-                    Arah kebijakan dan tujuan strategis pembangunan Kel. Ujung Sabbang.
+                    Arah kebijakan dan tujuan strategis pembangunan {{ $page.props.settings?.sebutan_wilayah || 'Kel.'
+                    }} {{ $page.props.settings?.nama_wilayah || '[Nama Wilayah]' }}.
                 </p>
             </div>
         </div>
@@ -38,7 +39,8 @@ const props = defineProps({
                         <span
                             class="inline-block px-4 py-1 rounded-full bg-blue-50 text-blue-600 font-black text-xs uppercase tracking-widest mb-2">Cita-Cita
                             Utama</span>
-                        <h2 class="text-4xl font-black text-slate-900">Visi Kelurahan</h2>
+                        <h2 class="text-4xl font-black text-slate-900">Visi {{ $page.props.settings?.sebutan_wilayah ||
+                            'Kelurahan' }}</h2>
                     </div>
 
                     <div
@@ -64,7 +66,8 @@ const props = defineProps({
                         <span
                             class="inline-block px-4 py-1 rounded-full bg-indigo-50 text-indigo-600 font-black text-xs uppercase tracking-widest mb-2">Langkah
                             Strategis</span>
-                        <h2 class="text-4xl font-black text-slate-900">Misi Kelurahan</h2>
+                        <h2 class="text-4xl font-black text-slate-900">Misi {{ $page.props.settings?.sebutan_wilayah ||
+                            'Kelurahan' }}</h2>
                     </div>
 
                     <div

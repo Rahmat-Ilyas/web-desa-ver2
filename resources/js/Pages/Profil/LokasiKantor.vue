@@ -7,7 +7,7 @@ defineProps({});
 
 <template>
 
-    <Head title="Lokasi Kantor Lurah" />
+    <Head :title="`Lokasi Kantor ${$page.props.settings?.sebutan_wilayah || 'Lurah'}`" />
 
     <MainLayout>
         <!-- Hero Title -->
@@ -15,7 +15,8 @@ defineProps({});
             <div class="absolute inset-0 opacity-10 bg-[url('https://www.transparenttextures.com/patterns/cubes.png')]">
             </div>
             <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10 text-center">
-                <h1 class="text-3xl md:text-5xl font-extrabold text-white tracking-tight mb-4">Lokasi Kantor Lurah</h1>
+                <h1 class="text-3xl md:text-5xl font-extrabold text-white tracking-tight mb-4">Lokasi Kantor {{
+                    $page.props.settings?.sebutan_wilayah || 'Lurah' }}</h1>
                 <p class="text-blue-100 text-lg max-w-2xl mx-auto">Informasi alamat lengkap, kontak, dan jam operasional
                     pelayanan.</p>
             </div>
@@ -38,7 +39,7 @@ defineProps({});
                                     <span class="bg-blue-100 p-2 rounded-lg text-blue-600 mr-3">
                                         <i class="fas fa-building"></i>
                                     </span>
-                                    Kantor Kelurahan
+                                    Kantor {{ $page.props.settings?.sebutan_wilayah || 'Kelurahan' }}
                                 </h3>
 
                                 <address class="not-italic text-gray-600 space-y-4">
@@ -102,7 +103,7 @@ defineProps({});
                             <h3 class="text-lg font-bold mb-2">Ingin berkunjung?</h3>
                             <p class="text-blue-100 text-sm mb-4">Dapatkan petunjuk arah langsung melalui Google Maps.
                             </p>
-                            <a href="https://www.google.com/maps/dir/?api=1&destination=Kantor+Kelurahan+Ujung+Sabbang,+Parepare"
+                            <a :href="`https://www.google.com/maps/dir/?api=1&destination=Kantor+${($page.props.settings?.sebutan_wilayah || 'Kelurahan').replace(/ /g, '+')}+${($page.props.settings?.nama_wilayah || 'Ujung+Sabbang').replace(/ /g, '+')}`"
                                 target="_blank"
                                 class="inline-flex items-center px-4 py-2 bg-white text-blue-700 rounded-full font-bold text-sm hover:bg-blue-50 transition-colors shadow-sm">
                                 <i class="fas fa-directions mr-2"></i> Buka Rute
@@ -124,7 +125,7 @@ defineProps({});
                                 src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d4763.601164486712!2d119.62448159591297!3d-4.006293250198694!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x2d95bb20dd444f57%3A0xb7935a727e1e2e6c!2sKantor%20Kelurahan%20Ujung%20Sabbang!5e0!3m2!1sid!2sid!4v1768976236852!5m2!1sid!2sid"
                                 width="100%" height="100%" style="border:0;" allowfullscreen="" loading="lazy"
                                 referrerpolicy="no-referrer-when-downgrade" class="w-full h-full min-h-[500px]"
-                                title="Peta Lokasi Kelurahan Ujung Sabbang">
+                                title="Peta Lokasi">
                             </iframe>
                         </div>
                     </div>

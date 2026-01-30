@@ -155,7 +155,7 @@ const closeModal = () => {
 
 const getLevelName = (level) => {
     switch (level) {
-        case 1: return 'Lurah';
+        case 1: return page.props.settings?.sebutan_kepala || 'Lurah';
         case 2: return 'Sekretaris';
         case 3: return 'Kasi/Kasubag';
         case 4: return 'Staf';
@@ -214,8 +214,8 @@ const handleFileChange = (event) => {
                         <i class="fas fa-sitemap"></i> Konten Profil
                     </div>
                     <h1 class="text-4xl font-black text-slate-900 tracking-tight">Struktur Organisasi</h1>
-                    <p class="text-slate-500 font-bold text-sm mt-2">Kelola jajaran pimpinan dan staf Kelurahan Ujung
-                        Sabbang.</p>
+                    <p class="text-slate-500 font-bold text-sm mt-2">Kelola jajaran pimpinan dan staf {{ page.props.settings?.sebutan_wilayah || 'Kelurahan' }}
+                        {{ page.props.settings?.nama_wilayah || '[Nama Wilayah]' }}.</p>
                 </div>
 
                 <div class="flex flex-col md:flex-row items-center justify-between gap-4">
@@ -496,7 +496,7 @@ const handleFileChange = (event) => {
                                                         <i class="fas fa-briefcase"></i>
                                                     </div>
                                                     <input v-model="form.position" type="text"
-                                                        placeholder="Nama Jabatan (Misal: Sekretaris Lurah)"
+                                                        :placeholder="`Nama Jabatan (Misal: Sekretaris ${page.props.settings?.sebutan_kepala || 'Lurah'})`"
                                                         class="w-full bg-white border border-slate-200 rounded-xl pl-10 pr-4 py-3 text-sm font-bold text-slate-700 focus:ring-2 focus:ring-blue-500/20 focus:border-blue-500 transition-all shadow-sm">
                                                 </div>
                                                 <p v-if="errors.position"
@@ -535,7 +535,7 @@ const handleFileChange = (event) => {
                                                                 :class="['w-3 h-3 rounded-full', form.level === 1 ? 'bg-blue-500' : 'bg-slate-300']">
                                                             </div>
                                                             <span
-                                                                :class="['text-xs font-black uppercase', form.level === 1 ? 'text-blue-700' : 'text-slate-500']">Lurah</span>
+                                                                :class="['text-xs font-black uppercase', form.level === 1 ? 'text-blue-700' : 'text-slate-500']">{{ page.props.settings?.sebutan_kepala || 'Lurah' }}</span>
                                                         </div>
                                                         <p class="text-[10px] text-slate-400 leading-tight">Pimpinan
                                                             Tertinggi</p>
@@ -603,7 +603,7 @@ const handleFileChange = (event) => {
                                                 <div class="relative">
                                                     <select v-model="form.parent_id"
                                                         class="w-full bg-white border border-slate-200 rounded-xl px-4 py-3 text-sm font-bold text-slate-700 focus:ring-2 focus:ring-blue-500/20 focus:border-blue-500 transition-all appearance-none">
-                                                        <option :value="null">-- Tidak Ada / Langsung ke Lurah --
+                                                        <option :value="null">-- Tidak Ada / Langsung ke {{ page.props.settings?.sebutan_kepala || 'Lurah' }} --
                                                         </option>
                                                         <option v-for="parent in parents" :key="parent.id"
                                                             :value="parent.id">

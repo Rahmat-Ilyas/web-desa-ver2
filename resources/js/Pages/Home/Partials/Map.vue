@@ -6,7 +6,8 @@
         <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
             <div class="text-center mb-10">
                 <span class="text-blue-600 font-bold tracking-wider uppercase text-sm">Lokasi Kami</span>
-                <h2 class="text-3xl font-extrabold text-gray-900 mt-2">Peta Wilayah Kelurahan</h2>
+                <h2 class="text-3xl font-extrabold text-gray-900 mt-2">Peta Wilayah {{
+                    $page.props.settings?.sebutan_wilayah || 'Kelurahan' }}</h2>
             </div>
             <div class="bg-white p-2 rounded-3xl shadow-lg border border-gray-200">
                 <div class="rounded-2xl overflow-hidden h-[450px] relative z-10">

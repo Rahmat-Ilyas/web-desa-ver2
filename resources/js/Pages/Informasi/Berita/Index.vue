@@ -52,7 +52,8 @@ const formatDate = (dateString) => {
                 </div>
                 <h1 class="text-4xl md:text-5xl font-black text-white tracking-tight mb-4">Informasi & Berita</h1>
                 <p class="text-blue-100 text-lg max-w-2xl mx-auto font-medium">Kumpulan kabar terbaru, pengumuman resmi,
-                    dan dokumentasi kegiatan di lingkungan Kelurahan Ujung Sabbang.</p>
+                    dan dokumentasi kegiatan di lingkungan {{ $page.props.settings?.sebutan_wilayah || 'Kelurahan' }} {{
+                        $page.props.settings?.nama_wilayah || '[Nama Wilayah]' }}.</p>
             </div>
         </div>
 

@@ -93,7 +93,8 @@ onUnmounted(() => window.removeEventListener('keydown', handleKeydown));
                 </h1>
                 <p class="text-blue-100 text-lg font-medium max-w-2xl mx-auto leading-relaxed">
                     Arsip visual kegiatan pemerintahan, pembangunan infrastruktur, dan aktivitas sosial kemasyarakatan
-                    di Kelurahan Ujung Sabbang.
+                    di {{ $page.props.settings?.sebutan_wilayah || 'Kelurahan' }} {{ $page.props.settings?.nama_wilayah
+                        || '[Nama Wilayah]' }}.
                 </p>
             </div>
         </div>
@@ -190,8 +191,9 @@ onUnmounted(() => window.removeEventListener('keydown', handleKeydown));
                         <p class="text-gray-500 text-xs mt-2 font-mono">
                             {{ new Date(selectedPhoto.tanggal).toLocaleDateString('id-ID', {
                                 year: 'numeric', month:
-                            'long',
-                            day: 'numeric' }) }}
+                                    'long',
+                                day: 'numeric'
+                            }) }}
                         </p>
                     </div>
                 </div>

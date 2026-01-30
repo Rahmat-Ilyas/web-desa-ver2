@@ -85,7 +85,7 @@ const submit = () => {
                                     Kantor</label>
                                 <textarea v-model="form.alamat" rows="4"
                                     class="w-full px-6 py-4 bg-slate-50 border-2 border-transparent focus:border-blue-500 focus:bg-white rounded-2xl font-bold text-slate-700 outline-none transition-all"
-                                    placeholder="Masukkan alamat lengkap kantor kelurahan..."></textarea>
+                                    :placeholder="`Masukkan alamat lengkap kantor ${$page.props.settings?.sebutan_wilayah?.toLowerCase() || 'kelurahan'}...`"></textarea>
                             </div>
 
                             <div>

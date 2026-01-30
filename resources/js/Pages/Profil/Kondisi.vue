@@ -46,7 +46,7 @@ const getTextClass = (color) => {
 
 <template>
 
-    <Head title="Kondisi Kelurahan" />
+    <Head :title="`Kondisi ${$page.props.settings?.sebutan_wilayah || 'Kelurahan'}`" />
 
     <MainLayout>
         <!-- Hero Section -->
@@ -61,8 +61,9 @@ const getTextClass = (color) => {
                     Geografis & Demografis
                 </h1>
                 <p class="text-slate-400 text-lg max-w-2xl mx-auto font-medium leading-relaxed opacity-80">
-                    Eksplorasi mendalam mengenai bentang alam, statistik kependudukan, dan pemanfaatan wilayah Kelurahan
-                    Ujung Sabbang.
+                    Eksplorasi mendalam mengenai bentang alam, statistik kependudukan, dan pemanfaatan wilayah {{
+                        $page.props.settings?.sebutan_wilayah || 'Kelurahan' }}
+                    {{ $page.props.settings?.nama_wilayah || '[Nama Wilayah]' }}.
                 </p>
             </div>
         </div>
@@ -148,12 +149,15 @@ const getTextClass = (color) => {
 
                         <div class="relative pt-6">
                             <div class="flex items-center gap-5 mb-10">
-                                <div class="w-14 h-14 rounded-2xl bg-blue-600 flex items-center justify-center shadow-xl shadow-blue-500/20 shrink-0">
+                                <div
+                                    class="w-14 h-14 rounded-2xl bg-blue-600 flex items-center justify-center shadow-xl shadow-blue-500/20 shrink-0">
                                     <i class="fas fa-chart-area text-white text-xl"></i>
                                 </div>
                                 <div>
-                                    <h4 class="text-2xl font-black text-slate-900 tracking-tight leading-none mb-2">Penggunaan Lahan</h4>
-                                    <p class="text-[10px] font-bold text-slate-400 uppercase tracking-[0.2em]">Distribusi Pemanfaatan Wilayah</p>
+                                    <h4 class="text-2xl font-black text-slate-900 tracking-tight leading-none mb-2">
+                                        Penggunaan Lahan</h4>
+                                    <p class="text-[10px] font-bold text-slate-400 uppercase tracking-[0.2em]">
+                                        Distribusi Pemanfaatan Wilayah</p>
                                 </div>
                             </div>
 

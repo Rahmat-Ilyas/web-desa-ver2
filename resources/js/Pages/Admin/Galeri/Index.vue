@@ -114,7 +114,7 @@ const handleImageError = (e) => {
                     </div>
                     <h1 class="text-4xl font-black text-slate-900 tracking-tight">Galeri Foto</h1>
                     <p class="text-slate-500 font-bold text-sm mt-2">Kelola dokumentasi kegiatan dan pembangunan
-                        kelurahan.</p>
+                        {{ $page.props.settings?.sebutan_wilayah?.toLowerCase() || 'kelurahan' }}.</p>
                 </div>
 
                 <div class="flex flex-col md:flex-row items-center justify-between gap-4">

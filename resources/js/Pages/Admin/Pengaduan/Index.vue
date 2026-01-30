@@ -84,7 +84,7 @@ const getReplyWAUrl = (item) => {
 
     const message = `Halo Bapak/Ibu ${item.nama},
     
-Saya admin Kelurahan Ujung Sabbang ingin menindaklanjuti aduan Anda (${item.kode}).
+Saya admin ${page.props.settings?.sebutan_wilayah || 'Kelurahan'} ${page.props.settings?.nama_wilayah || '[Nama Wilayah]'} ingin menindaklanjuti aduan Anda (${item.kode}).
     
 Isi Aduan: "${item.pesan}"
 
@@ -163,7 +163,7 @@ Tanggapan Admin: `;
                                 </td>
                                 <td class="px-8 py-6">
                                     <p class="text-[10px] font-bold text-slate-400 mb-1">{{ formatDate(item.created_at)
-                                    }}</p>
+                                        }}</p>
                                     <p class="font-black text-slate-900 text-sm whitespace-nowrap">{{ item.nama }}</p>
                                     <p class="text-[10px] font-bold text-blue-500 tracking-wider">{{ item.phone }}</p>
                                 </td>
@@ -266,7 +266,8 @@ Tanggapan Admin: `;
                             <div class="space-y-10">
                                 <div class="grid grid-cols-2 gap-8 border-b border-slate-50 pb-8">
                                     <div>
-                                        <p class="text-[10px] font-black text-slate-400 uppercase tracking-[0.2em] mb-3">
+                                        <p
+                                            class="text-[10px] font-black text-slate-400 uppercase tracking-[0.2em] mb-3">
                                             Kode Aduan
                                         </p>
                                         <p
@@ -274,23 +275,30 @@ Tanggapan Admin: `;
                                             {{ selectedAduan.kode }}</p>
                                     </div>
                                     <div>
-                                        <p class="text-[10px] font-black text-slate-400 uppercase tracking-[0.2em] mb-3">
+                                        <p
+                                            class="text-[10px] font-black text-slate-400 uppercase tracking-[0.2em] mb-3">
                                             Waktu Laporan</p>
-                                        <p class="font-black text-slate-700 text-sm bg-slate-50 px-4 py-2 rounded-2xl border border-slate-100 inline-block">{{
-                                            formatDate(selectedAduan.created_at) }}</p>
+                                        <p
+                                            class="font-black text-slate-700 text-sm bg-slate-50 px-4 py-2 rounded-2xl border border-slate-100 inline-block">
+                                            {{
+                                                formatDate(selectedAduan.created_at) }}</p>
                                     </div>
                                 </div>
 
                                 <div class="grid grid-cols-1 gap-8 border-b border-slate-50 pb-8">
                                     <div>
-                                        <p class="text-[10px] font-black text-slate-400 uppercase tracking-[0.2em] mb-3">
+                                        <p
+                                            class="text-[10px] font-black text-slate-400 uppercase tracking-[0.2em] mb-3">
                                             Identitas Pelapor</p>
-                                        <div class="flex items-center gap-4 bg-slate-50 p-4 rounded-[2rem] border border-slate-100">
-                                            <div class="w-12 h-12 rounded-2xl bg-white flex items-center justify-center text-blue-500 shadow-sm border border-slate-100 flex-shrink-0">
+                                        <div
+                                            class="flex items-center gap-4 bg-slate-50 p-4 rounded-[2rem] border border-slate-100">
+                                            <div
+                                                class="w-12 h-12 rounded-2xl bg-white flex items-center justify-center text-blue-500 shadow-sm border border-slate-100 flex-shrink-0">
                                                 <i class="fas fa-user-circle text-2xl"></i>
                                             </div>
                                             <div>
-                                                <p class="font-black text-slate-900 leading-none mb-1">{{ selectedAduan.nama }}</p>
+                                                <p class="font-black text-slate-900 leading-none mb-1">{{
+                                                    selectedAduan.nama }}</p>
                                                 <a :href="getReplyWAUrl(selectedAduan)" target="_blank"
                                                     class="text-xs font-bold text-blue-500 hover:text-blue-600 flex items-center gap-1 transition-colors">
                                                     <i class="fab fa-whatsapp text-sm"></i> {{ selectedAduan.phone }}
@@ -301,8 +309,10 @@ Tanggapan Admin: `;
                                 </div>
 
                                 <div>
-                                    <p class="text-[10px] font-black text-slate-400 uppercase tracking-[0.2em] mb-4">Isi Aduan</p>
-                                    <div class="p-8 bg-slate-50/50 rounded-[2.5rem] border border-slate-100 text-slate-600 font-bold text-sm leading-relaxed italic relative">
+                                    <p class="text-[10px] font-black text-slate-400 uppercase tracking-[0.2em] mb-4">Isi
+                                        Aduan</p>
+                                    <div
+                                        class="p-8 bg-slate-50/50 rounded-[2.5rem] border border-slate-100 text-slate-600 font-bold text-sm leading-relaxed italic relative">
                                         <i class="fas fa-quote-left absolute top-4 left-4 text-slate-100 text-3xl"></i>
                                         <span class="relative z-10">"{{ selectedAduan.pesan }}"</span>
                                     </div>
@@ -315,8 +325,10 @@ Tanggapan Admin: `;
                                         <a v-for="(photo, idx) in selectedAduan.photos" :key="idx"
                                             :href="'/storage/' + photo" target="_blank"
                                             class="aspect-square rounded-[2rem] overflow-hidden border border-slate-100 shadow-sm hover:ring-8 hover:ring-blue-50 transition-all group relative">
-                                            <img :src="'/storage/' + photo" class="w-full h-full object-cover transition-transform duration-500 group-hover:scale-110">
-                                            <div class="absolute inset-0 bg-blue-600/20 opacity-0 group-hover:opacity-100 transition-opacity flex items-center justify-center">
+                                            <img :src="'/storage/' + photo"
+                                                class="w-full h-full object-cover transition-transform duration-500 group-hover:scale-110">
+                                            <div
+                                                class="absolute inset-0 bg-blue-600/20 opacity-0 group-hover:opacity-100 transition-opacity flex items-center justify-center">
                                                 <i class="fas fa-search-plus text-white text-xl"></i>
                                             </div>
                                         </a>

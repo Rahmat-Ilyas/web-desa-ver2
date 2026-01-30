@@ -1,5 +1,5 @@
 <script setup>
-import { ref, onMounted, onBeforeUnmount } from 'vue';
+import { ref, onMounted, onBeforeUnmount, computed } from 'vue';
 import { Link, Head, usePage } from '@inertiajs/vue3';
 
 const isSidebarOpen = ref(window.innerWidth > 768);
@@ -24,11 +24,67 @@ const toggleDropdown = (name) => {
     activeDropdown.value = activeDropdown.value === name ? null : name;
 };
 
+const menus = computed(() => {
+    const settings = usePage().props.settings?.module_status || {};
+    // Helper to check if a module is enabled (defaults to true if undefined)
+    const isEnabled = (key) => settings[key] !== false;
+
+    const allMenus = [
+        { name: 'Dashboard', icon: 'fa-th-large', route: 'admin.dashboard' },
+        {
+            name: 'Konten Profil',
+            icon: 'fa-user-tie',
+            sub: [
+                { name: `Sambutan ${usePage().props.settings?.sebutan_kepala || 'Lurah'}`, route: 'admin.sambutan.index', show: isEnabled('modul_profil_sambutan') },
+                { name: 'Visi & Misi', route: 'admin.visimisi.index', show: isEnabled('modul_profil_visimisi') },
+                { name: `Sejarah ${usePage().props.settings?.sebutan_wilayah || 'Kelurahan'}`, route: 'admin.sejarah.index', show: isEnabled('modul_profil_sejarah') },
+                { name: `Kondisi ${usePage().props.settings?.sebutan_wilayah || 'Kelurahan'}`, route: 'admin.kondisi.index', show: isEnabled('modul_profil_kondisi') },
+                { name: 'Struktur Organisasi', route: 'admin.struktur.index', show: isEnabled('modul_pemerintahan_aparatur') },
+            ].filter(item => item.show !== false)
+        },
+        {
+            name: 'Informasi Publik',
+            icon: 'fa-newspaper',
+            sub: [
+                { name: 'Berita & Informasi', route: 'admin.berita.index', show: isEnabled('modul_berita') },
+                { name: 'APBDes / Anggaran', route: 'admin.anggaran.index', show: isEnabled('modul_pemerintahan_anggaran') },
+                { name: 'Pusat Download', route: 'admin.download.index', show: isEnabled('modul_download') },
+                { name: 'Program Kerja', route: 'admin.program.index', show: isEnabled('modul_program') },
+                { name: 'Potensi Wilayah', route: 'admin.potensi.index', show: isEnabled('modul_potensi') },
+            ].filter(item => item.show !== false)
+        },
+        {
+            name: 'Lembaga',
+            icon: 'fa-users-cog',
+            sub: [
+                { name: 'Rukun Warga (RW)', route: 'admin.rukun-warga.index', show: isEnabled('modul_lembaga_rt_rw') },
+                { name: 'Rukun Tetangga (RT)', route: 'admin.rukun-tetangga.index', show: isEnabled('modul_lembaga_rt_rw') },
+                { name: 'LPMK', route: 'admin.lpmk.index', show: isEnabled('modul_lembaga_lpmk') },
+                { name: 'PKK', route: 'admin.pkk.index', show: isEnabled('modul_lembaga_pkk') },
+                { name: 'Karang Taruna', route: 'admin.karang-taruna.index', show: isEnabled('modul_lembaga_karang_taruna') },
+                { name: 'Majelis Taklim', route: 'admin.majelis-taklim.index', show: isEnabled('modul_lembaga_majelis_taklim') },
+            ].filter(item => item.show !== false)
+        },
+        { name: 'Statistik Penduduk', icon: 'fa-users', route: 'admin.kependudukan.index', show: isEnabled('modul_statistik') },
+        { name: 'Galeri Foto', icon: 'fa-images', route: 'admin.galeri.index', show: isEnabled('modul_galeri') },
+        { name: 'Layanan & Surat', icon: 'fa-concierge-bell', route: 'admin.layanan.index', show: isEnabled('modul_layanan') },
+        { name: 'Pengaduan Warga', icon: 'fa-exclamation-circle', route: 'admin.pengaduan.index', show: isEnabled('modul_pengaduan') },
+        { name: 'Kontak & Sosmed', icon: 'fa-address-book', route: 'admin.kontak' },
+        { name: 'Konfigurasi Web', icon: 'fa-cogs', route: 'admin.konfigurasi' },
+    ];
+
+    return allMenus.filter(menu => {
+        if (menu.show === false) return false;
+        if (menu.sub && menu.sub.length === 0) return false;
+        return true;
+    });
+});
+
 onMounted(() => {
     window.addEventListener('click', closeUserMenu);
 
     // Auto-open dropdown if child route is active
-    menus.forEach(menu => {
+    menus.value.forEach(menu => {
         if (menu.sub) {
             const hasActiveChild = menu.sub.some(s =>
                 s.route !== '#' && (
@@ -55,50 +111,6 @@ onMounted(() => {
 onBeforeUnmount(() => {
     window.removeEventListener('click', closeUserMenu);
 });
-
-const menus = [
-    { name: 'Dashboard', icon: 'fa-th-large', route: 'admin.dashboard' },
-    {
-        name: 'Konten Profil',
-        icon: 'fa-user-tie',
-        sub: [
-            { name: 'Sambutan Lurah', route: 'admin.sambutan.index' },
-            { name: 'Visi & Misi', route: 'admin.visimisi.index' },
-            { name: 'Sejarah Kelurahan', route: 'admin.sejarah.index' },
-            { name: 'Kondisi Kelurahan', route: 'admin.kondisi.index' },
-            { name: 'Struktur Organisasi', route: 'admin.struktur.index' },
-        ]
-    },
-    {
-        name: 'Informasi Publik',
-        icon: 'fa-newspaper',
-        sub: [
-            { name: 'Berita & Informasi', route: 'admin.berita.index' },
-            { name: 'APBDes / Anggaran', route: 'admin.anggaran.index' },
-            { name: 'Pusat Download', route: 'admin.download.index' },
-            { name: 'Program Kerja', route: 'admin.program.index' },
-            { name: 'Potensi Wilayah', route: 'admin.potensi.index' },
-        ]
-    },
-    {
-        name: 'Lembaga',
-        icon: 'fa-users-cog',
-        sub: [
-            { name: 'Rukun Warga (RW)', route: 'admin.rukun-warga.index' },
-            { name: 'Rukun Tetangga (RT)', route: 'admin.rukun-tetangga.index' },
-            { name: 'LPMK', route: 'admin.lpmk.index' },
-            { name: 'PKK', route: 'admin.pkk.index' },
-            { name: 'Karang Taruna', route: 'admin.karang-taruna.index' },
-            { name: 'Majelis Taklim', route: 'admin.majelis-taklim.index' },
-        ]
-    },
-    { name: 'Statistik Penduduk', icon: 'fa-users', route: 'admin.kependudukan.index' },
-    { name: 'Galeri Foto', icon: 'fa-images', route: 'admin.galeri.index' },
-    { name: 'Layanan & Surat', icon: 'fa-concierge-bell', route: 'admin.layanan.index' },
-    { name: 'Pengaduan Warga', icon: 'fa-exclamation-circle', route: 'admin.pengaduan.index' },
-    { name: 'Kontak & Sosmed', icon: 'fa-address-book', route: 'admin.kontak' },
-    { name: 'Konfigurasi Web', icon: 'fa-cogs', route: 'admin.konfigurasi' },
-];
 </script>
 
 <template>
@@ -192,8 +204,9 @@ const menus = [
                             <span
                                 class="font-black text-gray-900 text-sm group-hover:text-blue-600 transition-colors">{{
                                     $page.props.auth.user.name }}</span>
-                            <span class="text-[10px] font-bold text-blue-500 uppercase tracking-widest mt-0.5">Ujung
-                                Sabbang</span>
+                            <span class="text-[10px] font-bold text-blue-500 uppercase tracking-widest mt-0.5">{{
+                                ($page.props.settings?.sebutan_wilayah || 'Kel.') + ' ' +
+                                ($page.props.settings?.nama_wilayah || '[Nama Wilayah]') }}</span>
                         </div>
                         <div
                             class="w-10 h-10 rounded-xl bg-gradient-to-tr from-blue-600 to-indigo-600 border-2 border-white shadow-lg overflow-hidden flex items-center justify-center transition-transform hover:scale-105 active:scale-95 text-white shrink-0">

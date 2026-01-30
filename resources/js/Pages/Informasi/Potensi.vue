@@ -4,11 +4,15 @@ import MainLayout from '@/Layouts/MainLayout.vue';
 import { ref, computed, onMounted } from 'vue';
 
 const props = defineProps({
-    potensis: Array
+    potensis: Array,
+    categories: Array
 });
 
 const selectedCategory = ref('Semua');
-const categories = ['Semua', 'Wisata Alam', 'UMKM & Produk', 'Pertanian', 'Seni Budaya', 'Kuliner'];
+const categories = computed(() => {
+    const cats = props.categories && props.categories.length > 0 ? props.categories : ['Wisata Alam', 'UMKM & Produk', 'Pertanian', 'Seni Budaya', 'Kuliner'];
+    return ['Semua', ...cats];
+});
 
 const filteredItems = computed(() => {
     if (selectedCategory.value === 'Semua') {
@@ -25,7 +29,7 @@ const openModal = (item) => {
     selectedItem.value = item;
     isModalOpen.value = true;
     document.body.style.overflow = 'hidden';
-    
+
     // Update URL hash/query without reload
     const url = new URL(window.location);
     url.searchParams.set('id', item.id);
@@ -35,7 +39,7 @@ const openModal = (item) => {
 const closeModal = () => {
     isModalOpen.value = false;
     document.body.style.overflow = 'auto';
-    
+
     // Remove query param
     const url = new URL(window.location);
     url.searchParams.delete('id');
@@ -49,8 +53,8 @@ const getImage = (path) => {
 
 const shareTo = (platform, item) => {
     const url = `${window.location.origin}${window.location.pathname}?id=${item.id}`;
-    const text = `Cek Potensi Unggulan Kelurahan Ujung Sabbang: ${item.judul}\n`;
-    
+    const text = `Cek Potensi Unggulan ${usePage().props.settings?.nama_wilayah || '[Nama Wilayah]'}: ${item.judul}\n`;
+
     if (platform === 'wa') {
         window.open(`https://wa.me/?text=${encodeURIComponent(text + url)}`, '_blank');
     } else if (platform === 'fb') {
@@ -240,7 +244,8 @@ onMounted(() => {
                                     <span class="text-xs font-bold text-slate-400">Diposting pada {{ new
                                         Date(selectedItem.created_at).toLocaleDateString('id-ID', {
                                             day: 'numeric',
-                                        month: 'long', year: 'numeric' }) }}</span>
+                                            month: 'long', year: 'numeric'
+                                        }) }}</span>
                                     <button @click="closeModal"
                                         class="text-emerald-600 font-black text-xs uppercase tracking-widest hover:underline">Tutup</button>
                                 </div>
