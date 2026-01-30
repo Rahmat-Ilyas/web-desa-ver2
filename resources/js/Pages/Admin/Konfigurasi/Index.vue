@@ -228,10 +228,10 @@ const removeSliderFile = (index) => {
         <div class="max-w-[1200px] mx-auto px-4 sm:px-6 mb-20">
             <!-- Header Section -->
             <div class="mb-10 group">
-                <div
-                    class="inline-flex items-center gap-2 px-4 py-2 rounded-2xl bg-blue-50 text-blue-600 text-[11px] font-black uppercase tracking-widest mb-4 border border-blue-100 shadow-sm transition-all group-hover:scale-105 duration-300">
+                <span
+                    class="inline-flex items-center gap-2 px-3 py-1 rounded-lg bg-blue-50 text-blue-600 text-[10px] font-black uppercase tracking-widest mb-3 border border-blue-100 shadow-sm">
                     <i class="fas fa-cogs"></i> Pengaturan Sistem
-                </div>
+                </span>
                 <h1 class="text-4xl font-black text-slate-900 tracking-tight leading-none mb-3">Konfigurasi Website</h1>
                 <p class="text-slate-500 font-bold text-sm max-w-2xl">
                     Kelola identitas dasar, tampilan beranda, dan aktifkan atau nonaktifkan fitur website sesuai
@@ -779,7 +779,8 @@ const removeSliderFile = (index) => {
 
                         <!-- Profil Section -->
                         <div class="mt-12 mb-6 h-px bg-slate-100 w-full relative z-10"></div>
-                        <h3 class="text-sm font-black text-slate-400 uppercase tracking-widest mb-6 relative z-10 flex items-center gap-3">
+                        <h3
+                            class="text-sm font-black text-slate-400 uppercase tracking-widest mb-6 relative z-10 flex items-center gap-3">
                             <i class="fas fa-landmark text-xs"></i> Pemerintahan
                         </h3>
                         <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 relative z-10">
@@ -819,122 +820,180 @@ const removeSliderFile = (index) => {
                         </div>
 
                         <div class="mt-12 mb-6 h-px bg-slate-100 w-full relative z-10"></div>
-                        <h3 class="text-sm font-black text-slate-400 uppercase tracking-widest mb-6 relative z-10 flex items-center gap-3">
+                        <h3
+                            class="text-sm font-black text-slate-400 uppercase tracking-widest mb-6 relative z-10 flex items-center gap-3">
                             <i class="fas fa-id-card text-xs"></i> Profil Wilayah
                         </h3>
                         <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 relative z-10">
-                             <label class="relative flex items-center justify-between p-6 bg-slate-50 rounded-2xl border-2 border-transparent hover:border-blue-500/30 cursor-pointer transition-all group/item">
+                            <label
+                                class="relative flex items-center justify-between p-6 bg-slate-50 rounded-2xl border-2 border-transparent hover:border-blue-500/30 cursor-pointer transition-all group/item">
                                 <div class="flex items-center gap-4">
-                                    <div class="w-10 h-10 rounded-xl bg-white flex items-center justify-center text-blue-500 shadow-sm group-hover/item:scale-110 transition-transform">
+                                    <div
+                                        class="w-10 h-10 rounded-xl bg-white flex items-center justify-center text-blue-500 shadow-sm group-hover/item:scale-110 transition-transform">
                                         <i class="fas fa-bullhorn"></i>
                                     </div>
-                                    <div><p class="font-black text-slate-800 text-sm">Sambutan</p></div>
+                                    <div>
+                                        <p class="font-black text-slate-800 text-sm">Sambutan</p>
+                                    </div>
                                 </div>
-                                <input v-model="modulesForm.modul_profil_sambutan" type="checkbox" class="w-6 h-6 rounded-lg border-slate-300 text-blue-600 focus:ring-blue-500 transition-all">
+                                <input v-model="modulesForm.modul_profil_sambutan" type="checkbox"
+                                    class="w-6 h-6 rounded-lg border-slate-300 text-blue-600 focus:ring-blue-500 transition-all">
                             </label>
-                             <label class="relative flex items-center justify-between p-6 bg-slate-50 rounded-2xl border-2 border-transparent hover:border-blue-500/30 cursor-pointer transition-all group/item">
+                            <label
+                                class="relative flex items-center justify-between p-6 bg-slate-50 rounded-2xl border-2 border-transparent hover:border-blue-500/30 cursor-pointer transition-all group/item">
                                 <div class="flex items-center gap-4">
-                                    <div class="w-10 h-10 rounded-xl bg-white flex items-center justify-center text-blue-500 shadow-sm group-hover/item:scale-110 transition-transform">
+                                    <div
+                                        class="w-10 h-10 rounded-xl bg-white flex items-center justify-center text-blue-500 shadow-sm group-hover/item:scale-110 transition-transform">
                                         <i class="fas fa-bullseye"></i>
                                     </div>
-                                    <div><p class="font-black text-slate-800 text-sm">Visi & Misi</p></div>
+                                    <div>
+                                        <p class="font-black text-slate-800 text-sm">Visi & Misi</p>
+                                    </div>
                                 </div>
-                                <input v-model="modulesForm.modul_profil_visimisi" type="checkbox" class="w-6 h-6 rounded-lg border-slate-300 text-blue-600 focus:ring-blue-500 transition-all">
+                                <input v-model="modulesForm.modul_profil_visimisi" type="checkbox"
+                                    class="w-6 h-6 rounded-lg border-slate-300 text-blue-600 focus:ring-blue-500 transition-all">
                             </label>
-                             <label class="relative flex items-center justify-between p-6 bg-slate-50 rounded-2xl border-2 border-transparent hover:border-blue-500/30 cursor-pointer transition-all group/item">
+                            <label
+                                class="relative flex items-center justify-between p-6 bg-slate-50 rounded-2xl border-2 border-transparent hover:border-blue-500/30 cursor-pointer transition-all group/item">
                                 <div class="flex items-center gap-4">
-                                    <div class="w-10 h-10 rounded-xl bg-white flex items-center justify-center text-blue-500 shadow-sm group-hover/item:scale-110 transition-transform">
+                                    <div
+                                        class="w-10 h-10 rounded-xl bg-white flex items-center justify-center text-blue-500 shadow-sm group-hover/item:scale-110 transition-transform">
                                         <i class="fas fa-history"></i>
                                     </div>
-                                    <div><p class="font-black text-slate-800 text-sm">Sejarah</p></div>
+                                    <div>
+                                        <p class="font-black text-slate-800 text-sm">Sejarah</p>
+                                    </div>
                                 </div>
-                                <input v-model="modulesForm.modul_profil_sejarah" type="checkbox" class="w-6 h-6 rounded-lg border-slate-300 text-blue-600 focus:ring-blue-500 transition-all">
+                                <input v-model="modulesForm.modul_profil_sejarah" type="checkbox"
+                                    class="w-6 h-6 rounded-lg border-slate-300 text-blue-600 focus:ring-blue-500 transition-all">
                             </label>
-                             <label class="relative flex items-center justify-between p-6 bg-slate-50 rounded-2xl border-2 border-transparent hover:border-blue-500/30 cursor-pointer transition-all group/item">
+                            <label
+                                class="relative flex items-center justify-between p-6 bg-slate-50 rounded-2xl border-2 border-transparent hover:border-blue-500/30 cursor-pointer transition-all group/item">
                                 <div class="flex items-center gap-4">
-                                    <div class="w-10 h-10 rounded-xl bg-white flex items-center justify-center text-blue-500 shadow-sm group-hover/item:scale-110 transition-transform">
+                                    <div
+                                        class="w-10 h-10 rounded-xl bg-white flex items-center justify-center text-blue-500 shadow-sm group-hover/item:scale-110 transition-transform">
                                         <i class="fas fa-map-marked-alt"></i>
                                     </div>
-                                    <div><p class="font-black text-slate-800 text-sm">Kondisi Wilayah</p></div>
+                                    <div>
+                                        <p class="font-black text-slate-800 text-sm">Kondisi Wilayah</p>
+                                    </div>
                                 </div>
-                                <input v-model="modulesForm.modul_profil_kondisi" type="checkbox" class="w-6 h-6 rounded-lg border-slate-300 text-blue-600 focus:ring-blue-500 transition-all">
+                                <input v-model="modulesForm.modul_profil_kondisi" type="checkbox"
+                                    class="w-6 h-6 rounded-lg border-slate-300 text-blue-600 focus:ring-blue-500 transition-all">
                             </label>
-                             <label class="relative flex items-center justify-between p-6 bg-slate-50 rounded-2xl border-2 border-transparent hover:border-blue-500/30 cursor-pointer transition-all group/item">
+                            <label
+                                class="relative flex items-center justify-between p-6 bg-slate-50 rounded-2xl border-2 border-transparent hover:border-blue-500/30 cursor-pointer transition-all group/item">
                                 <div class="flex items-center gap-4">
-                                    <div class="w-10 h-10 rounded-xl bg-white flex items-center justify-center text-blue-500 shadow-sm group-hover/item:scale-110 transition-transform">
+                                    <div
+                                        class="w-10 h-10 rounded-xl bg-white flex items-center justify-center text-blue-500 shadow-sm group-hover/item:scale-110 transition-transform">
                                         <i class="fas fa-building"></i>
                                     </div>
-                                    <div><p class="font-black text-slate-800 text-sm">Lokasi Kantor</p></div>
+                                    <div>
+                                        <p class="font-black text-slate-800 text-sm">Lokasi Kantor</p>
+                                    </div>
                                 </div>
-                                <input v-model="modulesForm.modul_profil_lokasi" type="checkbox" class="w-6 h-6 rounded-lg border-slate-300 text-blue-600 focus:ring-blue-500 transition-all">
+                                <input v-model="modulesForm.modul_profil_lokasi" type="checkbox"
+                                    class="w-6 h-6 rounded-lg border-slate-300 text-blue-600 focus:ring-blue-500 transition-all">
                             </label>
-                             <label class="relative flex items-center justify-between p-6 bg-slate-50 rounded-2xl border-2 border-transparent hover:border-blue-500/30 cursor-pointer transition-all group/item">
+                            <label
+                                class="relative flex items-center justify-between p-6 bg-slate-50 rounded-2xl border-2 border-transparent hover:border-blue-500/30 cursor-pointer transition-all group/item">
                                 <div class="flex items-center gap-4">
-                                    <div class="w-10 h-10 rounded-xl bg-white flex items-center justify-center text-blue-500 shadow-sm group-hover/item:scale-110 transition-transform">
+                                    <div
+                                        class="w-10 h-10 rounded-xl bg-white flex items-center justify-center text-blue-500 shadow-sm group-hover/item:scale-110 transition-transform">
                                         <i class="fas fa-map"></i>
                                     </div>
-                                    <div><p class="font-black text-slate-800 text-sm">Peta Lokasi</p></div>
+                                    <div>
+                                        <p class="font-black text-slate-800 text-sm">Peta Lokasi</p>
+                                    </div>
                                 </div>
-                                <input v-model="modulesForm.modul_profil_peta" type="checkbox" class="w-6 h-6 rounded-lg border-slate-300 text-blue-600 focus:ring-blue-500 transition-all">
+                                <input v-model="modulesForm.modul_profil_peta" type="checkbox"
+                                    class="w-6 h-6 rounded-lg border-slate-300 text-blue-600 focus:ring-blue-500 transition-all">
                             </label>
                         </div>
 
                         <!-- Data Section -->
                         <div class="mt-12 mb-6 h-px bg-slate-100 w-full relative z-10"></div>
-                        <h3 class="text-sm font-black text-slate-400 uppercase tracking-widest mb-6 relative z-10 flex items-center gap-3">
+                        <h3
+                            class="text-sm font-black text-slate-400 uppercase tracking-widest mb-6 relative z-10 flex items-center gap-3">
                             <i class="fas fa-chart-pie text-xs"></i> Data & Statistik
                         </h3>
-                         <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 relative z-10">
-                             <label class="relative flex items-center justify-between p-6 bg-slate-50 rounded-2xl border-2 border-transparent hover:border-indigo-500/30 cursor-pointer transition-all group/item">
+                        <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 relative z-10">
+                            <label
+                                class="relative flex items-center justify-between p-6 bg-slate-50 rounded-2xl border-2 border-transparent hover:border-indigo-500/30 cursor-pointer transition-all group/item">
                                 <div class="flex items-center gap-4">
-                                    <div class="w-10 h-10 rounded-xl bg-white flex items-center justify-center text-indigo-500 shadow-sm group-hover/item:scale-110 transition-transform">
+                                    <div
+                                        class="w-10 h-10 rounded-xl bg-white flex items-center justify-center text-indigo-500 shadow-sm group-hover/item:scale-110 transition-transform">
                                         <i class="fas fa-chart-pie"></i>
                                     </div>
-                                    <div><p class="font-black text-slate-800 text-sm">Statistik Penduduk</p></div>
+                                    <div>
+                                        <p class="font-black text-slate-800 text-sm">Statistik Penduduk</p>
+                                    </div>
                                 </div>
-                                <input v-model="modulesForm.modul_data_penduduk" type="checkbox" class="w-6 h-6 rounded-lg border-slate-300 text-indigo-600 focus:ring-indigo-500 transition-all">
+                                <input v-model="modulesForm.modul_data_penduduk" type="checkbox"
+                                    class="w-6 h-6 rounded-lg border-slate-300 text-indigo-600 focus:ring-indigo-500 transition-all">
                             </label>
-                             <label class="relative flex items-center justify-between p-6 bg-slate-50 rounded-2xl border-2 border-transparent hover:border-indigo-500/30 cursor-pointer transition-all group/item">
+                            <label
+                                class="relative flex items-center justify-between p-6 bg-slate-50 rounded-2xl border-2 border-transparent hover:border-indigo-500/30 cursor-pointer transition-all group/item">
                                 <div class="flex items-center gap-4">
-                                    <div class="w-10 h-10 rounded-xl bg-white flex items-center justify-center text-indigo-500 shadow-sm group-hover/item:scale-110 transition-transform">
+                                    <div
+                                        class="w-10 h-10 rounded-xl bg-white flex items-center justify-center text-indigo-500 shadow-sm group-hover/item:scale-110 transition-transform">
                                         <i class="fas fa-user-clock"></i>
                                     </div>
-                                    <div><p class="font-black text-slate-800 text-sm">Berdasarkan Umur</p></div>
+                                    <div>
+                                        <p class="font-black text-slate-800 text-sm">Berdasarkan Umur</p>
+                                    </div>
                                 </div>
-                                <input v-model="modulesForm.modul_data_umur" type="checkbox" class="w-6 h-6 rounded-lg border-slate-300 text-indigo-600 focus:ring-indigo-500 transition-all">
+                                <input v-model="modulesForm.modul_data_umur" type="checkbox"
+                                    class="w-6 h-6 rounded-lg border-slate-300 text-indigo-600 focus:ring-indigo-500 transition-all">
                             </label>
-                             <label class="relative flex items-center justify-between p-6 bg-slate-50 rounded-2xl border-2 border-transparent hover:border-indigo-500/30 cursor-pointer transition-all group/item">
+                            <label
+                                class="relative flex items-center justify-between p-6 bg-slate-50 rounded-2xl border-2 border-transparent hover:border-indigo-500/30 cursor-pointer transition-all group/item">
                                 <div class="flex items-center gap-4">
-                                    <div class="w-10 h-10 rounded-xl bg-white flex items-center justify-center text-indigo-500 shadow-sm group-hover/item:scale-110 transition-transform">
+                                    <div
+                                        class="w-10 h-10 rounded-xl bg-white flex items-center justify-center text-indigo-500 shadow-sm group-hover/item:scale-110 transition-transform">
                                         <i class="fas fa-praying-hands"></i>
                                     </div>
-                                    <div><p class="font-black text-slate-800 text-sm">Statistik Agama</p></div>
+                                    <div>
+                                        <p class="font-black text-slate-800 text-sm">Statistik Agama</p>
+                                    </div>
                                 </div>
-                                <input v-model="modulesForm.modul_data_agama" type="checkbox" class="w-6 h-6 rounded-lg border-slate-300 text-indigo-600 focus:ring-indigo-500 transition-all">
+                                <input v-model="modulesForm.modul_data_agama" type="checkbox"
+                                    class="w-6 h-6 rounded-lg border-slate-300 text-indigo-600 focus:ring-indigo-500 transition-all">
                             </label>
-                             <label class="relative flex items-center justify-between p-6 bg-slate-50 rounded-2xl border-2 border-transparent hover:border-indigo-500/30 cursor-pointer transition-all group/item">
+                            <label
+                                class="relative flex items-center justify-between p-6 bg-slate-50 rounded-2xl border-2 border-transparent hover:border-indigo-500/30 cursor-pointer transition-all group/item">
                                 <div class="flex items-center gap-4">
-                                    <div class="w-10 h-10 rounded-xl bg-white flex items-center justify-center text-indigo-500 shadow-sm group-hover/item:scale-110 transition-transform">
+                                    <div
+                                        class="w-10 h-10 rounded-xl bg-white flex items-center justify-center text-indigo-500 shadow-sm group-hover/item:scale-110 transition-transform">
                                         <i class="fas fa-graduation-cap"></i>
                                     </div>
-                                    <div><p class="font-black text-slate-800 text-sm">Statistik Pendidikan</p></div>
+                                    <div>
+                                        <p class="font-black text-slate-800 text-sm">Statistik Pendidikan</p>
+                                    </div>
                                 </div>
-                                <input v-model="modulesForm.modul_data_pendidikan" type="checkbox" class="w-6 h-6 rounded-lg border-slate-300 text-indigo-600 focus:ring-indigo-500 transition-all">
+                                <input v-model="modulesForm.modul_data_pendidikan" type="checkbox"
+                                    class="w-6 h-6 rounded-lg border-slate-300 text-indigo-600 focus:ring-indigo-500 transition-all">
                             </label>
-                             <label class="relative flex items-center justify-between p-6 bg-slate-50 rounded-2xl border-2 border-transparent hover:border-indigo-500/30 cursor-pointer transition-all group/item">
+                            <label
+                                class="relative flex items-center justify-between p-6 bg-slate-50 rounded-2xl border-2 border-transparent hover:border-indigo-500/30 cursor-pointer transition-all group/item">
                                 <div class="flex items-center gap-4">
-                                    <div class="w-10 h-10 rounded-xl bg-white flex items-center justify-center text-indigo-500 shadow-sm group-hover/item:scale-110 transition-transform">
+                                    <div
+                                        class="w-10 h-10 rounded-xl bg-white flex items-center justify-center text-indigo-500 shadow-sm group-hover/item:scale-110 transition-transform">
                                         <i class="fas fa-vote-yea"></i>
                                     </div>
-                                    <div><p class="font-black text-slate-800 text-sm">Pemilih Tetap</p></div>
+                                    <div>
+                                        <p class="font-black text-slate-800 text-sm">Pemilih Tetap</p>
+                                    </div>
                                 </div>
-                                <input v-model="modulesForm.modul_data_pemilih" type="checkbox" class="w-6 h-6 rounded-lg border-slate-300 text-indigo-600 focus:ring-indigo-500 transition-all">
+                                <input v-model="modulesForm.modul_data_pemilih" type="checkbox"
+                                    class="w-6 h-6 rounded-lg border-slate-300 text-indigo-600 focus:ring-indigo-500 transition-all">
                             </label>
                         </div>
 
                         <!-- Informasi Section -->
                         <div class="mt-12 mb-6 h-px bg-slate-100 w-full relative z-10"></div>
-                        <h3 class="text-sm font-black text-slate-400 uppercase tracking-widest mb-6 relative z-10 flex items-center gap-3">
+                        <h3
+                            class="text-sm font-black text-slate-400 uppercase tracking-widest mb-6 relative z-10 flex items-center gap-3">
                             <i class="fas fa-bullhorn text-xs"></i> Informasi Publik
                         </h3>
                         <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 relative z-10">
@@ -954,9 +1013,9 @@ const removeSliderFile = (index) => {
                                 <input v-model="modulesForm.modul_berita" type="checkbox"
                                     class="w-6 h-6 rounded-lg border-slate-300 text-blue-600 focus:ring-blue-500 transition-all">
                             </label>
-                            
-                             <!-- Potensi -->
-                             <label
+
+                            <!-- Potensi -->
+                            <label
                                 class="relative flex items-center justify-between p-6 bg-slate-50 rounded-2xl border-2 border-transparent hover:border-blue-500/30 cursor-pointer transition-all group/item">
                                 <div class="flex items-center gap-4">
                                     <div
@@ -973,7 +1032,7 @@ const removeSliderFile = (index) => {
                             </label>
 
                             <!-- Program -->
-                             <label
+                            <label
                                 class="relative flex items-center justify-between p-6 bg-slate-50 rounded-2xl border-2 border-transparent hover:border-blue-500/30 cursor-pointer transition-all group/item">
                                 <div class="flex items-center gap-4">
                                     <div
@@ -995,7 +1054,7 @@ const removeSliderFile = (index) => {
                         <h3
                             class="text-sm font-black text-slate-400 uppercase tracking-widest mb-6 relative z-10 flex items-center gap-3">
                             <i class="fas fa-sitemap text-xs"></i> Lembaga {{ $page.props.settings?.sebutan_wilayah ||
-                            'Kelurahan' }}
+                                'Kelurahan' }}
                         </h3>
 
                         <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 relative z-10">

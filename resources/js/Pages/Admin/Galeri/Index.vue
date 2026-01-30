@@ -66,10 +66,12 @@ const closeModal = () => {
 
 const submitForm = () => {
     if (isEditing.value) {
-        form.post(route('admin.galeri.update', form.id), {
+        form.transform((data) => ({
+            ...data,
+            _method: 'PUT',
+        })).post(route('admin.galeri.update', form.id), {
             onSuccess: () => closeModal(),
-            forceFormData: true, // Important for file upload with PUT/PATCH spoofing in Laravel
-            _method: 'PUT'
+            forceFormData: true,
         });
     } else {
         form.post(route('admin.galeri.store'), {
