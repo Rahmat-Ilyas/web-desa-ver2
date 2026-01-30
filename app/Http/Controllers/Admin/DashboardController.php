@@ -30,9 +30,11 @@ class DashboardController extends Controller
         }
 
         // Stats array for frontend
+        // Stats array for frontend
         $stats = [
             ['name' => 'Total Berita', 'value' => (string) $totalBerita, 'icon' => 'fa-newspaper', 'color' => 'blue'],
-            ['name' => 'Aduan Masuk', 'value' => (string) $totalPengaduan, 'icon' => 'fa-exclamation-circle', 'color' => 'rose'],
+            ['name' => 'Galeri Foto', 'value' => (string) $totalGaleri, 'icon' => 'fa-images', 'color' => 'indigo'],
+            ['name' => 'Pengaduan Warga', 'value' => (string) $totalPengaduan, 'icon' => 'fa-exclamation-circle', 'color' => 'rose'],
             ['name' => 'Data Penduduk', 'value' => (string) $totalPenduduk, 'icon' => 'fa-users', 'color' => 'emerald'],
             ['name' => 'Dokumen Download', 'value' => (string) $totalDownload, 'icon' => 'fa-file-download', 'color' => 'amber'],
         ];

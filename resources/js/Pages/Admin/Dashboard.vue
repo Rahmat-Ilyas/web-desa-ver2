@@ -22,15 +22,15 @@ const props = defineProps({
         </div>
 
         <!-- Stats Grid -->
-        <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6 mb-10">
+        <div class="flex flex-wrap gap-6 mb-10">
             <template v-for="stat in stats" :key="stat.name">
                 <div v-if="
                     (stat.name === 'Total Berita' && $page.props.settings?.module_status?.modul_berita !== false) ||
                     (stat.name === 'Galeri Foto' && $page.props.settings?.module_status?.modul_galeri !== false) ||
-                    (stat.name === 'Pengaduan Pending' && $page.props.settings?.module_status?.modul_pengaduan !== false) ||
-                    (stat.name === 'Data Warga' && $page.props.settings?.module_status?.modul_statistik !== false)
+                    (stat.name === 'Pengaduan Warga' && $page.props.settings?.module_status?.modul_pengaduan !== false) ||
+                    (stat.name === 'Dokumen Download' && $page.props.settings?.module_status?.modul_download !== false)
                 "
-                    class="bg-white p-6 rounded-[2rem] shadow-sm border border-gray-100 flex items-center gap-6 hover:shadow-xl hover:shadow-gray-200/50 transition-all group">
+                    class="flex-1 min-w-[200px] bg-white p-6 rounded-[2rem] shadow-sm border border-gray-100 flex items-center gap-6 hover:shadow-xl hover:shadow-gray-200/50 transition-all group">
                     <div
                         :class="[`bg-${stat.color}-100 text-${stat.color}-600`, 'w-16 h-16 rounded-3xl flex items-center justify-center text-2xl group-hover:scale-110 transition-transform']">
                         <i :class="['fas', stat.icon]"></i>
@@ -76,10 +76,10 @@ const props = defineProps({
                     <h3 class="text-xl font-black mb-2 relative z-10">Pintasan Cepat</h3>
                     <p class="text-indigo-200 text-xs font-bold mb-6 relative z-10">Kelola konten yang paling sering
                         diupdate.</p>
-                    <div class="grid grid-cols-3 gap-3 relative z-10">
+                    <div class="flex flex-wrap justify-center gap-3 relative z-10">
                         <Link v-if="$page.props.settings?.module_status?.modul_berita !== false"
                             :href="route('admin.berita.create')"
-                            class="bg-white/10 hover:bg-white/20 backdrop-blur-md p-3 rounded-[2rem] transition-all flex flex-col items-center gap-3 active:scale-95 group/btn">
+                            class="bg-white/10 hover:bg-white/20 backdrop-blur-md p-3 rounded-[2rem] transition-all flex flex-col items-center gap-3 active:scale-95 group/btn flex-1 min-w-[90px]">
                             <div
                                 class="w-10 h-10 bg-blue-500/20 rounded-xl flex items-center justify-center group-hover/btn:scale-110 transition-transform">
                                 <i class="fas fa-plus-circle text-lg text-blue-400"></i>
@@ -90,7 +90,7 @@ const props = defineProps({
 
                         <Link v-if="$page.props.settings?.module_status?.modul_galeri !== false"
                             :href="route('admin.galeri.index')"
-                            class="bg-white/10 hover:bg-white/20 backdrop-blur-md p-3 rounded-[2rem] transition-all flex flex-col items-center gap-3 active:scale-95 group/btn">
+                            class="bg-white/10 hover:bg-white/20 backdrop-blur-md p-3 rounded-[2rem] transition-all flex flex-col items-center gap-3 active:scale-95 group/btn flex-1 min-w-[90px]">
                             <div
                                 class="w-10 h-10 bg-emerald-500/20 rounded-xl flex items-center justify-center group-hover/btn:scale-110 transition-transform">
                                 <i class="fas fa-image text-lg text-emerald-400"></i>
@@ -101,7 +101,7 @@ const props = defineProps({
 
                         <Link v-if="$page.props.settings?.module_status?.modul_pengaduan !== false"
                             :href="route('admin.pengaduan.index')"
-                            class="bg-white/10 hover:bg-white/20 backdrop-blur-md p-3 rounded-[2rem] transition-all flex flex-col items-center gap-3 active:scale-95 group/btn relative">
+                            class="bg-white/10 hover:bg-white/20 backdrop-blur-md p-3 rounded-[2rem] transition-all flex flex-col items-center gap-3 active:scale-95 group/btn relative flex-1 min-w-[90px]">
                             <!-- Notification Bubble -->
                             <div v-if="pendingPengaduanCount > 0"
                                 class="absolute top-4 right-4 w-6 h-6 bg-rose-500 rounded-full flex items-center justify-center text-[10px] font-black shadow-lg shadow-rose-500/40 animate-bounce">
