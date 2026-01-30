@@ -4,6 +4,7 @@ use App\Http\Controllers\HomeController;
 use Illuminate\Support\Facades\Route;
 
 Route::get('/', [HomeController::class, 'index'])->name('landing');
+Route::get('/sitemap.xml', [\App\Http\Controllers\SitemapController::class, 'index']);
 
 Route::get('/profil/sambutan', [HomeController::class, 'sambutan'])->name('profil.sambutan');
 

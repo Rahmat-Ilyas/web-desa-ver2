@@ -1,6 +1,6 @@
 <script setup>
-import { Link, usePage } from '@inertiajs/vue3';
-import { ref, onMounted, onUnmounted, watch } from 'vue';
+import { Link, usePage, Head } from '@inertiajs/vue3';
+import { ref, onMounted, onUnmounted, watch, computed } from 'vue';
 import Dropdown from '@/Components/Dropdown.vue';
 import DropdownLink from '@/Components/DropdownLink.vue';
 import NavLink from '@/Components/NavLink.vue';
@@ -12,6 +12,27 @@ defineProps({
         default: () => []
     }
 });
+
+const page = usePage();
+const schemaData = computed(() => ({
+    "@context": "https://schema.org",
+    "@type": "GovernmentOrganization",
+    "name": `${page.props.settings?.sebutan_wilayah || 'Kelurahan'} ${page.props.settings?.nama_wilayah || ''}`,
+    "url": "https://ujungsabbang.mainsite.web.id",
+    "logo": page.props.settings?.logo ? `https://ujungsabbang.mainsite.web.id${page.props.settings.logo}` : '',
+    "address": {
+        "@type": "PostalAddress",
+        "streetAddress": page.props.settings?.info_umum?.alamat || '',
+        "addressLocality": page.props.settings?.nama_kabupaten || '',
+        "addressRegion": "Sulawesi Selatan",
+        "addressCountry": "ID"
+    },
+    "contactPoint": {
+        "@type": "ContactPoint",
+        "telephone": page.props.settings?.info_umum?.telepon || '',
+        "contactType": "customer service"
+    }
+}));
 
 const showingNavigationDropdown = ref(false);
 const scrolled = ref(false);
@@ -52,6 +73,11 @@ onUnmounted(() => {
 
 <template>
     <div class="font-sans antialiased text-gray-900 bg-gray-50 min-h-screen flex flex-col">
+        <Head>
+            <component :is="'script'" type="application/ld+json">
+                {{ JSON.stringify(schemaData) }}
+            </component>
+        </Head>
 
         <!-- Top Utility Bar -->
         <div class="bg-blue-900 text-white py-2 text-xs font-medium">
