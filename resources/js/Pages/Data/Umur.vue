@@ -26,41 +26,6 @@ const ageGroups = (props.settings?.statistik_umur || defaultGroups).map(item => 
         percentage: ((val / totalPenduduk) * 100).toFixed(1)
     };
 });
-
-// Dynamic Summary Calculations
-const productiveAgeSum = ageGroups.reduce((acc, curr) => {
-    const label = curr.label.toLowerCase();
-    // 18-60 is considered productive based on current labels
-    if (label.includes('pemuda') || label.includes('dewasa') || label.includes('18-40') || label.includes('41-60')) {
-        return acc + (parseInt(curr.value.toString().replace(/\D/g, '')) || 0);
-    }
-    return acc;
-}, 0);
-
-const productivePercent = ((productiveAgeSum / totalPenduduk) * 100).toFixed(1);
-
-const nonProductiveSum = totalPenduduk - productiveAgeSum;
-const dependencyRatio = ((nonProductiveSum / productiveAgeSum) * 100).toFixed(1);
-
-const dependencyInfo = computed(() => {
-    const ratio = parseFloat(dependencyRatio);
-    if (ratio < 50) {
-        return {
-            text: 'Sangat Rendah',
-            desc: 'yang menunjukkan stabilitas ekonomi mikro di wilayah ini serta tingginya potensi tenaga kerja produktif.'
-        };
-    } else if (ratio < 70) {
-        return {
-            text: 'Moderat',
-            desc: 'yang mencerminkan keseimbangan beban tanggungan penduduk namun tetap memerlukan penguatan sektor ekonomi lokal.'
-        };
-    } else {
-        return {
-            text: 'Tinggi',
-            desc: 'yang menunjukkan beban tanggungan yang cukup besar, sehingga memerlukan perhatian lebih pada program perlindungan sosial.'
-        };
-    }
-});
 </script>
 
 <template>
@@ -113,31 +78,6 @@ const dependencyInfo = computed(() => {
                                     :style="{ width: group.percentage + '%' }"></div>
                             </div>
                         </div>
-                    </div>
-                </div>
-
-                <div class="mt-12 grid grid-cols-1 md:grid-cols-2 gap-8">
-                    <div
-                        class="bg-blue-50 p-8 rounded-[2.5rem] border border-blue-100 hover:shadow-xl transition-all duration-500 group">
-                        <h4
-                            class="font-black text-blue-900 mb-3 flex items-center group-hover:translate-x-2 transition-transform">
-                            <i class="fas fa-briefcase mr-3 text-blue-500"></i> Usia Produktif
-                        </h4>
-                        <p class="text-blue-800 text-sm leading-relaxed font-medium">Berdasarkan data terbaru, populasi
-                            usia produktif (18-60 thn) mencapai <span
-                                class="font-black text-blue-600 underline decoration-blue-200 decoration-4 underline-offset-4">{{
-                                productivePercent }}%</span> dari total seluruh penduduk.</p>
-                    </div>
-                    <div
-                        class="bg-purple-50 p-8 rounded-[2.5rem] border border-purple-100 hover:shadow-xl transition-all duration-500 group">
-                        <h4
-                            class="font-black text-purple-900 mb-3 flex items-center group-hover:translate-x-2 transition-transform">
-                            <i class="fas fa-chart-line mr-3 text-purple-500"></i> Rasio Ketergantungan
-                        </h4>
-                        <p class="text-purple-800 text-sm leading-relaxed font-medium">Angka beban ketergantungan berada
-                            pada level <span
-                                class="font-black text-purple-600 underline decoration-purple-200 decoration-4 underline-offset-4">{{
-                                dependencyInfo.text }}</span> ({{ dependencyRatio }}%), {{ dependencyInfo.desc }}</p>
                     </div>
                 </div>
             </div>

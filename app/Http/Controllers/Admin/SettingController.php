@@ -90,6 +90,25 @@ class SettingController extends Controller
             'modul_lembaga_karang_taruna' => 'boolean',
             'modul_lembaga_lpmk' => 'boolean',
             'modul_lembaga_majelis_taklim' => 'boolean',
+            
+            // Profil
+            'modul_profil_sambutan' => 'boolean',
+            'modul_profil_visimisi' => 'boolean',
+            'modul_profil_sejarah' => 'boolean',
+            'modul_profil_kondisi' => 'boolean',
+            'modul_profil_lokasi' => 'boolean',
+            'modul_profil_peta' => 'boolean',
+
+            // Data
+            'modul_data_penduduk' => 'boolean',
+            'modul_data_umur' => 'boolean',
+            'modul_data_agama' => 'boolean',
+            'modul_data_pendidikan' => 'boolean',
+            'modul_data_pemilih' => 'boolean',
+
+            // Pemerintahan
+            'modul_pemerintahan_aparatur' => 'boolean',
+            'modul_pemerintahan_anggaran' => 'boolean',
         ]);
 
         Setting::updateOrCreate(

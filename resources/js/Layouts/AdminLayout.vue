@@ -121,7 +121,7 @@ onBeforeUnmount(() => {
 
         <!-- Sidebar -->
         <aside :class="[
-            'bg-slate-900 text-white transition-all duration-300 flex-shrink-0 z-50 fixed md:relative h-screen',
+            'bg-slate-900 text-white transition-all duration-300 flex-shrink-0 z-50 fixed md:relative h-screen flex flex-col',
             isSidebarOpen ? 'w-72 translate-x-0' : 'w-20 translate-x-[-100%] md:translate-x-0'
         ]">
             <div class="p-6 flex items-center gap-3">
@@ -133,7 +133,7 @@ onBeforeUnmount(() => {
                         class="text-blue-500">Panel</span></span>
             </div>
 
-            <nav class="mt-6 px-3 space-y-1 overflow-y-auto max-h-[calc(100vh-180px)] custom-scrollbar">
+            <nav class="mt-6 px-3 space-y-1 overflow-y-auto flex-1 custom-scrollbar">
                 <div v-for="menu in menus" :key="menu.name">
                     <!-- Simple Menu -->
                     <Link v-if="!menu.sub" :href="menu.route ? (menu.route === '#' ? '#' : route(menu.route)) : '#'"
@@ -184,7 +184,12 @@ onBeforeUnmount(() => {
                 </div>
             </nav>
 
-            <!-- Logout removed from sidebar -->
+            <!-- Sidebar Footer -->
+            <div v-if="isSidebarOpen" class="p-6 text-center">
+                <p class="text-[10px] font-medium text-slate-500 uppercase tracking-wider">
+                    Develop by <a href="https://mainsite.web.id" target="_blank" class="text-blue-500 hover:text-blue-400 transition-colors font-bold">Mainsite Studio</a>
+                </p>
+            </div>
         </aside>
 
         <!-- Main Content -->

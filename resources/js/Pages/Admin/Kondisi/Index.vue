@@ -39,11 +39,7 @@ const form = useForm({
         selatan: props.settings.batas?.selatan || '',
         barat: props.settings.batas?.barat || '',
     },
-    lahan: props.settings.lahan?.length > 0 ? props.settings.lahan : [
-        { label: 'PEMUKIMAN', percentage: 0, color: 'blue' },
-        { label: 'FASILITAS UMUM & RTH', percentage: 0, color: 'emerald' },
-        { label: 'PERDAGANGAN & JASA', percentage: 0, color: 'violet' },
-    ],
+
     iklim: {
         suhu_min: props.settings.iklim?.suhu_min || '',
         suhu_max: props.settings.iklim?.suhu_max || '',
@@ -60,13 +56,7 @@ const showNotification = (msg) => {
     setTimeout(() => notification.value.show = false, 3000);
 };
 
-const addLahan = () => {
-    form.lahan.push({ label: '', percentage: 0, color: 'blue' });
-};
 
-const removeLahan = (index) => {
-    form.lahan.splice(index, 1);
-};
 
 const submit = () => {
     form.post(route('admin.kondisi.store'), {
@@ -263,64 +253,7 @@ const submit = () => {
                     </div>
                 </div>
 
-                <!-- Penggunaan Lahan -->
-                <div class="bg-white rounded-[2.5rem] shadow-sm border border-slate-100 p-10">
-                    <div class="flex flex-col sm:flex-row sm:items-center justify-between gap-6 mb-10">
-                        <div class="flex items-center gap-4">
-                            <div
-                                class="w-12 h-12 bg-emerald-50 rounded-2xl flex items-center justify-center text-emerald-600 shadow-sm border border-emerald-100">
-                                <i class="fas fa-layer-group text-lg"></i>
-                            </div>
-                            <div>
-                                <h3 class="font-black text-slate-900 text-xl tracking-tight">Penggunaan Lahan</h3>
-                                <p class="text-slate-400 font-bold text-[10px] uppercase tracking-widest mt-0.5">
-                                    Distribusi Pemanfaatan</p>
-                            </div>
-                        </div>
-                        <button @click="addLahan" type="button"
-                            class="px-6 py-3 bg-emerald-600 text-white font-black text-xs uppercase tracking-widest rounded-xl hover:bg-emerald-700 shadow-lg shadow-emerald-600/20 transition-all flex items-center gap-2">
-                            <i class="fas fa-plus"></i> TAMBAH KATEGORI
-                        </button>
-                    </div>
 
-                    <div class="space-y-4">
-                        <div v-for="(item, index) in form.lahan" :key="index"
-                            class="flex flex-wrap md:flex-nowrap items-end gap-6 p-8 rounded-[2rem] bg-slate-50/50 border border-slate-100 group transition-all hover:bg-white hover:shadow-xl hover:shadow-slate-900/5">
-                            <div class="flex-1 min-w-[200px] space-y-2">
-                                <label
-                                    class="block text-[10px] font-black text-slate-500 uppercase tracking-widest ml-1">Kategori
-                                    / Label Lahan</label>
-                                <input v-model="item.label" type="text"
-                                    class="w-full bg-white border-2 border-slate-100 rounded-2xl px-6 py-4 focus:ring-4 focus:ring-blue-500/10 focus:border-blue-500 transition-all font-bold"
-                                    placeholder="PEMUKIMAN">
-                            </div>
-                            <div class="w-full md:w-32 space-y-2 text-center md:text-left">
-                                <label
-                                    class="block text-[10px] font-black text-slate-500 uppercase tracking-widest ml-1">Persen
-                                    (%)</label>
-                                <input v-model="item.percentage" type="number"
-                                    class="w-full bg-white border-2 border-slate-100 rounded-2xl px-6 py-4 focus:ring-4 focus:ring-blue-500/10 focus:border-blue-500 transition-all font-bold text-center">
-                            </div>
-                            <div class="w-full md:w-48 space-y-2 text-center md:text-left">
-                                <label
-                                    class="block text-[10px] font-black text-slate-500 uppercase tracking-widest ml-1">Visual
-                                    Warna</label>
-                                <select v-model="item.color"
-                                    class="w-full bg-white border-2 border-slate-100 rounded-2xl px-6 py-4 focus:ring-4 focus:ring-blue-500/10 focus:border-blue-500 transition-all font-bold">
-                                    <option value="blue">Blue (Biru)</option>
-                                    <option value="emerald">Emerald (Hijau)</option>
-                                    <option value="rose">Rose (Merah)</option>
-                                    <option value="violet">Violet (Ungu)</option>
-                                    <option value="amber">Amber (Kuning)</option>
-                                </select>
-                            </div>
-                            <button @click="removeLahan(index)" type="button"
-                                class="w-14 h-14 rounded-2xl bg-rose-50 text-rose-500 hover:bg-rose-500 hover:text-white transition-all shadow-sm flex items-center justify-center shrink-0">
-                                <i class="fas fa-trash-alt"></i>
-                            </button>
-                        </div>
-                    </div>
-                </div>
 
                 <!-- Sticky Save Action Footer (Matched with Visi Misi Style) -->
                 <div

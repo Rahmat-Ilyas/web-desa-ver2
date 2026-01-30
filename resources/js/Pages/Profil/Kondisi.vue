@@ -10,38 +10,7 @@ defineProps({
     iklim: Object,
 });
 
-const getColorClass = (color) => {
-    const colors = {
-        blue: 'bg-blue-500',
-        emerald: 'bg-emerald-500',
-        rose: 'bg-rose-500',
-        violet: 'bg-violet-500',
-        amber: 'bg-amber-500',
-    };
-    return colors[color] || colors.blue;
-};
 
-const getBgClass = (color) => {
-    const colors = {
-        blue: 'bg-blue-200',
-        emerald: 'bg-emerald-200',
-        rose: 'bg-rose-200',
-        violet: 'bg-violet-200',
-        amber: 'bg-amber-200',
-    };
-    return colors[color] || colors.blue;
-};
-
-const getTextClass = (color) => {
-    const colors = {
-        blue: 'text-blue-600',
-        emerald: 'text-emerald-600',
-        rose: 'text-rose-600',
-        violet: 'text-violet-600',
-        amber: 'text-amber-600',
-    };
-    return colors[color] || colors.blue;
-};
 </script>
 
 <template>
@@ -147,38 +116,7 @@ const getTextClass = (color) => {
                                 v-html="deskripsi || 'Sedang proses pengisian data...'"></div>
                         </div>
 
-                        <div class="relative pt-6">
-                            <div class="flex items-center gap-5 mb-10">
-                                <div
-                                    class="w-14 h-14 rounded-2xl bg-blue-600 flex items-center justify-center shadow-xl shadow-blue-500/20 shrink-0">
-                                    <i class="fas fa-chart-area text-white text-xl"></i>
-                                </div>
-                                <div>
-                                    <h4 class="text-2xl font-black text-slate-900 tracking-tight leading-none mb-2">
-                                        Penggunaan Lahan</h4>
-                                    <p class="text-[10px] font-bold text-slate-400 uppercase tracking-[0.2em]">
-                                        Distribusi Pemanfaatan Wilayah</p>
-                                </div>
-                            </div>
 
-                            <div class="space-y-8">
-                                <div v-for="(item, index) in lahan" :key="index" class="space-y-3">
-                                    <div class="flex justify-between items-end">
-                                        <span
-                                            class="px-3 py-1 rounded-full text-[10px] font-black uppercase tracking-widest"
-                                            :class="[getBgClass(item.color), getTextClass(item.color)]">
-                                            {{ item.label }}
-                                        </span>
-                                        <span class="text-sm font-black text-slate-800">{{ item.percentage }}%</span>
-                                    </div>
-                                    <div class="w-full h-2.5 bg-slate-100 rounded-full overflow-hidden shadow-inner">
-                                        <div :class="getColorClass(item.color)"
-                                            class="h-full rounded-full transition-all duration-1000"
-                                            :style="{ width: item.percentage + '%' }"></div>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
                     </div>
                 </div>
 
