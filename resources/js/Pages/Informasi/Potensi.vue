@@ -117,7 +117,7 @@ onMounted(() => {
                         @click="openModal(item)">
 
                         <div class="relative h-64 overflow-hidden">
-                            <img :src="getImage(item.image)"
+                            <img :src="getImage(item.image)" :alt="item.judul"
                                 @error="e => e.target.src = 'https://placehold.co/800x600/e2e8f0/94a3b8?text=No+Image'"
                                 class="w-full h-full object-cover transition-transform duration-700 group-hover:scale-110">
                             <div
@@ -183,7 +183,7 @@ onMounted(() => {
 
                         <!-- Image Side -->
                         <div class="w-full md:w-1/2 h-64 md:h-auto relative bg-slate-900">
-                            <img v-if="selectedItem" :src="getImage(selectedItem.image)"
+                            <img v-if="selectedItem" :src="getImage(selectedItem.image)" :alt="selectedItem.judul"
                                 @error="e => e.target.src = 'https://placehold.co/800x600/e2e8f0/94a3b8?text=No+Image'"
                                 class="w-full h-full object-cover opacity-90">
                         </div>

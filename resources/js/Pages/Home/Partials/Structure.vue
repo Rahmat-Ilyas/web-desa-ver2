@@ -73,7 +73,7 @@ const getPhotoUrl = (path) => {
                             <div v-for="staff in getStaffsByParent(getSeklur.id)" :key="staff.id" 
                                 class="flex items-center gap-4 p-3 rounded-2xl border border-white/5 bg-white/[0.03] hover:bg-white/[0.08] hover:border-white/10 transition-all group/staff w-full sm:w-72 shrink-0">
                                 <div class="w-12 h-12 rounded-xl overflow-hidden shrink-0 bg-slate-700 shadow-lg border border-white/10">
-                                    <img :src="getPhotoUrl(staff.photo)" class="w-full h-full object-cover group-hover/staff:scale-110 transition-transform duration-500">
+                                    <img :src="getPhotoUrl(staff.photo)" :alt="staff.name" class="w-full h-full object-cover group-hover/staff:scale-110 transition-transform duration-500">
                                 </div>
                                 <div class="overflow-hidden text-left">
                                     <p class="text-[11px] font-black text-white truncate mb-0.5">{{ staff.name }}</p>
@@ -105,7 +105,7 @@ const getPhotoUrl = (path) => {
                                     <div v-for="staff in getStaffsByParent(kasi.id)" :key="staff.id" 
                                         class="flex items-center gap-3 p-3 rounded-2xl border border-white/5 bg-white/[0.03] hover:bg-white/[0.08] hover:border-white/10 transition-all group/staff w-full sm:w-64 shrink-0">
                                         <div class="w-10 h-10 rounded-xl overflow-hidden shrink-0 bg-slate-700 border border-white/5">
-                                            <img :src="getPhotoUrl(staff.photo)" class="w-full h-full object-cover">
+                                            <img :src="getPhotoUrl(staff.photo)" :alt="staff.name" class="w-full h-full object-cover">
                                         </div>
                                         <div class="overflow-hidden text-left">
                                             <p class="text-[10px] font-black text-slate-200 truncate">{{ staff.name }}</p>
