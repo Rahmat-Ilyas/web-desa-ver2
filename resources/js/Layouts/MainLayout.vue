@@ -94,7 +94,7 @@ onUnmounted(() => {
                             day: 'numeric'
                         }) }}
                     </span>
-                    <span v-if="$page.props.settings?.info_umum?.whatsapp"
+                    <span v-if="$page.props.settings?.info_umum?.telepon"
                         class="hidden sm:inline-flex items-center gap-2">
                         <i class="fas fa-phone-alt text-[10px]"></i>
                         {{ $page.props.settings.info_umum.telepon }}
