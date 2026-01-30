@@ -4,7 +4,7 @@ import AdminLayout from '@/Layouts/AdminLayout.vue';
 import { ref, watch } from 'vue';
 
 const props = defineProps({
-    settings: Object
+    page_settings: Object
 });
 
 const page = usePage();
@@ -22,14 +22,14 @@ watch(() => page.props.flash?.success, (msg) => {
 });
 
 const form = useForm({
-    alamat: props.settings.info_umum?.alamat || '',
-    email: props.settings.info_umum?.email || '',
-    telepon: props.settings.info_umum?.telepon || '',
-    whatsapp: props.settings.info_umum?.whatsapp || '',
-    instagram: props.settings.sosial_media?.instagram || '',
-    facebook: props.settings.sosial_media?.facebook || '',
-    twitter: props.settings.sosial_media?.twitter || '',
-    youtube: props.settings.sosial_media?.youtube || '',
+    alamat: props.page_settings.info_umum?.alamat || '',
+    email: props.page_settings.info_umum?.email || '',
+    telepon: props.page_settings.info_umum?.telepon || '',
+    whatsapp: props.page_settings.info_umum?.whatsapp || '',
+    instagram: props.page_settings.sosial_media?.instagram || '',
+    facebook: props.page_settings.sosial_media?.facebook || '',
+    twitter: props.page_settings.sosial_media?.twitter || '',
+    youtube: props.page_settings.sosial_media?.youtube || '',
 });
 
 const submit = () => {

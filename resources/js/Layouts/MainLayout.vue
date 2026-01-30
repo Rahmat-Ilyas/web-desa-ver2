@@ -18,8 +18,8 @@ const schemaData = computed(() => ({
     "@context": "https://schema.org",
     "@type": "GovernmentOrganization",
     "name": `${page.props.settings?.sebutan_wilayah || 'Kelurahan'} ${page.props.settings?.nama_wilayah || ''}`,
-    "url": "https://ujungsabbang.mainsite.web.id",
-    "logo": page.props.settings?.logo ? `https://ujungsabbang.mainsite.web.id${page.props.settings.logo}` : '',
+    "url": page.props.settings?.website_url || "https://ujungsabbang.mainsite.web.id",
+    "logo": page.props.settings?.logo ? `${page.props.settings.website_url || 'https://ujungsabbang.mainsite.web.id'}${page.props.settings.logo}` : '',
     "address": {
         "@type": "PostalAddress",
         "streetAddress": page.props.settings?.info_umum?.alamat || '',

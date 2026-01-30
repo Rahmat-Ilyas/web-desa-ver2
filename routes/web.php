@@ -6,6 +6,22 @@ use Illuminate\Support\Facades\Route;
 Route::get('/', [HomeController::class, 'index'])->name('landing');
 Route::get('/sitemap.xml', [\App\Http\Controllers\SitemapController::class, 'index']);
 
+Route::get('/robots.txt', function () {
+    $websiteUrl = \App\Models\Setting::where('key', 'website_url')->first()?->value ?? url('/');
+    // Remove trailing slash if present
+    $websiteUrl = rtrim($websiteUrl, '/');
+
+    $content = "User-agent: *\n";
+    $content .= "Allow: /\n";
+    $content .= "Disallow: /admin\n";
+    $content .= "Disallow: /storage/*.txt\n";
+    $content .= "Disallow: /storage/*.log\n\n";
+    $content .= "Sitemap: {$websiteUrl}/sitemap.xml";
+
+    return response($content, 200)
+        ->header('Content-Type', 'text/plain');
+});
+
 Route::get('/profil/sambutan', [HomeController::class, 'sambutan'])->name('profil.sambutan');
 
 Route::get('/profil/visi-misi', [HomeController::class, 'visimisi'])->name('profil.visimisi');
@@ -199,7 +215,7 @@ Route::prefix('admin')->middleware(['auth'])->group(function () {
         $sosial_media = \App\Models\Setting::where('key', 'sosial_media')->first();
 
         return inertia('Admin/Kontak/Index', [
-            'settings' => [
+            'page_settings' => [
                 'info_umum' => $info_umum ? json_decode($info_umum->value, true) : [],
                 'sosial_media' => $sosial_media ? json_decode($sosial_media->value, true) : []
             ]

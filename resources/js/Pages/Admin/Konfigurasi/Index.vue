@@ -38,6 +38,7 @@ const generalForm = useForm({
     nama_wilayah: props.settings.nama_wilayah || '',
     sebutan_kepala: props.settings.sebutan_kepala || 'Lurah',
     nama_kabupaten: props.settings.nama_kabupaten || '',
+    website_url: props.settings.website_url || '',
     logo: null,
     reset_logo: false,
 });
@@ -334,6 +335,14 @@ const removeSliderFile = (index) => {
                         </h2>
 
                         <div class="space-y-6 relative z-10">
+                            <div>
+                                <label
+                                    class="block text-[10px] font-black text-slate-400 uppercase tracking-widest mb-2 ml-3">Website URL</label>
+                                <input v-model="generalForm.website_url" type="url"
+                                    class="w-full px-6 py-4 bg-slate-50 border-2 border-transparent focus:border-emerald-500 focus:bg-white rounded-2xl font-bold text-slate-700 outline-none transition-all"
+                                    placeholder="https://example.com">
+                            </div>
+
                             <div>
                                 <label
                                     class="block text-[10px] font-black text-slate-400 uppercase tracking-widest mb-2 ml-3">Deskripsi

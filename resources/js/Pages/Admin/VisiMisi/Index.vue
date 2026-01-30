@@ -4,12 +4,12 @@ import AdminLayout from '@/Layouts/AdminLayout.vue';
 import { ref } from 'vue';
 
 const props = defineProps({
-    settings: Object
+    page_settings: Object
 });
 
 const form = useForm({
-    visi: props.settings.visi || '',
-    misi: Array.isArray(props.settings.misi) ? props.settings.misi : []
+    visi: props.page_settings.visi || '',
+    misi: Array.isArray(props.page_settings.misi) ? props.page_settings.misi : []
 });
 
 const showSuccess = ref(false);

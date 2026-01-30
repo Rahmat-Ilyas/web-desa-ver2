@@ -15,16 +15,14 @@ class KondisiController extends Controller
             'kondisi_deskripsi',
             'kondisi_umum',
             'kondisi_batas',
-            'kondisi_lahan',
             'kondisi_iklim'
         ])->get()->pluck('value', 'key');
 
         return Inertia::render('Admin/Kondisi/Index', [
-            'settings' => [
+            'page_settings' => [
                 'deskripsi' => $settings['kondisi_deskripsi'] ?? '',
                 'umum' => json_decode($settings['kondisi_umum'] ?? '{}', true),
                 'batas' => json_decode($settings['kondisi_batas'] ?? '{}', true),
-                'lahan' => json_decode($settings['kondisi_lahan'] ?? '[]', true),
                 'iklim' => json_decode($settings['kondisi_iklim'] ?? '{}', true),
             ]
         ]);
@@ -36,7 +34,6 @@ class KondisiController extends Controller
             'deskripsi' => 'required|string',
             'umum' => 'required|array',
             'batas' => 'required|array',
-            'lahan' => 'required|array',
             'iklim' => 'required|array',
         ]);
 
@@ -44,7 +41,6 @@ class KondisiController extends Controller
             'kondisi_deskripsi' => $request->deskripsi,
             'kondisi_umum' => json_encode($request->umum),
             'kondisi_batas' => json_encode($request->batas),
-            'kondisi_lahan' => json_encode($request->lahan),
             'kondisi_iklim' => json_encode($request->iklim),
         ];
 

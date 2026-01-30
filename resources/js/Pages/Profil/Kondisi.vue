@@ -6,7 +6,6 @@ defineProps({
     deskripsi: String,
     umum: Object,
     batas: Object,
-    lahan: Array,
     iklim: Object,
 });
 

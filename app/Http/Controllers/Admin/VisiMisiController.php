@@ -29,7 +29,7 @@ class VisiMisiController extends Controller
         }
 
         return Inertia::render('Admin/VisiMisi/Index', [
-            'settings' => [
+            'page_settings' => [
                 'visi' => $settings['visi'] ?? '',
                 'misi' => $misiArray
             ]

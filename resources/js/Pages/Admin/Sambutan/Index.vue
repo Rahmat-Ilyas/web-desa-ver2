@@ -5,7 +5,7 @@ import { ref } from 'vue';
 import ClassicEditor from '@ckeditor/ckeditor5-build-classic';
 
 const props = defineProps({
-    settings: Object,
+    page_settings: Object,
     lurah: Object
 });
 
@@ -24,8 +24,8 @@ const editorConfig = {
 };
 
 const form = useForm({
-    sambutan_quote: props.settings.sambutan_quote || '',
-    sambutan_message: props.settings.sambutan_message || ''
+    sambutan_quote: props.page_settings.sambutan_quote || '',
+    sambutan_message: props.page_settings.sambutan_message || ''
 });
 
 const showSuccess = ref(false);
@@ -44,7 +44,7 @@ const submit = () => {
 <template>
     <AdminLayout>
 
-        <Head :title="`Kelola Sambutan ${props.settings?.sebutan_kepala || 'Lurah'}`" />
+        <Head :title="`Kelola Sambutan ${$page.props.settings?.sebutan_kepala || 'Lurah'}`" />
 
         <div class="max-w-[1200px] mx-auto px-4 sm:px-6">
             <!-- Header Section -->
@@ -55,9 +55,9 @@ const submit = () => {
                         <i class="fas fa-edit"></i> Editor Konten
                     </div>
                     <h1 class="text-4xl font-black text-slate-900 tracking-tight">Sambutan {{
-                        props.settings?.sebutan_kepala || 'Lurah' }}</h1>
+                        $page.props.settings?.sebutan_kepala || 'Lurah' }}</h1>
                     <p class="text-slate-500 font-bold text-sm mt-2">Kelola pesan resmi dan komitmen pelayanan
-                        {{ (props.settings?.sebutan_wilayah || 'Kelurahan').toLowerCase() }}.</p>
+                        {{ ($page.props.settings?.sebutan_wilayah || 'Kelurahan').toLowerCase() }}.</p>
                 </div>
 
                 <div class="flex items-center gap-3">
@@ -95,7 +95,7 @@ const submit = () => {
                     <div class="relative">
                         <img :src="props.lurah?.photo ? '/storage/' + props.lurah.photo : 'https://placehold.co/100x100?text=👤'"
                             class="w-20 h-20 rounded-2xl object-cover ring-4 ring-blue-500/20 shadow-2xl"
-                            :alt="'Foto ' + (props.settings?.sebutan_kepala || 'Lurah')">
+                            :alt="'Foto ' + ($page.props.settings?.sebutan_kepala || 'Lurah')">
                         <div
                             class="absolute -bottom-2 -right-2 w-8 h-8 bg-blue-600 rounded-full flex items-center justify-center border-4 border-slate-900 shadow-lg">
                             <i class="fas fa-check text-[10px]"></i>
@@ -104,12 +104,12 @@ const submit = () => {
                     <div>
                         <h4
                             class="text-xs font-black text-blue-400 uppercase tracking-widest mb-1 flex items-center gap-2">
-                            <i class="fas fa-user-circle"></i> Profil {{ props.settings?.sebutan_kepala || 'Lurah' }}
+                            <i class="fas fa-user-circle"></i> Profil {{ $page.props.settings?.sebutan_kepala || 'Lurah' }}
                             Aktif
                         </h4>
                         <p class="font-black text-2xl leading-tight">{{ props.lurah?.name || 'Belum Diatur' }}</p>
                         <p class="text-slate-400 text-sm font-bold mt-1 tracking-wider">{{ props.lurah?.position ||
-                            (props.settings?.sebutan_kepala || 'Lurah') + ' ' + (props.settings?.nama_wilayah || '[Nama Wilayah]') }}</p>
+                            ($page.props.settings?.sebutan_kepala || 'Lurah') + ' ' + ($page.props.settings?.nama_wilayah || '[Nama Wilayah]') }}</p>
                     </div>
                 </div>
 

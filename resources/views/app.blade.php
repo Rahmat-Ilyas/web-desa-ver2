@@ -7,6 +7,8 @@
     <meta name="description" content="{{ \App\Models\Setting::where('key', 'web_description')->first()?->value ?? 'Website Resmi Kelurahan' }}">
     <meta name="keywords" content="{{ \App\Models\Setting::where('key', 'web_keywords')->first()?->value ?? 'kelurahan, desa, pelayanan' }}">
     <meta name="csrf-token" content="{{ csrf_token() }}">
+    <meta property="og:url" content="{{ \App\Models\Setting::where('key', 'website_url')->first()?->value ?? url()->current() }}">
+    <link rel="canonical" href="{{ \App\Models\Setting::where('key', 'website_url')->first()?->value ?? url()->current() }}">
 
     <title inertia>
         {{ \App\Models\Setting::where('key', 'web_name')->first()?->value ?? config('app.name', '[Nama Wilayah]') }}

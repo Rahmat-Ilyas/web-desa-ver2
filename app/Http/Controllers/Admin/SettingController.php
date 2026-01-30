@@ -24,6 +24,7 @@ class SettingController extends Controller
             'nama_wilayah' => 'nullable|string',
             'sebutan_kepala' => 'nullable|string',
             'nama_kabupaten' => 'nullable|string',
+            'website_url' => 'nullable|url',
             'logo' => 'nullable|image|max:2048',
         ]);
 

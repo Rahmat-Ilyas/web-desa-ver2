@@ -1,7 +1,0 @@
-User-agent: *
-Allow: /
-Disallow: /admin
-Disallow: /storage/*.txt
-Disallow: /storage/*.log
-
-Sitemap: https://ujungsabbang.mainsite.web.id/sitemap.xml

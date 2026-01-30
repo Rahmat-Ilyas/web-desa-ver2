@@ -1,12 +1,14 @@
 <script setup>
-import { Head, useForm } from '@inertiajs/vue3';
+import { Head, useForm, usePage } from '@inertiajs/vue3';
 import AdminLayout from '@/Layouts/AdminLayout.vue';
 import ClassicEditor from '@ckeditor/ckeditor5-build-classic';
 import { ref } from 'vue';
 
 const props = defineProps({
-    settings: Object
+    page_settings: Object
 });
+
+const page = usePage();
 
 // CKEditor Setup
 const editor = ClassicEditor;
@@ -24,28 +26,28 @@ const editorConfig = {
 };
 
 const form = useForm({
-    deskripsi: props.settings.deskripsi || '',
+    deskripsi: props.page_settings.deskripsi || '',
     umum: {
-        luas_wilayah: props.settings.umum?.luas_wilayah || '',
-        kecamatan: props.settings.umum?.kecamatan || '',
-        kota: props.settings.umum?.kota || '',
-        jumlah_lingkungan: props.settings.umum?.jumlah_lingkungan || '',
-        rt: props.settings.umum?.rt || '',
-        rw: props.settings.umum?.rw || '',
+        luas_wilayah: props.page_settings.umum?.luas_wilayah || '',
+        kecamatan: props.page_settings.umum?.kecamatan || '',
+        kota: props.page_settings.umum?.kota || '',
+        jumlah_lingkungan: props.page_settings.umum?.jumlah_lingkungan || '',
+        rt: props.page_settings.umum?.rt || '',
+        rw: props.page_settings.umum?.rw || '',
     },
     batas: {
-        utara: props.settings.batas?.utara || '',
-        timur: props.settings.batas?.timur || '',
-        selatan: props.settings.batas?.selatan || '',
-        barat: props.settings.batas?.barat || '',
+        utara: props.page_settings.batas?.utara || '',
+        timur: props.page_settings.batas?.timur || '',
+        selatan: props.page_settings.batas?.selatan || '',
+        barat: props.page_settings.batas?.barat || '',
     },
 
     iklim: {
-        suhu_min: props.settings.iklim?.suhu_min || '',
-        suhu_max: props.settings.iklim?.suhu_max || '',
-        iklim: props.settings.iklim?.iklim || '',
-        curah_hujan: props.settings.iklim?.curah_hujan || '',
-    }
+        suhu_min: props.page_settings.iklim?.suhu_min || '',
+        suhu_max: props.page_settings.iklim?.suhu_max || '',
+        iklim: props.page_settings.iklim?.iklim || '',
+        curah_hujan: props.page_settings.iklim?.curah_hujan || '',
+    },
 });
 
 // Notifications
@@ -62,7 +64,7 @@ const submit = () => {
     form.post(route('admin.kondisi.store'), {
         preserveScroll: true,
         onSuccess: () => {
-            showNotification(`Kondisi ${props.settings?.sebutan_wilayah || 'Wilayah'} berhasil diperbarui`);
+            showNotification(`Kondisi ${page.props.settings?.sebutan_wilayah || 'Wilayah'} berhasil diperbarui`);
         }
     });
 };
@@ -252,6 +254,8 @@ const submit = () => {
                         </div>
                     </div>
                 </div>
+
+
 
 
 

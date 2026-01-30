@@ -19,7 +19,7 @@ class SambutanController extends Controller
         $lurah = \App\Models\Structure::where('level', 1)->first();
 
         return Inertia::render('Admin/Sambutan/Index', [
-            'settings' => [
+            'page_settings' => [
                 'sambutan_quote' => $settings['sambutan_quote'] ?? '',
                 'sambutan_message' => $settings['sambutan_message'] ?? ''
             ],
