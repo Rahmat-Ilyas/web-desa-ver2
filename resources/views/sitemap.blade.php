@@ -2,12 +2,12 @@
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
     @foreach ($urls as $url)
         <url>
-            <loc>{{ $url['loc'] }}</loc>
-            @if (isset($url['lastmod']))
-                <lastmod>{{ $url['lastmod'] }}</lastmod>
+            <loc>{{ $url->loc }}</loc>
+            @if (isset($url->lastmod))
+                <lastmod>{{ $url->lastmod }}</lastmod>
             @endif
-            <changefreq>{{ $url['changefreq'] ?? 'monthly' }}</changefreq>
-            <priority>{{ $url['priority'] ?? '0.5' }}</priority>
+            <changefreq>{{ $url->changefreq ?? "monthly" }}</changefreq>
+            <priority>{{ $url->priority ?? "0.5" }}</priority>
         </url>
     @endforeach
 </urlset>

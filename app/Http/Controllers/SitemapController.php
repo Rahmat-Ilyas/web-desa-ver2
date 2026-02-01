@@ -53,10 +53,13 @@ class SitemapController extends Controller
             ['loc' => route('informasi.program'), 'priority' => '0.8', 'changefreq' => 'monthly'],
         ];
 
+        // Convert static pages to objects
+        $urls = array_map(fn($url) => (object) $url, $urls);
+
         // Dynamic News (Berita)
         $berita = Berita::latest()->get();
         foreach ($berita as $item) {
-            $urls[] = [
+            $urls[] = (object) [
                 'loc' => route('informasi.berita.show', $item->slug),
                 'lastmod' => $item->updated_at->toIso8601String(),
                 'priority' => '0.8',
