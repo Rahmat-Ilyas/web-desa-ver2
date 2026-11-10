@@ -10,6 +10,29 @@ class SettingSeeder extends Seeder
     public function run(): void
     {
         $settings = [
+            'web_name' => 'Kelurahan Ujung Sabbang',
+            'web_description' => 'Website Resmi Kelurahan Ujung Sabbang',
+            'web_keywords' => 'kelurahan, ujung sabbang, parepare, pelayanan publik',
+            'nama_wilayah' => 'Ujung Sabbang',
+            'sebutan_wilayah' => 'Kelurahan',
+            'nama_kabupaten' => 'Kota Parepare',
+            'sebutan_kepala' => 'Lurah',
+            'website_url' => 'http://localhost:8000',
+            'hero_title' => 'Pelayanan Profesional & Inovatif',
+            'hero_subtitle' => 'Mewujudkan Masyarakat Peduli',
+            'hero_description' => 'Pusat informasi terkini dan layanan administrasi terpadu untuk warga masyarakat Kelurahan Ujung Sabbang.',
+            'info_umum' => json_encode([
+                'alamat' => 'Jl. Lasinrang No. 12, Kelurahan Ujung Sabbang, Kec. Ujung, Kota Parepare',
+                'email' => 'kelurahan.ujungsabbang@pareparekota.go.id',
+                'telepon' => '(0421) 21123',
+                'whatsapp' => '6281234567890'
+            ]),
+            'sosial_media' => json_encode([
+                'instagram' => 'kelurahan_ujungsabbang',
+                'facebook' => 'Kelurahan Ujung Sabbang',
+                'twitter' => 'ujungsabbang',
+                'youtube' => 'Kelurahan Ujung Sabbang'
+            ]),
             'sambutan_quote' => 'Melayani masyarakat bukan sekadar tugas administratif, tapi sebuah panggilan hati untuk membawa perubahan nyata dan kemudahan bagi setiap warga.',
             'sambutan_message' => 'Puji syukur kita panjatkan ke hadirat Allah SWT, Tuhan Yang Maha Esa, atas segala limpahan rahmat dan karunia-Nya. Selamat datang di website resmi Kelurahan Ujung Sabbang. Website ini kami hadirkan sebagai wujud komitmen transparansi dan peningkatan kualitas pelayanan publik di era digital. Sebagai ujung tombak pemerintahan yang bersentuhan langsung dengan masyarakat, Kelurahan Ujung Sabbang terus berupaya berbenah diri. Kami menyadari bahwa tantangan zaman menuntut birokrasi yang lebih cepat, tepat, dan responsif. Oleh karena itu, digitalisasi layanan dan informasi menjadi salah satu prioritas utama kami.',
             'sambutan_commitments' => json_encode([
